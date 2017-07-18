@@ -1,41 +1,32 @@
 import React, { Component } from 'react'
+
+import { createStore, combineReducers } from 'redux'
 import { Provider } from 'react-redux'
-import { createStore } from 'redux'
 
-import logo from './logo.svg'
-import './styles/App.css'
+import { Router, Route, browserHistory } from 'react-router'
+import { routerReducer, syncHistoryWithStore } from 'react-router-redux'
 
-import combinedReducers from './reducers/index'
+import ReactRouterTest from './components/react-router-test'
 
-const store = createStore(combinedReducers, window.STATE_FROM_SERVER)
+import reducers from './reducers/index'
+
+const combinedReducers = combineReducers({
+  ...reducers,
+  routing: routerReducer
+})
+
+const store = createStore(combinedReducers , window.STATE_FROM_SERVER)
+
+const history = syncHistoryWithStore(browserHistory, store)
 
 function App(){
   return (
     <Provider store={store}> 
-      <div className="App">
-        <div className="App-header">
-          <img src={logo} className="App-logo" alt="logo" />
-          <h2>Welcome to React</h2>
-        </div>
-        <p className="App-intro">
-          To get started, edit <code>src/App.js</code> and save to reload.
-        </p>
-       </div>
+      <Router history={history}>
+        <Route path="/" component={ReactRouterTest}/>
+      </Router>
     </Provider>
   )
-  // render() {
-  //   return (
-  //     <div className="App">
-  //       <div className="App-header">
-  //         <img src={logo} className="App-logo" alt="logo" />
-  //         <h2>Welcome to React</h2>
-  //       </div>
-  //       <p className="App-intro">
-  //         To get started, edit <code>src/App.js</code> and save to reload.
-  //       </p>
-  //     </div>
-  //   );
-  // }
 }
 
 export default App
