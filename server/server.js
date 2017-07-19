@@ -1,14 +1,19 @@
 var express = require('express');
 var bodyParser = require('body-parser');
 var path = require('path');
-var port = process.env.PORT || 3000;
+var port = process.env.PORT || 4000;
 
 var app = express();
 app.use(bodyParser.urlencoded({extended: true}));
 app.use(bodyParser.json());
 
-//middleware pointers to static file directories
-app.use(express.static(__dirname + '/../client'));
+// Serve static assets
+app.use(express.static(__dirname + '/../build'));
+
+// Always return the main index.html, so react-router render the route in the client
+app.get('*', (req, res) => {
+  res.sendFile(express.static(__dirname + '/../build/index.html'));
+});
 
 app.listen(port);
 
