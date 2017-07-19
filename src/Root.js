@@ -1,4 +1,4 @@
-import React, { Component } from 'react'
+import React from 'react'
 
 import { createStore, combineReducers } from 'redux'
 import { Provider } from 'react-redux'
@@ -10,6 +10,8 @@ import ReactRouterTest from './components/react-router-test'
 
 import reducers from './reducers/index'
 
+import App from './containers/App'
+
 const combinedReducers = combineReducers({
   ...reducers,
   routing: routerReducer
@@ -19,14 +21,15 @@ const store = createStore(combinedReducers , window.STATE_FROM_SERVER)
 
 const history = syncHistoryWithStore(browserHistory, store)
 
-function App(){
+function Root() {
   return (
-    <Provider store={store}> 
+    <Provider store={store}>
       <Router history={history}>
-        <Route path="/" component={ReactRouterTest}/>
+        <Route path="/" component={App}>
+        </Route>
       </Router>
     </Provider>
   )
 }
 
-export default App
+export default Root
