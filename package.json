@@ -2,6 +2,9 @@
   "name": "luber",
   "version": "0.1.0",
   "private": true,
+  "engines": {
+    "node": ">=8.0.0"
+  },
   "dependencies": {
     "body-parser": "^1.17.2",
     "express": "^4.15.3",
