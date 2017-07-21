@@ -4,7 +4,7 @@ import EmployeeCard from './EmployeeCard'
 import OneWeekOut from './OneWeekOut'
 import Profile from './Profile'
 import ProfileNavBar from './ProfileNavBar'
-import SnapShot from './SnapShot'
+import ProfileSnapShot from './ProfileSnapShot'
 
 export {
   App,
@@ -13,5 +13,5 @@ export {
   OneWeekOut,
   Profile,
   ProfileNavBar,
-  SnapShot,
+  ProfileSnapShot,
 }

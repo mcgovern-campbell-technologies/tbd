@@ -5,20 +5,17 @@ import { connect } from 'react-redux'
 import ReactRouterTest from '../components/react-router-test'
 
 function App({ children }){
-  console.log(children)
+  console.log('App, children', children)
   return (
     <div>
       <AppNavBar />
-      {children}
+      { children }
     </div>
   )
 }
 
 function mapStateToProps (state) {
-  console.log('mapStateToProps', state)
-  return {
-    state
-  }
+  return state
 }
 
 export default connect(mapStateToProps)(App)

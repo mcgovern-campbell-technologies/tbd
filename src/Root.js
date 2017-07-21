@@ -10,7 +10,7 @@ import ReactRouterTest from './components/react-router-test'
 
 import reducers from './reducers/index'
 
-import { App, Profile } from './containers/index'
+import { App, Profile, ProfileSnapShot } from './containers/index'
 
 const combinedReducers = combineReducers({
   ...reducers,
@@ -22,14 +22,13 @@ const store = createStore(combinedReducers , window.STATE_FROM_SERVER)
 const history = syncHistoryWithStore(browserHistory, store)
 
 function Root() {
-  console.log(Profile)
   return (
     <Provider store={store}>
       <Router history={history}>
         <Route path="/" component={App}>
           <IndexRoute component={Profile}>
-            <Route path="/">
-            </Route>
+            <IndexRoute component={ProfileSnapShot}>
+            </IndexRoute>
           </IndexRoute>
         </Route>
       </Router>
