@@ -1,15 +1,18 @@
 import React, { Component } from 'react'
 import AppNavBar from './AppNavBar'
+import { Route } from 'react-router'
 import { connect } from 'react-redux'
+
+import { Profile } from './index'
 
 import ReactRouterTest from '../components/react-router-test'
 
-function App({ children }){
-  console.log('App, children', children)
+function App({ match }){
   return (
     <div>
+      <p>App</p>
       <AppNavBar />
-      { children }
+      <Route path={match.url} component={Profile} />
     </div>
   )
 }

@@ -8,6 +8,7 @@ import { Provider } from 'react-redux'
 import { Router, Route, IndexRoute } from 'react-router'
 import { createBrowserHistory } from 'history'
 import { ConnectedRouter, routerReducer } from 'react-router-redux'
+import * as reactRouterRedux from 'react-router-redux'
 
 /*Reducers*/
 import reducers from './reducers/index'
@@ -28,11 +29,7 @@ function Root() {
   return (
     <Provider store={store}>
       <ConnectedRouter history={history}>
-        <Route path="/" component={App}>
-          <IndexRoute component={Profile}>
-            <IndexRoute component={ProfileSnapShot}>
-            </IndexRoute>
-          </IndexRoute>
+        <Route exact path="/" component={App}>
         </Route>
       </ConnectedRouter>
     </Provider>

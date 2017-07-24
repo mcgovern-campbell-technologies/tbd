@@ -1,12 +1,14 @@
 import React from 'react'
 import { connect } from 'react-redux'
+import { Route } from 'react-router'
 
-function Profile (state) {
-  console.log('Profile', state)
+import { ProfileSnapShot } from './'
+
+function Profile ({ match }) {
   return (
     <div> 
       <p>Profile</p>
-      { }
+      <Route path={match.url} component={ProfileSnapShot}/>
     </div>
   )
 }
@@ -17,22 +19,3 @@ function mapStateToProps (state) {
 
 export default connect(mapStateToProps)(Profile)
 
-// import React, { Component } from 'react'
-// import AppNavBar from './AppNavBar'
-// import { connect } from 'react-redux'
-
-// function App({ children }){
-//   console.log('App, children', children)
-//   return (
-//     <div>
-//       <AppNavBar />
-//       { children }
-//     </div>
-//   )
-// }
-
-// function mapStateToProps (state) {
-//   return state
-// }
-
-// export default connect(mapStateToProps)(App)
