@@ -1,33 +1,37 @@
 import React from 'react'
 
+/*Redux Utilites*/
 import { createStore, combineReducers } from 'redux'
 import { Provider } from 'react-redux'
 
-import { Router, Route, browserHistory } from 'react-router'
-import { routerReducer, syncHistoryWithStore } from 'react-router-redux'
+/*Routing Utilities*/
+import { Router, Route, IndexRoute } from 'react-router'
+import { createBrowserHistory } from 'history'
+import { ConnectedRouter, routerReducer } from 'react-router-redux'
+import * as reactRouterRedux from 'react-router-redux'
 
-import ReactRouterTest from './components/react-router-test'
-
+/*Reducers*/
 import reducers from './reducers/index'
 
-import App from './containers/App'
+/*Containers*/
+import { App, Profile, ProfileSnapShot } from './containers/index'
 
-const combinedReducers = combineReducers({
-  ...reducers,
-  routing: routerReducer
-})
+const store = createStore(
+  combineReducers({
+    ...reducers,
+    router: routerReducer
+  })
+)
 
-const store = createStore(combinedReducers , window.STATE_FROM_SERVER)
-
-const history = syncHistoryWithStore(browserHistory, store)
+const history = createBrowserHistory()
 
 function Root() {
   return (
     <Provider store={store}>
-      <Router history={history}>
-        <Route path="/" component={App}>
+      <ConnectedRouter history={history}>
+        <Route exact path="/" component={App}>
         </Route>
-      </Router>
+      </ConnectedRouter>
     </Provider>
   )
 }
