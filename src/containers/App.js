@@ -5,8 +5,6 @@ import { connect } from 'react-redux'
 
 import { Profile } from './index'
 
-import ReactRouterTest from '../components/react-router-test'
-
 function App({ match }){
   return (
     <div>
