@@ -2,14 +2,15 @@ import React from 'react'
 import { connect } from 'react-redux'
 import { Route } from 'react-router'
 
-import { ProfileSnapShot } from './'
+import { ProfileSnapShot, ProfileCard } from './index'
+import { ProfilePage } from '../components/index'
 
 function Profile ({ match }) {
   return (
-    <div> 
-      <p>Profile</p>
+    <ProfilePage>
+      <ProfileCard />
       <Route path={match.url} component={ProfileSnapShot}/>
-    </div>
+    </ProfilePage>
   )
 }
 
