@@ -1,9 +1,15 @@
 import React from 'react'
 import { connect } from 'react-redux'
+import { Route } from 'react-router'
+
+import { OneWeekOut } from './index'
+import { ProfileSnapShotWrapper } from '../components/index'
 
 function ProfileSnapShot (state) {
   return (
-    <p>ProfileSnapShot</p>
+    <div>
+      <OneWeekOut/>
+    </div>
   )
 }
 

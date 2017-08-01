@@ -6,7 +6,7 @@ import { Link } from 'react-router-dom'
 function AppLink ({ to }) {
   return (
     <Link to={ to } >
-      <NavItem waves='darken'>{to.pathname}</NavItem>
+      <NavItem>{to.pathname}</NavItem>
     </Link>
   )
 }

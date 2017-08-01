@@ -11,7 +11,6 @@ function ProfileCardSkillScore () {
       <p>Skilled Mechanic</p>
       <h6>SkillSkore | 54</h6>
       <PieChart width={220} height={220}>
-        <h4>54</h4>
         <Pie 
           data={data}
           innerRadius={60}

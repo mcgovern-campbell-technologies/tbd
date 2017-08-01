@@ -8,7 +8,7 @@ function ProfileCardPicture (props) {
   return (
     <div>
       <img src={imgSrc} width={220}/>
-      <h5 text-align='center'>Rob Johnson</h5>
+      <h5>Rob Johnson</h5>
     </div>
   )
 }

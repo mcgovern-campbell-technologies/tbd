@@ -12,7 +12,7 @@ function AppNavBar () {
   ]
   return (
     <NavBar>
-      {links.map(to => (<AppLinks to={to} />))}
+      {links.map(to => (<AppLinks key={to.pathname} to={to} />))}
       {/*<SearchField />*/}
     </NavBar>
   )
