@@ -3,14 +3,14 @@ import { connect } from 'react-redux'
 import { Route } from 'react-router'
 
 import { ProfileSnapShot, ProfileCard } from './index'
-import { ProfilePage } from '../components/index'
+import { ProfileWrapper } from '../components/index'
 
 function Profile ({ match }) {
   return (
-    <ProfilePage>
+    <ProfileWrapper>
       <ProfileCard />
       <Route path={match.url} component={ProfileSnapShot}/>
-    </ProfilePage>
+    </ProfileWrapper>
   )
 }
 
