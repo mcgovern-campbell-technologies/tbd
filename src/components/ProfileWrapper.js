@@ -1,7 +1,7 @@
 import React from 'react'
 import { Row } from 'react-materialize'
 
-function ProfilePage ({ children }) {
+function ProfileWrapper ({ children }) {
   return (
     <Row>
       { children }
@@ -9,4 +9,4 @@ function ProfilePage ({ children }) {
   )
 }
 
-export default ProfilePage
+export default ProfileWrapper

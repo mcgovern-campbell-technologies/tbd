@@ -1,7 +1,7 @@
 import NavBar from './NavBar'
 import AppLinks from './AppLinks'
 import SearchField from './SearchField'
-import ProfilePage from './ProfilePage'
+import ProfileWrapper from './ProfileWrapper'
 
 /*ProfileCard Imports*/
 import ProfileCardContactLinks from './ProfileCardContactLinks'
@@ -13,7 +13,7 @@ export {
   NavBar,
   AppLinks,
   SearchField,
-  ProfilePage,
+  ProfileWrapper,
   /*ProfileCard Exports*/
   ProfileCardContactLinks,
   ProfileCardPicture,
