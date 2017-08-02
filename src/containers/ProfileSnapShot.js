@@ -49,7 +49,7 @@ function ProfileSnapShot (state) {
     },
   ]
   return (
-    <Col l={9} offset='l1'>
+    <Col l={9} offset='l1' style={{margin: 5}}>
       <OneWeekOut/>
       { jobs.map(job => <ProspectiveJobSummary job={job} />)}
     </Col>

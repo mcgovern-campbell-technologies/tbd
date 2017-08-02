@@ -1,5 +1,5 @@
 import React from 'react'
-import { Row, Col } from 'react-materialize'
+import { Row, Col, Icon } from 'react-materialize'
 
 function PotentialJobSummary ({ job }) {
   const { 
@@ -15,7 +15,8 @@ function PotentialJobSummary ({ job }) {
   return (
       <Row>
         <Col l={3}>
-          <h5>{ position }</h5>
+          <h5 style={{color: 'grey'}}>{ position }</h5>
+          <p>{location}</p>
         </Col>
         <Col l={2}>
           <p>{`SkillSkore L3 | ${skillsNeeded}`}</p>

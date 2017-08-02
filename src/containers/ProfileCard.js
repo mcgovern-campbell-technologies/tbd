@@ -1,19 +1,20 @@
 import React from 'react'
 
+import { Col } from 'react-materialize'
+
 import { 
   ProfileCardContactLinks,
   ProfileCardPicture,
   ProfileCardSkillScore, 
-  ProfileCardWrapper,
 } from '../components/index'
 
 function ProfileCard () {
   return (
-    <ProfileCardWrapper>
+    <Col l={2} style={{margin: 5}}>
       <ProfileCardPicture /> 
       <ProfileCardSkillScore /> 
       <ProfileCardContactLinks />
-    </ProfileCardWrapper>
+    </Col>
   )
 }
 
