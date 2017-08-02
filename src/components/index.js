@@ -13,6 +13,7 @@ import ProfileCardWrapper from './ProfileCardWrapper'
 
 /*ProfileSnapShot Component Imports*/
 import ProfileRoutesWrapper from './ProfileRoutesWrapper'
+import ProspectiveJobSummary from './ProspectiveJobSummary'
 
 export {
   NavBar,
@@ -21,6 +22,7 @@ export {
   /*Profile Component Exports*/
   ProfileWrapper,
   ProfileRoutesWrapper,
+  ProspectiveJobSummary,
   /*ProfileCard Component Exports*/
   ProfileCardContactLinks,
   ProfileCardPicture,

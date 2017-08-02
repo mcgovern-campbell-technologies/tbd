@@ -9,9 +9,7 @@ function Profile ({ match }) {
   return (
     <ProfileWrapper>
       <ProfileCard />
-      <ProfileRoutesWrapper>
-        <Route path={match.url} component={ProfileSnapShot}/>
-      </ProfileRoutesWrapper>
+      <Route path={match.url} component={ProfileSnapShot}/>
     </ProfileWrapper>
   )
 }
