@@ -14,7 +14,7 @@ import * as reactRouterRedux from 'react-router-redux'
 import reducers from './reducers/index'
 
 /*Containers*/
-import { App, Profile, ProfileSnapShot } from './containers/index'
+import { } from './containers/index'
 
 const store = createStore(
   combineReducers({
@@ -29,7 +29,7 @@ function Root() {
   return (
     <Provider store={store}>
       <ConnectedRouter history={history}>
-        <Route exact path="/" component={App}>
+        <Route exact path="/" component={() => <div>hello world</div>}>
         </Route>
       </ConnectedRouter>
     </Provider>
