@@ -17,7 +17,9 @@
     "react-router-dom": "^4.1.2",
     "react-router-redux": "^5.0.0-alpha.6",
     "recharts": "^1.0.0-alpha.2",
-    "redux": "^3.7.2"
+    "redux": "^3.7.2",
+    "redux-observable": "^0.16.0",
+    "rxjs": "^5.4.3"
   },
   "devDependencies": {
     "react-scripts": "1.0.10"
