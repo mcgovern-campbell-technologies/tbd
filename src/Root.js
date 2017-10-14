@@ -17,7 +17,7 @@ import configureStore from './redux/configureStore'
 import { } from './containers/index'
 
 /*Components*/
-import Test from './components/test';
+import Test from './components/Test';
 
 /* create store */
 const store = configureStore()
