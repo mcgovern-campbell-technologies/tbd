@@ -16,6 +16,9 @@ import configureStore from './redux/configureStore'
 /*Containers*/
 import { } from './containers/index'
 
+/*Components*/
+import Test from './components/Test';
+
 /* create store */
 const store = configureStore()
 
@@ -26,8 +29,11 @@ function Root() {
   return (
     <Provider store={store}>
       <ConnectedRouter history={history}>
-        <Route exact path="/" component={() => <div>hello world</div>}>
-        </Route>
+        <div>
+          <Route exact path="/" component={() => <div>hello world</div>}>
+          </Route>
+          <Route path="/test" component={Test}></Route>
+        </div>
       </ConnectedRouter>
     </Provider>
   )
