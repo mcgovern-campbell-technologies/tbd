@@ -20,4 +20,7 @@ export const rootReducer = combineReducers({
   /* reducers */
   exampleReducer,
   authReducer,
+  one: (state = {}) => state,
+  two: (state = {}) => state,
+  router: routerReducer
 })
