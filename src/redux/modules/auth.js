@@ -1,27 +1,50 @@
+import AuthService from '../../utils/AuthService'
+import * as types from '../../utils/types';
+
 const authEpic = action$ => {
   return action$.ofType('LOGIN_REQUEST')
     .delay(1000)
-    .mapTo({ type: 'EXAMPLE_FULLFILLED'})
+    .mapTo({ type: 'LOGIN_SUCCESS'})
 }
 
-const initialState = {
-  isAuthenticated: false
-}
-
-const authReducer = (state = initialState, action) => {
+const authReducer = (state = {
+  isAuthenticated: !AuthService.isTokenExpired(),
+  isFetching: false,
+  profile: AuthService.getProfile(),
+  error: null,
+}, action) => {
   switch (action.type) {
-    case 'AUTH_SUCCESS':
-      console.log(state);
-      return Object.assign({}, ...state, {
-        isAuthenticated: true
-      });
-    case 'AUTH_FAIL':
-      console.log(state);
-      return Object.assign({}, ...state, {
-        isAuthenticated: false
-      });
+    case types.LOGIN_REQUEST:
+      var x = new AuthService   //HACK
+      x.login()                 //HACK
+      return {
+        ...state,
+        isFetching: true,
+        error: null,
+      };
+    case types.LOGIN_SUCCESS:
+      return {
+        ...state,
+        isFetching: false,
+        isAuthenticated: true,
+        profile: action.profile,
+      };
+    case types.LOGIN_ERROR:
+      return {
+        ...state,
+        isFetching: false,
+        isAuthenticated: false,
+        profile: {},
+        error: action.error,
+      };
+    case types.LOGOUT_SUCCESS:
+      return {
+        ...state,
+        isAuthenticated: false,
+        profile: {},
+      };
     default:
-      return { ...state };
+      return state;
   }
 }
 
@@ -29,13 +52,3 @@ export {
   authReducer as default,
   authEpic
 }
-
-
-
-const authSuccess = () => ({
-    type: 'AUTH_SUCCESS'
-})
-
-const authFail = () => ({
-    type: 'AUTH_FAIL'
-})
