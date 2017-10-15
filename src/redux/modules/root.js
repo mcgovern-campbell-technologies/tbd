@@ -1,5 +1,6 @@
 import { combineEpics } from 'redux-observable'
 import { combineReducers } from 'redux'
+import { routerReducer } from 'react-router-redux';
 
 /*
   import epics and reducers here,
@@ -7,13 +8,16 @@ import { combineReducers } from 'redux'
   i.e. => import blahReducer, { blahEpic } from './blah'
 */
 import exampleReducer, { exampleEpic } from './example'
+import authReducer, { authEpic } from './auth'
 
 export const rootEpic = combineEpics(
   /* epics */
   exampleEpic,
+  authEpic
 )
 
 export const rootReducer = combineReducers({
   /* reducers */
-  exampleReducer
+  exampleReducer,
+  authReducer,
 })

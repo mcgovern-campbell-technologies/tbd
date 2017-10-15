@@ -14,10 +14,10 @@ import * as reactRouterRedux from 'react-router-redux'
 import configureStore from './redux/configureStore'
 
 /*Containers*/
-import { } from './containers/index'
-
-/*Components*/
+// import { } from './containers/index'
+import App from './containers/App'
 import Test from './components/Test';
+
 
 /* create store */
 const store = configureStore()
@@ -26,14 +26,17 @@ const store = configureStore()
 const history = createBrowserHistory()
 
 function Root() {
+  console.log('store');
+  console.log(store);
   return (
     <Provider store={store}>
       <ConnectedRouter history={history}>
-        <div>
-          <Route exact path="/" component={() => <div>hello world</div>}>
-          </Route>
-          <Route path="/test" component={Test}></Route>
-        </div>
+        {/* <div>
+          <Route exact path="/" component={()=><p>hello world</p>}/>
+          <Route path="/home" component={()=><p>home</p>}/>
+          <Route path="/test" component={Test}/>
+        </div> */}
+        <App />
       </ConnectedRouter>
     </Provider>
   )
