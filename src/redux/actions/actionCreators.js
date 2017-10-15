@@ -1,16 +1,28 @@
-//add comment
-export function createTestAction(something) {
-  console.log('creating test action of type TEST_ACTION')
+// actions.js
+import * as types from '../../utils/types';
+
+export function loginRequest() {
   return {
-    type: 'TEST_ACTION',
-    something
-  }
+    type: types.LOGIN_REQUEST,
+  };
 }
 
-export const authSuccess = () => ({
-    type: 'AUTH_SUCCESS'
-})
+export function loginSuccess(profile) {
+  return {
+    type: types.LOGIN_SUCCESS,
+    profile,
+  };
+}
 
-export const authFail = () => ({
-    type: 'AUTH_FAIL'
-})
+export function loginError(error) {
+  return {
+    type: types.LOGIN_ERROR,
+    error,
+  };
+}
+
+export function logoutSuccess() {
+  return {
+    type: types.LOGOUT_SUCCESS,
+  };
+}
