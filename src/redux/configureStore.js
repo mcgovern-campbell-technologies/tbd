@@ -12,9 +12,10 @@ const epicMiddleware = createEpicMiddleware(
 )
 
 /* creates the store out of the root reducer and applies middleware to it*/
-export default function configureStore() {
+export default function configureStore(preloadedState) {
   const store = createStore(
     rootReducer,
+    preloadedState,
     applyMiddleware(epicMiddleware)
   )
 
