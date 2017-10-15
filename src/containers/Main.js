@@ -6,6 +6,8 @@ import Test from '../components/Test';
 
 class Main extends React.Component {
   render() {
+    console.log('this.props from Main')
+    console.log(this.props)
     return (
       <div>
         <nav>
