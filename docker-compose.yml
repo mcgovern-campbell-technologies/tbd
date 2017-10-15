@@ -1,0 +1,12 @@
+version: '3.3'
+services:
+  webapp:
+    build:
+      context: .
+    image: 'tbd_web'
+    ports:
+      - 3000:3000
+    volumes:
+      - type: bind
+        source: ./
+        target: /wwwroot
