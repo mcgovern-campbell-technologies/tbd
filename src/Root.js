@@ -16,26 +16,20 @@ import configureStore from './redux/configureStore'
 /*Containers*/
 // import { } from './containers/index'
 import App from './containers/App'
-import Test from './components/Test';
 
-
+const preloadedState = {
+  one: "Some test preloaded state. Don't forget to add prop when creating rootReducer(?)"
+}
 /* create store */
-const store = configureStore()
+const store = configureStore(preloadedState)
 
 /* create history */
 const history = createBrowserHistory()
 
 function Root() {
-  console.log('store');
-  console.log(store);
   return (
     <Provider store={store}>
       <ConnectedRouter history={history}>
-        {/* <div>
-          <Route exact path="/" component={()=><p>hello world</p>}/>
-          <Route path="/home" component={()=><p>home</p>}/>
-          <Route path="/test" component={Test}/>
-        </div> */}
         <App />
       </ConnectedRouter>
     </Provider>
