@@ -38,8 +38,10 @@ class OnBoardFlow extends Component {
   }
 
   render() {
+    console.log('auth', this.props.auth)
     const { match } = this.props
     return (
+<<<<<<< HEAD
       <div>
 
        <form className="col s12">
@@ -65,8 +67,10 @@ class OnBoardFlow extends Component {
           </div>
         </div>
       </form>
-        <Route
-          path={`${match.path}/contactInfo`}
+      <div>       
+        <Route 
+          exact
+          path={`${match.path}/`} 
           component={() => (
             <ContactForm onSubmit={this.handleContactSubmit}/>
           )}
@@ -88,8 +92,10 @@ class OnBoardFlow extends Component {
 }
 
 function mapStateToProps(state) {
+  console.log(state)
   return {
     onBoardingReducer: state.onBoardingReducer,
+    auth: state.authReducer
   }
 }
 
