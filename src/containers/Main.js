@@ -1,12 +1,20 @@
 import React from 'react';
 import { Route, Link } from 'react-router-dom'
 import PropsRoute from '../utils/PropsRoute';
+import PropTypes from 'prop-types';
 
 /* Import components */
 import Test from '../components/Test';
 import OnBoardFlow from './OnBoardFlow';
+import AuthService from '../utils/AuthService';
 
 class Main extends React.Component {
+  constructor() {
+    super()
+    //instantiate the authService from class
+    this.authService = new AuthService();
+  }
+
   render() {
     console.log('this.props from Main')
     console.log(this.props)
@@ -28,6 +36,6 @@ class Main extends React.Component {
   }
 }
 
-Main.contextTypes = { store: React.PropTypes.object };
+Main.contextTypes = { store: PropTypes.object };
 
 export default Main;
