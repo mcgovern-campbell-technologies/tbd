@@ -26,3 +26,4 @@ export function logoutSuccess() {
     type: types.LOGOUT_SUCCESS,
   };
 }
+
