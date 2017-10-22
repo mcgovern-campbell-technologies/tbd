@@ -1,5 +1,6 @@
 import React from 'react';
 import { Route, Link } from 'react-router-dom'
+// import PropsRoute from '../utils/PropsRoute';
 
 /* Import components */
 import Test from '../components/Test';
@@ -26,5 +27,7 @@ class Main extends React.Component {
     )
   }
 }
+
+Main.contextTypes = { store: React.PropTypes.object };
 
 export default Main;
