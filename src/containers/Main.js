@@ -54,10 +54,10 @@ class Main extends React.Component {
             <div className="center">
               <span>
                 <button className="waves-effect waves-light btn route-button">
-                  <Link to="/employer">employer </Link>
+                  <Link to="/OnBoardFlow">employer </Link>
                 </button>
                 <button className="waves-effect waves-light btn route-button">
-                  <Link to="/employee">job seeker </Link>
+                  <Link to="/OnBoardFlow">job seeker </Link>
                 </button>
               </span>
             </div>
