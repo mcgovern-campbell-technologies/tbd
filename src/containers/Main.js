@@ -41,14 +41,32 @@ class Main extends React.Component {
         <nav>
           <ul>
             <li><Link to="/">Home</Link></li>
-            <li><Link to="/test">Test</Link></li>
+            <li><Link to="/test">Login</Link></li>
           </ul>
         </nav>
         <div>
-          <Route exact path="/" component={() => <p>'hello world'</p>} {...this.props}/>
+          <Route exact path="/" component={() =>
+          <div>
+            <h1 className="landing-header brand-logo">McGovern Campbell Technologies</h1>
+            <div>
+              <h2 className="catchphrase">Discover new opportunities for your skillset</h2>
+            </div>
+            <div className="center">
+              <span>
+                <button className="waves-effect waves-light btn route-button">
+                  <Link to="/employer">employer </Link>
+                </button>
+                <button className="waves-effect waves-light btn route-button">
+                  <Link to="/employee">job seeker </Link>
+                </button>
+              </span>
+            </div>
+          </div>
+          } {...this.props}/>
           <PropsRoute path="/test" component={Test} authService={this.authService} {...this.props}/>
           <Route path="/OnBoardFlow" component={OnBoardFlow}/>
         </div>
+
       </div>
     )
   }
