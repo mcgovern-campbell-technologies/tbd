@@ -1,5 +1,6 @@
 import React from 'react';
 import { Route, Link } from 'react-router-dom'
+import PropsRoute from '../utils/PropsRoute';
 
 /* Import components */
 import Test from '../components/Test';
@@ -19,7 +20,7 @@ class Main extends React.Component {
         </nav>
         <div>
           <Route exact path="/" component={() => <p>'hello world'</p>} {...this.props}/>
-          <Route path="/test" component={Test} {...this.props}/>
+          <PropsRoute path="/test" component={Test} {...this.props}/>
           <Route path="/OnBoardFlow" component={OnBoardFlow}/>
         </div>
       </div>
