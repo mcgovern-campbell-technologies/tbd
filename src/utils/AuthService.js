@@ -34,7 +34,7 @@ export default class AuthService {
     return !!token && !AuthService.isTokenExpired(token);
   }
 
-  logout() {
+  static logout() {
     // Clear user token and profile data from window.localStorage
     window.localStorage.removeItem('id_token');
     window.localStorage.removeItem('profile');
