@@ -26,19 +26,43 @@ class OnBoardFlow extends Component {
   render() {
     const { match } = this.props
     return (
-      <div>       
-        <Route 
-          path={`${match.path}/contactInfo`} 
+      <div>
+
+       <form className="col s12">
+        <div className="row">
+          <div className="input-field col s6">
+            <input placeholder="Placeholder" id="first_name" type="text" class="validate">
+            </input>
+            <label for="first_name">First Name</label>
+          </div>
+
+          <div class="input-field col s6">
+            <input id="last_name" type="text" class="validate"> </input>
+            <label for="last_name">Last Name</label>
+          </div>
+
+          <div class="input-field col s6">
+            <input id="last_name" type="text" class="validate"> </input>
+            <label for="last_name">E-mail</label>
+          </div>
+
+          <div class="input-field col s6">
+            Placeholder for Job skills
+          </div>
+        </div>
+      </form>
+        <Route
+          path={`${match.path}/contactInfo`}
           component={() => (
             <ContactForm onSubmit={this.handleContactSubmit}/>
           )}
         />
-        <Route 
-          path={`${match.path}/locationInfo`} 
-          component={ () => <h1>hi</h1>} 
+        <Route
+          path={`${match.path}/locationInfo`}
+          component={ () => <h1>hi</h1>}
         />
       </div>
-      
+
     )
   }
 }
