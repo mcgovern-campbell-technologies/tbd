@@ -1,11 +1,12 @@
 import AuthService from '../../utils/AuthService'
 import * as types from '../../utils/types';
 
-const authEpic = action$ => {
-  return action$.ofType('LOGIN_REQUEST')
-    // .delay(1000)
-    .mapTo({ type: 'LOGIN_ERROR'})
-}
+//
+// const authEpic = action$ => {
+//   return action$.ofType('LOGIN_REQUEST')
+//     .delay(7000)
+//     .mapTo({ type: 'LOGIN_ERROR'})
+// }
 
 const authReducer = (state = {
   isAuthenticated: !AuthService.isTokenExpired(),
@@ -50,5 +51,5 @@ const authReducer = (state = {
 
 export {
   authReducer as default,
-  authEpic
+  // authEpic
 }
