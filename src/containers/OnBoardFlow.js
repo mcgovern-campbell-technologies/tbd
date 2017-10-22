@@ -8,14 +8,28 @@ import { Route } from 'react-router'
 
 import * as actionCreators from '../redux/actions/onBoardingActions'
 
-import { ContactForm } from './../components/componentIndex.js'
+import { ContactForm, LocationForm } from './../components/componentIndex.js'
 
 class OnBoardFlow extends Component {
+
+  options = [
+    { value: "Detroit", label: "Detroit"},
+    { value: "Ann Arbor", label: "Ann Arbor"},
+    { value: "Lansing", label: "Lansing"}
+  ]
 
   constructor(props) {
     super(props)
 
     this.handleContactSubmit = this.handleContactSubmit.bind(this)
+    this.handleLocationSubmit = this.handleLocationSubmit.bind(this)
+
+    this.state = { selectValue: "Detroit" }
+  }
+
+  handleLocationSubmit(e) {
+    console.log(e.value)
+    this.setState({ selectValue: e.value })
   }
 
   handleContactSubmit(values) {
@@ -57,9 +71,15 @@ class OnBoardFlow extends Component {
             <ContactForm onSubmit={this.handleContactSubmit}/>
           )}
         />
-        <Route
-          path={`${match.path}/locationInfo`}
-          component={ () => <h1>hi</h1>}
+        <Route 
+          path={`${match.path}/locationInfo`} 
+          component={ () => (
+            <LocationForm 
+              options={this.options}
+              selectValue={this.selectValue}
+              handleLocationSubmit={this.handleLocationSubmit}
+            />
+          )} 
         />
       </div>
 

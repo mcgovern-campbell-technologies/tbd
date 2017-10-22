@@ -1,17 +1,21 @@
 import React from 'react'
-import { Field, reduxForm } from 'redux-form'
+// import { Field, reduxForm } from 'redux-form'
+import Select from 'react-select'
+import 'react-select/dist/react-select.css'
+
 
 function LocationForm(props) {
+  const { options, selectValue, handleLocationSubmit} = props
   return (
-    <form>
       <div>
-        <label htmlFor="location">Select Your Location</label>
-        <Field name="location" component="select">
-
-        </Field>
+        <Select
+          name="locationForm"
+          options={options}
+          value={selectValue}
+          onChange={handleLocationSubmit}
+        />
       </div>
-    </form>
   )
 }
 
-export default 
+export default LocationForm
