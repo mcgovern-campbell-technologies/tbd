@@ -1,5 +1,6 @@
 // This component just used for testing.
 import React from 'react';
+import AuthService from '../utils/AuthService'
 
 export default (props) => {
   console.log('Test props:');
@@ -15,7 +16,7 @@ export default (props) => {
 
       <button onClick={() => {
           props.logoutSuccess();
-          props.authService.logout();
+          AuthService.logout();
         }}>Log out</button>
     </div>
   )
