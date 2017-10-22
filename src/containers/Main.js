@@ -46,7 +46,7 @@ class Main extends React.Component {
         </nav>
         <div>
           <Route exact path="/" component={() => <p>'hello world'</p>} {...this.props}/>
-          <PropsRoute path="/test" component={Test} {...this.props}/>
+          <PropsRoute path="/test" component={Test} authService={this.authService} {...this.props}/>
           <Route path="/OnBoardFlow" component={OnBoardFlow}/>
         </div>
       </div>
