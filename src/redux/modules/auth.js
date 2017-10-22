@@ -3,8 +3,8 @@ import * as types from '../../utils/types';
 
 const authEpic = action$ => {
   return action$.ofType('LOGIN_REQUEST')
-    .delay(1000)
-    .mapTo({ type: 'LOGIN_SUCCESS'})
+    // .delay(1000)
+    .mapTo({ type: 'LOGIN_ERROR'})
 }
 
 const authReducer = (state = {
@@ -15,14 +15,14 @@ const authReducer = (state = {
 }, action) => {
   switch (action.type) {
     case types.LOGIN_REQUEST:
-      var x = new AuthService   //HACK
-      x.login()                 //HACK
+      console.log('firing LOGIN_REQUEST from auth.js module')
       return {
         ...state,
         isFetching: true,
         error: null,
       };
     case types.LOGIN_SUCCESS:
+      console.log('firing LOGIN_SUCCESS from auth.js module')
       return {
         ...state,
         isFetching: false,
