@@ -3,6 +3,7 @@ import { Route, Link } from 'react-router-dom'
 
 /* Import components */
 import Test from '../components/Test';
+import OnBoardFlow from './OnBoardFlow';
 
 class Main extends React.Component {
   render() {
@@ -19,6 +20,7 @@ class Main extends React.Component {
         <div>
           <Route exact path="/" component={() => <p>'hello world'</p>} {...this.props}/>
           <Route path="/test" component={Test} {...this.props}/>
+          <Route path="/OnBoardFlow" component={OnBoardFlow}/>
         </div>
       </div>
     )
