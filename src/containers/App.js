@@ -8,7 +8,7 @@ import Main from './Main';
 
 const mapStateToProps = (state) => {
   return {
-    isAuthenticated: false
+    auth: state.auth
   }
 }
 

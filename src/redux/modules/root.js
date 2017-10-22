@@ -15,7 +15,7 @@ import onBoardingReducer, { onBoardingEpic } from './onBoarding'
 export const rootEpic = combineEpics(
   /* epics */
   exampleEpic,
-  authEpic
+  // authEpic
 )
 
 export const rootReducer = combineReducers({

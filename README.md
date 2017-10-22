@@ -1,18 +1,18 @@
 # luber
 
-##Install dependencies
+## Install dependencies
 ```
 yarn install
 ```
 
-##Start me up
+## Start me up
 This uses react-scripts. It will run on http://localhost:3000
 ```
 npm start
 ```
 
 
-##Alternatively, use "docker-compose"
+## Alternatively, use "docker-compose"
 If you have docker installed, you can just run the following command:
 ```
 docker-compose up -d

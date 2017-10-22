@@ -9,7 +9,7 @@ export default class AuthService {
     this.lock = new Auth0Lock(config.AUTH0_CLIENT_ID, config.AUTH0_DOMAIN, {
       auth: {
         redirectUrl: config.REDIRECT_URL,
-        responseType: 'token',
+        responseType: 'id_token',
       },
     });
 
@@ -22,7 +22,6 @@ export default class AuthService {
   // ======================================================
   login() {
     // Call the show method to display the widget.
-    console.log('AuthService login function fired')
     this.lock.show();
   }
 
@@ -76,6 +75,7 @@ export default class AuthService {
   }
 
   static isTokenExpired() {
+    console.log('checking isTokenExpired')
     const token = AuthService.getToken();
     if (!token) return true;
     const date = AuthService.getTokenExpirationDate();
