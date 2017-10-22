@@ -17,17 +17,8 @@ class Main extends React.Component {
 
   componentWillMount() {
     // Add callback for lock's `authenticated` event
-    console.log('this.authService.lock')
-    console.log(this.authService.lock)
     this.authService.lock.on('authenticated', (authResult) => {
-      console.log('AUTHENTICATED EVENT FIRED ON authService.lock')
-      console.log('authResult')
-      console.log(authResult)
       this.authService.lock.getProfile(authResult.idToken, (error, profile) => {
-        console.log('profile')
-        console.log(profile)
-        console.log('error')
-        console.log(error)
         if (error) { return this.props.loginError(error); }
         AuthService.setToken(authResult.idToken); // static method
         AuthService.setProfile(profile); // static method
