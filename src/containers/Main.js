@@ -6,7 +6,7 @@ import PropTypes from 'prop-types';
 /* Import components */
 import { Test } from '../components/componentIndex';
 /* Import containers */
-import { OnBoardFlow } from './containerIndex'
+import { OnBoardFlow, LandingPage } from './containerIndex'
 
 import AuthService from '../utils/AuthService';
 
@@ -48,24 +48,7 @@ class Main extends React.Component {
           </ul>
         </nav>
         <div>
-          <Route exact path="/" component={() =>
-          <div>
-            <h1 className="landing-header brand-logo">TBD</h1>
-            <div>
-              <h2 className="catchphrase">Discover new opportunities for your skillset</h2>
-            </div>
-            <div className="center">
-              <span>
-                <button className="waves-effect waves-light btn route-button">
-                  <Link to="/OnBoardFlow">employer </Link>
-                </button>
-                <button className="waves-effect waves-light btn route-button">
-                  <Link to="/OnBoardFlow">job seeker </Link>
-                </button>
-              </span>
-            </div>
-          </div>
-          } {...this.props}/>
+          <Route exact path="/" component={LandingPage} />
           <PropsRoute path="/test" component={Test} authService={this.authService} {...this.props}/>
           <Route path="/OnBoardFlow" component={OnBoardFlow}/>
         </div>
