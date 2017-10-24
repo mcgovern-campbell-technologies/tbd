@@ -4,9 +4,12 @@ import PropsRoute from '../utils/PropsRoute';
 import PropTypes from 'prop-types';
 
 /* Import components */
-import Test from '../components/Test';
-import OnBoardFlow from './OnBoardFlow';
+import { Test } from '../components/componentIndex';
+/* Import containers */
+import { OnBoardFlow } from './containerIndex'
+
 import AuthService from '../utils/AuthService';
+
 
 class Main extends React.Component {
   constructor() {
@@ -47,7 +50,7 @@ class Main extends React.Component {
         <div>
           <Route exact path="/" component={() =>
           <div>
-            <h1 className="landing-header brand-logo">McGovern Campbell Technologies</h1>
+            <h1 className="landing-header brand-logo">TBD</h1>
             <div>
               <h2 className="catchphrase">Discover new opportunities for your skillset</h2>
             </div>
