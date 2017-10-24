@@ -41,7 +41,6 @@ class OnBoardFlow extends Component {
     console.log('auth', this.props.auth)
     const { match } = this.props
     return (
-<<<<<<< HEAD
       <div>
 
        <form className="col s12">
