@@ -29,11 +29,14 @@
     "slick-carousel": "^1.8.1"
   },
   "devDependencies": {
+    "concurrently": "^3.5.0",
     "react-scripts": "1.0.10"
   },
   "scripts": {
     "serve": "node server/server.js",
     "start": "react-scripts start",
+    "start2": "concurrently \"npm run server\" \"npm start\"",
+    "server": "nodemon server/server.js",
     "build": "react-scripts build",
     "test": "react-scripts test --env=jsdom",
     "eject": "react-scripts eject"
