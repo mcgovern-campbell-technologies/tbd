@@ -35,11 +35,10 @@
   "scripts": {
     "serve": "node server/server.js",
     "start": "react-scripts start",
-    "start2": "concurrently \"npm run server\" \"npm start\"",
+    "start2": "concurrently \"npm run server\" \"cd client && npm start\"",
     "server": "nodemon server/server.js",
     "build": "react-scripts build",
     "test": "react-scripts test --env=jsdom",
     "eject": "react-scripts eject"
-  },
-  "proxy": "http://localhost:4000"
+  }
 }
