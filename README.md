@@ -6,7 +6,9 @@ yarn install
 ```
 
 ## Start me up
-This uses react-scripts. It will run on http://localhost:3000
+This uses react-scripts. The dev server will be run on http://localhost:3000.
+The api server will be run on http://localhost:4000 and will automatically be
+redirected to
 ```
 npm start
 ```

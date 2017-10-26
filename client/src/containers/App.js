@@ -1,14 +1,29 @@
 import React from 'react';
+
+/* Import Router Dependencies */
 import { Route, Link } from 'react-router-dom'
+import { withRouter } from 'react-router'
+
+/* Prop Verification */
 import PropsRoute from '../utils/PropsRoute';
 import PropTypes from 'prop-types';
 
+/* Import Redux Utilities */
+import { bindActionCreators } from 'redux';
+import { connect } from 'react-redux';
+import * as actionCreators from '../redux/actions/actionCreators';
+
 /* Import components */
-import Test from '../components/Test';
-import OnBoardFlow from './OnBoardFlow';
+import { Test } from '../components/componentIndex';
+
+/* Import containers */
+import { OnBoardFlow, LandingPage } from './containerIndex'
+
+/* Import Auth utilities*/
 import AuthService from '../utils/AuthService';
 
-class Main extends React.Component {
+
+class App extends React.Component {
   constructor() {
     super()
     //instantiate the authService from class
@@ -34,7 +49,7 @@ class Main extends React.Component {
   }
 
   render() {
-    console.log('this.props from Main')
+    console.log('this.props from App')
     console.log(this.props)
     return (
       <div>
@@ -45,24 +60,7 @@ class Main extends React.Component {
           </ul>
         </nav>
         <div>
-          <Route exact path="/" component={() =>
-          <div>
-            <h1 className="landing-header brand-logo">McGovern Campbell Technologies</h1>
-            <div>
-              <h2 className="catchphrase">Discover new opportunities for your skillset</h2>
-            </div>
-            <div className="center">
-              <span>
-                <button className="waves-effect waves-light btn route-button">
-                  <Link to="/OnBoardFlow">employer </Link>
-                </button>
-                <button className="waves-effect waves-light btn route-button">
-                  <Link to="/OnBoardFlow">job seeker </Link>
-                </button>
-              </span>
-            </div>
-          </div>
-          } {...this.props}/>
+          <Route exact path="/" component={LandingPage} />
           <PropsRoute path="/test" component={Test} authService={this.authService} {...this.props}/>
           <Route path="/OnBoardFlow" component={OnBoardFlow}/>
         </div>
@@ -72,6 +70,17 @@ class Main extends React.Component {
   }
 }
 
-Main.contextTypes = { store: PropTypes.object };
+App.contextTypes = { store: PropTypes.object };
 
-export default Main;
+const mapStateToProps = (state) => {
+  return {
+    auth: state.auth
+  }
+}
+
+const mapDispatchToProps = (dispatch) => {
+  return bindActionCreators(actionCreators, dispatch);
+}
+
+export default withRouter(connect(mapStateToProps, mapDispatchToProps)(App));
+

@@ -8,12 +8,17 @@ app.use(bodyParser.urlencoded({extended: true}));
 app.use(bodyParser.json());
 
 // Serve static assets
-app.use(express.static(__dirname + '/../build'));
+app.use(express.static(__dirname + '/../client/build'));
 
 // Always return the main index.html, so react-router render the route in the client
-app.get('*', (req, res) => {
-  res.sendFile(express.static(__dirname + '/../build/index.html'));
-});
+// app.get('*', (req, res) => {
+//   res.sendFile(express.static(__dirname + '/../build/index.html'));
+// });
+
+app.get('/test', (req, res) => {
+  console.log('hit response')
+  res.json({body: 'poop'})
+})
 
 app.listen(port);
 
