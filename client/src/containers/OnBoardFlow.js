@@ -23,6 +23,13 @@ class OnBoardFlow extends Component {
 
     this.handleContactSubmit = this.handleContactSubmit.bind(this)
     this.handleLocationSubmit = this.handleLocationSubmit.bind(this)
+    // fetch('/test', { accept: "application/json"})
+    //   .then(response => {
+    //     return response.json()
+    //   })
+    //   .then(result => {
+    //     console.log(result)
+    //   })
 
     this.state = { selectValue: "Detroit" }
   }
@@ -38,35 +45,9 @@ class OnBoardFlow extends Component {
   }
 
   render() {
-    console.log('auth', this.props.auth)
     const { match } = this.props
     return (
-      <div>
-
-       <form className="col s12">
-        <div className="row">
-          <div className="input-field col s6">
-            <input placeholder="Placeholder" id="first_name" type="text" class="validate">
-            </input>
-            <label for="first_name">First Name</label>
-          </div>
-
-          <div class="input-field col s6">
-            <input id="last_name" type="text" class="validate"> </input>
-            <label for="last_name">Last Name</label>
-          </div>
-
-          <div class="input-field col s6">
-            <input id="last_name" type="text" class="validate"> </input>
-            <label for="last_name">E-mail</label>
-          </div>
-
-          <div class="input-field col s6">
-            Placeholder for Job skills
-          </div>
-        </div>
-      </form>
-      <div>       
+      <div>  
         <Route 
           exact
           path={`${match.path}/`} 
@@ -91,7 +72,6 @@ class OnBoardFlow extends Component {
 }
 
 function mapStateToProps(state) {
-  console.log(state)
   return {
     onBoardingReducer: state.onBoardingReducer,
     auth: state.authReducer
