@@ -12,17 +12,17 @@ import { ContactForm, LocationForm } from './../components/componentIndex.js'
 
 class OnBoardFlow extends Component {
 
-  options = [
-    { value: "Detroit", label: "Detroit"},
-    { value: "Ann Arbor", label: "Ann Arbor"},
-    { value: "Lansing", label: "Lansing"}
-  ]
-
   constructor(props) {
     super(props)
 
     this.handleContactSubmit = this.handleContactSubmit.bind(this)
     this.handleLocationSubmit = this.handleLocationSubmit.bind(this)
+
+    this.options = [
+      { value: "Detroit", label: "Detroit"},
+      { value: "Ann Arbor", label: "Ann Arbor"},
+      { value: "Lansing", label: "Lansing"}
+    ]
     // fetch('/test', { accept: "application/json"})
     //   .then(response => {
     //     return response.json()
