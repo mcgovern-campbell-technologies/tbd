@@ -7,7 +7,7 @@ const authService = new AuthService();
 // }
 
 const authReducer = (state = {
-  // isAuthenticated: !AuthService.isTokenExpired(),
+  isAuthenticated: !authService.isAuthenticated(),
   isFetching: false,
   profile: authService.getProfile(),
   error: null,
