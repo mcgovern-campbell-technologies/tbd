@@ -6,6 +6,7 @@ services:
     image: 'tbd_web'
     ports:
       - 3000:3000
+      - 4000:4000
     volumes:
       - type: bind
         source: ./
