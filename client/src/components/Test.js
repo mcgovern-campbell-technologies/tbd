@@ -10,8 +10,8 @@ export default (props) => {
       <h1>This is a test</h1>
       <p>props.auth = {props.auth}</p>
       <button onClick={() => {
-          props.authService.login();
           props.loginRequest();
+          props.authService.login();
         }}>Login</button>
 
       <button onClick={() => {
