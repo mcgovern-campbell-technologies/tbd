@@ -25,6 +25,7 @@
     "rxjs": "^5.4.3"
   },
   "devDependencies": {
+    "auth0-js": "^8.10.1",
     "concurrently": "^3.5.0",
     "react-scripts": "1.0.10"
   },
