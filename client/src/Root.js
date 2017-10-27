@@ -16,6 +16,7 @@ import configureStore from './redux/configureStore'
 /*Containers*/
 // import { } from './containers/index'
 import App from './containers/App'
+import AuthService from './utils/AuthService'
 
 const preloadedState = {
   one: "Some test preloaded state. Don't forget to add prop when creating rootReducer(?)"
@@ -26,11 +27,13 @@ const store = configureStore(preloadedState)
 /* create history */
 const history = createBrowserHistory()
 
+const authService = new AuthService();
+
 function Root() {
   return (
     <Provider store={store}>
       <ConnectedRouter history={history}>
-        <App />
+        <App authService={authService}/>
       </ConnectedRouter>
     </Provider>
   )
