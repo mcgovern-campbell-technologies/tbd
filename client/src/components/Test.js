@@ -16,7 +16,7 @@ export default (props) => {
 
       <button onClick={() => {
           props.logoutSuccess();
-          AuthService.logout();
+          props.authService.logout();
         }}>Log out</button>
     </div>
   )
