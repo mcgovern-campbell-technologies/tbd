@@ -1,88 +1,76 @@
-import Auth0Lock from 'auth0-lock';
-import jwtDecode from 'jwt-decode';
-
-import config from '../secrets/auth0Config';
+import auth0 from 'auth0-js';
 
 export default class AuthService {
   constructor() {
-    // Configure Auth0 lock
-    this.lock = new Auth0Lock(config.AUTH0_CLIENT_ID, config.AUTH0_DOMAIN, {
-      auth: {
-        redirectUrl: config.REDIRECT_URL,
-        responseType: 'id_token',
-      },
+    this.login = this.login.bind(this);
+    this.logout = this.logout.bind(this);
+    this.handleAuthentication = this.handleAuthentication.bind(this);
+    this.isAuthenticated = this.isAuthenticated.bind(this);
+    this.getProfile = this.getProfile.bind(this);
+  }
+
+  auth0 = new auth0.WebAuth({
+    domain: 'mcgovern-campbell-technologies.auth0.com',
+    clientID: '81rhOqw5QUmgjEZ8osYF4PDQc0pCGaSt',
+    redirectUri: 'http://localhost:3000/callback',
+    audience: 'http://localhost:4000/api',
+    responseType: 'token id_token',
+    scope: 'openid profile'
+  });
+
+  login() {
+    this.auth0.authorize();
+  }
+
+  handleAuthentication() {
+    this.auth0.parseHash((err, authResult) => {
+      if (authResult && authResult.accessToken && authResult.idToken) {
+        this.setSession(authResult);
+        // history.replace('/home');
+      } else if (err) {
+        // history.replace('/home');
+        console.log(err);
+      }
+
+    });
+  }
+
+  setSession(authResult) {
+    // Set the time that the access token will expire at
+    let expiresAt = JSON.stringify((authResult.expiresIn * 1000) + new Date().getTime());
+    localStorage.setItem('access_token', authResult.accessToken);
+    localStorage.setItem('id_token', authResult.idToken);
+    localStorage.setItem('expires_at', expiresAt);
+
+    this.auth0.client.userInfo(authResult.accessToken, function(err, user) {
+      localStorage.setItem('profile', JSON.stringify(user));
     });
 
-    // Bind login function
-    this.login = this.login.bind(this);
+    // navigate to the home route
+    // history.replace('/home');
   }
 
-  // ======================================================
-  // Public methods
-  // ======================================================
-  login() {
-    // Call the show method to display the widget.
-    this.lock.show();
+  logout() {
+    // Clear access token, ID token and profile from local storage
+    localStorage.removeItem('access_token');
+    localStorage.removeItem('id_token');
+    localStorage.removeItem('expires_at');
+    localStorage.removeItem('profile');
+    // navigate to the home route
+    // history.replace('/home');
   }
 
-  // ======================================================
-  // Static methods
-  // ======================================================
-  static loggedIn() {
-    // Checks if there is a saved token and it's still valid
-    const token = AuthService.getToken();
-    return !!token && !AuthService.isTokenExpired(token);
+  isAuthenticated() {
+    // Check whether the current time is past the
+    // access token's expiry time
+    let expiresAt = JSON.parse(localStorage.getItem('expires_at'));
+    return new Date().getTime() < expiresAt;
   }
 
-  static logout() {
-    // Clear user token and profile data from window.localStorage
-    window.localStorage.removeItem('id_token');
-    window.localStorage.removeItem('profile');
-  }
-
-  static getProfile() {
+  getProfile() {
+    console.log('firing authService getProfile')
     // Retrieves the profile data from window.localStorage
     const profile = window.localStorage.getItem('profile');
     return profile ? JSON.parse(window.localStorage.profile) : {};
-  }
-
-  static setProfile(profile) {
-    // Saves profile data to window.localStorage
-    window.localStorage.setItem('profile', JSON.stringify(profile));
-    // Triggers profile_updated event to update the UI
-  }
-
-  static setToken(idToken) {
-    // Saves user token to window.localStorage
-    window.localStorage.setItem('id_token', idToken);
-  }
-
-  static getToken() {
-    // Retrieves the user token from window.localStorage
-    return window.localStorage.getItem('id_token');
-  }
-
-  static getTokenExpirationDate() {
-    const token = AuthService.getToken();
-    const decoded = jwtDecode(token);
-    if (!decoded.exp) {
-      return null;
-    }
-
-    const date = new Date(0); // The 0 here is the key, which sets the date to the epoch
-    date.setUTCSeconds(decoded.exp);
-    return date;
-  }
-
-  static isTokenExpired() {
-    console.log('checking isTokenExpired')
-    const token = AuthService.getToken();
-    if (!token) return true;
-    const date = AuthService.getTokenExpirationDate();
-    const offsetSeconds = 0;
-    if (date === null) {
-      return false;
-    }
-    return !(date.valueOf() > (new Date().valueOf() + (offsetSeconds * 1000)));
   }
 }
