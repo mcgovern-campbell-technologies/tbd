@@ -24,9 +24,8 @@ import { OnBoardFlow, LandingPage } from './containerIndex'
 import AuthService from '../utils/AuthService';
 const authService = new AuthService();
 
+/* Create handleAuthentication handler to kick off authService if correct URL hash exists */
 const handleAuthentication = (nextState, replace) => {
-  console.log(nextState)
-  console.log(replace)
   if (/access_token|id_token|error/.test(nextState.location.hash)) {
     authService.handleAuthentication();
   }
