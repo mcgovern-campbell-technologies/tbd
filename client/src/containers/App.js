@@ -54,7 +54,7 @@ class App extends React.Component {
           <Route path="/OnBoardFlow" component={OnBoardFlow}/>
           <Route path="/callback" render={(props) => {
             handleAuthentication(props);
-            return <Callback {...props} />
+            return <Callback {...props} {...this.props} />
           }}/>
 
         </div>
