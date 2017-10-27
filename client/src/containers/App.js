@@ -15,42 +15,32 @@ import * as actionCreators from '../redux/actions/actionCreators';
 
 /* Import components */
 import { Test } from '../components/componentIndex';
+import { Callback } from '../components/componentIndex';
 
 /* Import containers */
 import { OnBoardFlow, LandingPage } from './containerIndex'
 
 /* Import Auth utilities*/
 import AuthService from '../utils/AuthService';
+const authService = new AuthService();
 
+const handleAuthentication = (nextState, replace) => {
+  console.log(nextState)
+  console.log(replace)
+  if (/access_token|id_token|error/.test(nextState.location.hash)) {
+    authService.handleAuthentication();
+  }
+}
 
 class App extends React.Component {
   constructor() {
     super()
-    //instantiate the authService from class
-    this.authService = new AuthService();
-  }
-
-  componentWillMount() {
-    // Add callback for lock's `authenticated` event
-    this.authService.lock.on('authenticated', (authResult) => {
-      this.authService.lock.getProfile(authResult.idToken, (error, profile) => {
-        if (error) { return this.props.loginError(error); }
-        AuthService.setToken(authResult.idToken); // static method
-        AuthService.setProfile(profile); // static method
-        this.props.loginSuccess(profile);
-        return this.props.history.push({ pathname: '/' });
-      });
-    });
-    // Add callback for lock's `authorization_error` event
-    this.authService.lock.on('authorization_error', (error) => {
-      this.props.loginError(error);
-      return this.props.history.push({ pathname: '/' });
-    });
   }
 
   render() {
     console.log('this.props from App')
     console.log(this.props)
+
     return (
       <div>
         <nav>
@@ -63,6 +53,11 @@ class App extends React.Component {
           <Route exact path="/" component={LandingPage} />
           <PropsRoute path="/test" component={Test} authService={this.authService} {...this.props}/>
           <Route path="/OnBoardFlow" component={OnBoardFlow}/>
+          <Route path="/callback" render={(props) => {
+            handleAuthentication(props);
+            return <Callback {...props} />
+          }}/>
+
         </div>
 
       </div>
@@ -83,4 +78,3 @@ const mapDispatchToProps = (dispatch) => {
 }
 
 export default withRouter(connect(mapStateToProps, mapDispatchToProps)(App));
-
