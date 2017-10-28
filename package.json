@@ -21,6 +21,7 @@
   },
   "scripts": {
     "serve": "node server/server.js",
+    "full-install": "yarn && cd client && yarn", 
     "start": "concurrently \"npm run serve-watch\" \"npm run client-start\"",
     "client-start": "cd client && npm start",
     "serve-watch": "nodemon server/server.js",
