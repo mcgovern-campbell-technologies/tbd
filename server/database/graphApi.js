@@ -1,9 +1,6 @@
 const neo4j = require('neo4j-driver').v1;
 const _ = require('lodash')
 
-const { databaseCredentials } = require('./../../secrets.js');
-const { username, password } = databaseCredentials
-
 class GraphApi {
 
   constructor(username, password, connection = "bolt://localhost") {
@@ -32,9 +29,9 @@ class GraphApi {
           return result.records
         }
 
-      })
+      });
   }
 }
 
-new GraphApi(username, password)
+module.exports = GraphApi;
 
