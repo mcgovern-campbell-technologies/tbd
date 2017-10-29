@@ -24,7 +24,7 @@ class LandingPage extends Component {
           </span>
         </div>
       </div>
-      
+
     )
   }
 }

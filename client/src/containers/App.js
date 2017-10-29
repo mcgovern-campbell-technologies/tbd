@@ -18,7 +18,7 @@ import { Test } from '../components/componentIndex';
 import { Callback } from '../components/componentIndex';
 
 /* Import containers */
-import { OnBoardFlow, LandingPage } from './containerIndex'
+import { OnBoardFlow, LandingPage, Profile } from './containerIndex'
 
 /* Import Auth utilities*/
 import AuthService from '../utils/AuthService';
@@ -52,6 +52,7 @@ class App extends React.Component {
           <Route exact path="/" component={LandingPage} />
           <PropsRoute path="/test" component={Test} authService={this.authService} {...this.props}/>
           <Route path="/OnBoardFlow" component={OnBoardFlow}/>
+          <Route path="/Profile" component={Profile}/>
           <Route path="/callback" render={(props) => {
             handleAuthentication(props);
             return <Callback {...props} {...this.props} />
