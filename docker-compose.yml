@@ -6,7 +6,18 @@ services:
     image: 'tbd_web'
     ports:
       - 3000:3000
+      - 4000:4000
     volumes:
       - type: bind
         source: ./
         target: /wwwroot
+
+  neo4j:
+    image: 'neo4j'
+    ports:
+      - 7474:7474
+      - 7687:7687
+    volumes:
+      - type: volume
+        source: ${HOME}/neo4j/data
+        target: /data
