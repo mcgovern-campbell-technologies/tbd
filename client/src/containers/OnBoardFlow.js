@@ -6,7 +6,7 @@ import { withRouter } from 'react-router'
 
 import { Route } from 'react-router'
 
-import * as actionCreators from '../redux/actions/onBoardingActions'
+import * as actionCreators from '../redux/actions/userActions'
 
 import { ContactForm, LocationForm } from './../components/componentIndex.js'
 
@@ -14,10 +14,8 @@ class OnBoardFlow extends Component {
 
   constructor(props) {
     super(props)
-
     this.handleContactSubmit = this.handleContactSubmit.bind(this)
     this.handleLocationSubmit = this.handleLocationSubmit.bind(this)
-
     this.options = [
       { value: "Detroit", label: "Detroit"},
       { value: "Ann Arbor", label: "Ann Arbor"},
@@ -74,7 +72,8 @@ class OnBoardFlow extends Component {
 function mapStateToProps(state) {
   return {
     onBoardingReducer: state.onBoardingReducer,
-    auth: state.authReducer
+    auth: state.authReducer,
+    user: state.user,
   }
 }
 
