@@ -14,6 +14,7 @@ class OnBoardFlow extends Component {
 
   constructor(props) {
     super(props)
+
     this.handleContactSubmit = this.handleContactSubmit.bind(this)
     this.handleLocationSubmit = this.handleLocationSubmit.bind(this)
     this.options = [
@@ -21,13 +22,6 @@ class OnBoardFlow extends Component {
       { value: "Ann Arbor", label: "Ann Arbor"},
       { value: "Lansing", label: "Lansing"}
     ]
-    // fetch('/test', { accept: "application/json"})
-    //   .then(response => {
-    //     return response.json()
-    //   })
-    //   .then(result => {
-    //     console.log(result)
-    //   })
 
     this.state = { selectValue: "Detroit" }
   }
