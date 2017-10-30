@@ -1,31 +1,46 @@
 import React, { Component } from 'react'
 
+//React Router resources
 import { Link } from 'react-router-dom'
+import { Route } from 'react-router'
 
+//Redux Resources
 import { bindActionCreators } from 'redux'
 import { connect } from 'react-redux'
+import { withRouter } from 'react-router'
 
+//Actions
+import * as actionCreators from '../redux/actions/userActions'
+
+//Components
+import { 
+  ProfileSideCard,
+  ProfileCertifications,
+  ProfileSkills,
+} from './../components/componentIndex'
+
+//Assets
 import fbLogo from '../assets/fbLogo.png'
 import lnLogo from '../assets/lnLogo.png'
 
 class Profile extends Component {
+  constructor(props) {
+    super(props);
+    if (!this.props.profile) {
+      console.log('inside the profile check');
+      // this.props.getUser();
+    }
+  }
   render() {
+    const { skills, certifications, profile } = this.props;
+    const { picture, name, given_name } = profile;
     return (
       <div>
         <div className="section row">
-          <div className="col s3">
-            PLACEHOLDER FOR PROFILE IMAGE
-            <p className="font-size-l font-bold margin-bottom-none">Rob Johnson</p>
-            <p className="font-size-m margin-top-none">Machinist</p>
-            <button className="waves-effect waves-light btn center margin-bottom"> Book </button>
-
-            <div className="divider"></div>
-            <div>
-              <img className="social-media" src={fbLogo}/>
-              <img className="social-media" src={lnLogo}/>
-            </div>
-          </div>
-
+          <ProfileSideCard 
+            picture={picture}
+            name={name}
+          />
           <div className ="col s9">
             <span className="font-size-xl font-bold">Overview  Skills  Reviews</span>
             <div className="divider"></div>
@@ -45,16 +60,15 @@ class Profile extends Component {
             <p>Company X</p>
 
             <div className="divider"></div>
-            <h3>Skills</h3>
-            <span>Rob is skilled at...</span>
-            <ul>
-              <li>Skill 1</li>
-              <li>Skill 1</li>
-              <li>Skill 1</li>
-              <li>Skill 1</li>
-            </ul>
+            <ProfileSkills 
+              skills={skills}
+              given_name={given_name}
+            />
 
-            <p>Certifications</p>
+            <ProfileCertifications 
+              certifications={certifications}
+              given_name={given_name}
+            />
 
             <div className="divider"></div>
 
@@ -79,4 +93,20 @@ class Profile extends Component {
   }
 }
 
-export default Profile
+function mapStateToProps({ user, authReducer }) {
+  console.log('inside Profile mapStateToProps');
+  const { profile } = authReducer
+  const { skills, location, certifications } = user;
+  console.log('in profile map state to props', profile)
+  return {
+    profile,
+    skills,
+    location,
+    certifications,
+  }
+}
+
+function mapDispatchToProps(dispatch) {
+  return bindActionCreators(actionCreators, dispatch)
+}
+export default withRouter(connect(mapStateToProps, mapDispatchToProps)(Profile))

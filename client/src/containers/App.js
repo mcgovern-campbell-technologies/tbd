@@ -69,7 +69,7 @@ App.contextTypes = { store: PropTypes.object };
 
 const mapStateToProps = (state) => {
   return {
-    auth: state.auth
+    auth: state.authReducer
   }
 }
 
