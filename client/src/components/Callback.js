@@ -1,10 +1,14 @@
 // src/Callback/Callback.js
 
-import React, { Component } from 'react';
+import React from 'react';
 // import loading from './loading.svg';
 
-class Callback extends Component {
-
+class Callback extends React.Component {
+  // componentDidMount() {
+  //   const profile = JSON.parse(window.localStorage.getItem('profile'));
+  //   console.log('firing loginSuccess', profile)
+  //   this.props.loginSuccess(profile)
+  // }
   render() {
     return (
       <div>
