@@ -42,9 +42,9 @@ export default class AuthService {
     localStorage.setItem('id_token', authResult.idToken);
     localStorage.setItem('expires_at', expiresAt);
 
-    // this.auth0.client.userInfo(authResult.accessToken, function(err, user) {
-    //   localStorage.setItem('profile', JSON.stringify(user));
-    // });
+    this.auth0.client.userInfo(authResult.accessToken, function(err, user) {
+      localStorage.setItem('profile', JSON.stringify(user));
+    });
 
     // navigate to the home route
     // history.replace('/home');
