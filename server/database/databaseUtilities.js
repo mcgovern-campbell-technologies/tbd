@@ -1,4 +1,5 @@
 const _ = require('lodash');
+const neo4j = require('neo4j-driver').v1;
 
 function extractNodes(queryResult) {
   return _.reduce(queryResult, (acc, value) => {
@@ -7,7 +8,7 @@ function extractNodes(queryResult) {
       return {
         properties,
         labels,
-        _identity: identity
+        identity: identity.toString()
       }
     });
     return acc.concat(nodes);
@@ -20,7 +21,7 @@ function createHasNecessaryProps(propMap) {
   }
 }
 
-const employeePropMap = [
+const contractorPropMap = [
   'clientID',
   'created_at',
   'email',
@@ -38,9 +39,15 @@ const employeePropMap = [
   'user_id',
 ];
 
+const skillInstancePropMap = [
+  'name',
+  'date'
+]
+
 
 module.exports = {
-  employeeHasNecessaryProps: createHasNecessaryProps(employeePropMap),
+  contractorHasNecessaryProps: createHasNecessaryProps(contractorPropMap),
+  skillHasNecessaryProps: createHasNecessaryProps(skillInstancePropMap),
   extractNodes,
 }
 
