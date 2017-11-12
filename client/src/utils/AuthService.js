@@ -15,7 +15,7 @@ export default class AuthService {
     redirectUri: 'http://localhost:3000/callback',
     audience: 'http://localhost:4000/api',
     responseType: 'token id_token',
-    scope: 'openid email'
+    scope: 'openid profile'
   });
 
   login() {
