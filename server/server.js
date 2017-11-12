@@ -10,7 +10,7 @@ const { databaseCredentials } = require('./../secrets.js');
 const { username, password } = databaseCredentials
 
 //routers
-const { employeeRouter } = require('./routers/routersIndex');
+const { contractorRouter } = require('./routers/routersIndex');
 
 var app = express();
 
@@ -38,7 +38,7 @@ app.get('/api/unprotected', function(req, res) {
 })
 
 /****Apply Routers****/
-app.use('/api/empl', employeeRouter); 
+app.use('/api/contractor', contractorRouter); 
 
 app.listen(port);
 
