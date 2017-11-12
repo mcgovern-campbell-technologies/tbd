@@ -30,9 +30,13 @@ const authService = new AuthService();
 
 /* Create handleAuthentication handler to kick off authService if correct URL hash exists */
 const handleAuthentication = (nextState, replace) => {
-  if (/access_token|id_token|error/.test(nextState.location.hash)) {
-    authService.handleAuthentication();
-  }
+  return new Promise ((resolve, reject) => {
+    if (/access_token|id_token|error/.test(nextState.location.hash)) {
+      authService.handleAuthentication().then(_ => {
+        resolve();
+      });
+    }
+  })
 }
 
 class App extends React.Component {
@@ -65,11 +69,7 @@ class App extends React.Component {
           <Route exact path="/landingPage" component={LandingPage} />
           <Route path="/OnBoardFlow" component={OnBoardFlow}/>
           <Route path="/Profile" component={Profile}/>
-          <Route path="/callback" render={(props) => {
-            handleAuthentication(props);
-            return <Callback {...props} {...this.props} />
-          }}/>
-
+          <Route path="/callback" render={(props) => <Callback handleAuthentication={handleAuthentication} {...props} {...this.props} /> }/>
         </div>
 
       </div>
@@ -80,10 +80,9 @@ class App extends React.Component {
 App.contextTypes = { store: PropTypes.object };
 
 const mapStateToProps = (state) => {
-  console.log('state');
-  console.log(state)
+  //I'm just passing the entire state as props here just to have extra visibity on everything available.
   return {
-    auth: state.authService
+    ...state
   }
 }
 
