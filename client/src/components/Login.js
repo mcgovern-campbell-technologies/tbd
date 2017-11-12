@@ -5,12 +5,14 @@ import AuthService from '../utils/AuthService'
 export default (props) => {
   return (
     <div>
-      <h1>This is a test</h1>
-      <p>props.auth = {props.auth}</p>
-      <button onClick={() => {
-          props.loginRequest();
-          props.authService.login();
-        }}>Login</button>
+      <h1>This is the login page</h1>
+      <p>isAuthenticated: {props.auth.isAuthenticated.toString()}</p>
+      <button
+        onClick={props.authService.login}
+        disabled={props.auth.isAuthenticated}
+      >
+        Login
+      </button>
 
       <button onClick={() => {
           props.logoutSuccess();
