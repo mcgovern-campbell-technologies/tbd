@@ -1,19 +1,27 @@
-// src/Callback/Callback.js
-
 import React from 'react';
-// import loading from './loading.svg';
+import {Redirect} from 'react-router-dom';
 
 class Callback extends React.Component {
-  // componentDidMount() {
-  //   const profile = JSON.parse(window.localStorage.getItem('profile'));
-  //   console.log('firing loginSuccess', profile)
-  //   this.props.loginSuccess(profile)
-  // }
+  componentWillMount() {
+    const {authService, handleAuthentication} = this.props
+    handleAuthentication(this.props).then(_ => {
+      if (authService.isAuthenticated()) {
+        this.props.loginSuccess(authService.getProfile());
+      } else {
+        this.props.loginError({error: "something went wrong."});
+      }
+    });
+  }
+
   render() {
+
+    if (!this.props.auth.isFetching) {
+      return <Redirect to="/" />
+    }
     return (
       <div>
         <img src="" alt="loading"/>
-        <p>This is the callback URL for auth0</p>
+        <p>Trying to log you in...</p>
       </div>
     );
   }
