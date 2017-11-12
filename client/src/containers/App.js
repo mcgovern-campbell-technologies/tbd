@@ -1,7 +1,7 @@
 import React from 'react';
 
 /* Import Router Dependencies */
-import { Route, Link } from 'react-router-dom'
+import { Route, Link, Redirect } from 'react-router-dom'
 import { withRouter } from 'react-router'
 
 /* Prop Verification */
@@ -17,7 +17,12 @@ import * as actionCreators from '../redux/actions/actionCreators';
 import { Login, Callback } from '../components/componentIndex';
 
 /* Import containers */
-import { OnBoardFlow, LandingPage, Profile } from './containerIndex'
+import { 
+  Dashboard,
+  LandingPage,
+  OnBoardFlow,
+  Profile,
+} from './containerIndex'
 
 /* Import Auth utilities*/
 import AuthService from '../utils/AuthService';
@@ -31,9 +36,12 @@ const handleAuthentication = (nextState, replace) => {
 }
 
 class App extends React.Component {
-  constructor() {
-    super()
+  
+  constructor(props) {
+    super(props);
+    this.authService = authService;
   }
+
 
   render() {
     return (
@@ -47,6 +55,14 @@ class App extends React.Component {
         <div>
           <Route exact path="/" component={LandingPage} />
           <PropsRoute path="/login" component={Login} {...this.props}/>
+          <Route path="/dashboard" render={() => (
+            this.props.auth.isAuthenticated? (
+              <Dashboard />
+            ) : (
+              <Redirect to="/landingPage"/>
+            )
+          )}/>
+          <Route exact path="/landingPage" component={LandingPage} />
           <Route path="/OnBoardFlow" component={OnBoardFlow}/>
           <Route path="/Profile" component={Profile}/>
           <Route path="/callback" render={(props) => {
