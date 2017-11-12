@@ -23,31 +23,30 @@ export default class AuthService {
   }
 
   handleAuthentication() {
-    this.auth0.parseHash((err, authResult) => {
-      if (authResult && authResult.accessToken && authResult.idToken) {
-        this.setSession(authResult);
-        // history.replace('/home');
-      } else if (err) {
-        // history.replace('/home');
-        console.log(err);
-      }
+    return new Promise ((resolve, reject) => {
+      this.auth0.parseHash((err, authResult) => {
+        if (authResult && authResult.accessToken && authResult.idToken) {
+          //get profile and then set session information
+          let expiresAt = JSON.stringify((authResult.expiresIn * 1000) + new Date().getTime());
+          localStorage.setItem('access_token', authResult.accessToken);
+          localStorage.setItem('id_token', authResult.idToken);
+          localStorage.setItem('expires_at', expiresAt);
 
-    });
-  }
+          this.auth0.client.userInfo(authResult.accessToken, function(err, user) {
 
-  setSession(authResult) {
-    // Set the time that the access token will expire at
-    let expiresAt = JSON.stringify((authResult.expiresIn * 1000) + new Date().getTime());
-    localStorage.setItem('access_token', authResult.accessToken);
-    localStorage.setItem('id_token', authResult.idToken);
-    localStorage.setItem('expires_at', expiresAt);
+            localStorage.setItem('profile', JSON.stringify(user));
+            resolve();
+          });
 
-    this.auth0.client.userInfo(authResult.accessToken, function(err, user) {
-      localStorage.setItem('profile', JSON.stringify(user));
-    });
-
-    // navigate to the home route
-    // history.replace('/home');
+          // navigate to the home route
+          // history.replace('/home');
+        } else if (err) {
+          // history.replace('/home');
+          console.log(err);
+          reject(err)
+        }
+      });
+    })
   }
 
   logout() {
@@ -68,7 +67,6 @@ export default class AuthService {
   }
 
   getProfile() {
-    console.log('firing authService getProfile')
     // Retrieves the profile data from window.localStorage
     const profile = window.localStorage.getItem('profile');
     return profile ? JSON.parse(window.localStorage.profile) : {};
