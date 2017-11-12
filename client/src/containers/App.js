@@ -14,8 +14,7 @@ import { connect } from 'react-redux';
 import * as actionCreators from '../redux/actions/actionCreators';
 
 /* Import components */
-import { Test } from '../components/componentIndex';
-import { Callback } from '../components/componentIndex';
+import { Login, Callback } from '../components/componentIndex';
 
 /* Import containers */
 import { OnBoardFlow, LandingPage, Profile } from './containerIndex'
@@ -37,20 +36,17 @@ class App extends React.Component {
   }
 
   render() {
-    console.log('this.props from App')
-    console.log(this.props)
-
     return (
       <div>
         <nav>
           <ul>
             <li><Link to="/">Home</Link></li>
-            <li><Link to="/test">Login</Link></li>
+            <li><Link to="/login">Login</Link></li>
           </ul>
         </nav>
         <div>
           <Route exact path="/" component={LandingPage} />
-          <PropsRoute path="/test" component={Test} authService={this.authService} {...this.props}/>
+          <PropsRoute path="/login" component={Login} {...this.props}/>
           <Route path="/OnBoardFlow" component={OnBoardFlow}/>
           <Route path="/Profile" component={Profile}/>
           <Route path="/callback" render={(props) => {
@@ -68,8 +64,10 @@ class App extends React.Component {
 App.contextTypes = { store: PropTypes.object };
 
 const mapStateToProps = (state) => {
+  console.log('state');
+  console.log(state)
   return {
-    auth: state.authReducer
+    auth: state.authService
   }
 }
 

@@ -3,8 +3,6 @@ import React from 'react';
 import AuthService from '../utils/AuthService'
 
 export default (props) => {
-  console.log('Test props:');
-  console.log(props);
   return (
     <div>
       <h1>This is a test</h1>
