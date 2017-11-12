@@ -16,14 +16,14 @@ import userReducer, { getUserEpic } from './user';
 export const rootEpic = combineEpics(
   /* epics */
   exampleEpic,
-  // authEpic
+  // authEpic,
   getUserEpic,
 );
 
 export const rootReducer = combineReducers({
   /* reducers */
   exampleReducer,
-  authReducer,
+  auth: authReducer,
   onBoardingReducer,
   user: userReducer,
   one: (state = {}) => state,
