@@ -77,6 +77,7 @@ class GraphApi {
 
   addSkillToContractor(identity, skill) {
     const session = this.driver.session();
+
     return session
       .run(`
         MATCH (c:Contractor) WHERE ID(c) = ${identity}

@@ -1,5 +1,6 @@
 const startUpScript = `
   CREATE 
+  (cont:Contractor {email: "robJohnson@gmail.com", name: "Rob Johnson"}),
   (s1:Skill {name: "Leadership"}),
   (s2:Skill {name: "Teamwork"}),
   (s3:Skill {name: "Communication"}),
