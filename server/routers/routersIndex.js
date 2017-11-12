@@ -1,5 +1,7 @@
-const employeeRouter = require('./employeeRouter');
+const contractorRouter = require('./contractorRouter');
+const contractorSkillsRouter = require('./contractorSkillsRouter');
 
 module.exports = {
-  employeeRouter,
+  contractorRouter,
+  contractorSkillsRouter,
 }
