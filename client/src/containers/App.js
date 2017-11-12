@@ -64,8 +64,10 @@ class App extends React.Component {
 App.contextTypes = { store: PropTypes.object };
 
 const mapStateToProps = (state) => {
+  console.log('state');
+  console.log(state)
   return {
-    auth: state.authReducer
+    auth: state.authService
   }
 }
 
