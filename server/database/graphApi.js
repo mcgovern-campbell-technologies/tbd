@@ -14,12 +14,10 @@ class GraphApi {
     session
       .run(massDelete)
       .then(result => {
-        console.log(result)
         return session
           .run(startUpScript)
       })
       .then(result => {
-        console.log(result)
       })
   }
 
