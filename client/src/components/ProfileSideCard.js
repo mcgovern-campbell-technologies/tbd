@@ -8,7 +8,7 @@ function ProfileSideCard(props) {
   console.log(name, picture)
   return (
     <div className="col s3">
-      <img src={picture}/>
+      <img className="profile-image"src={picture}/>
       <p className="font-size-l font-bold margin-bottom-none">{name}</p>
       <p className="font-size-m margin-top-none">Machinist</p>
       <button className="waves-effect waves-light btn center margin-bottom"> Book </button>
