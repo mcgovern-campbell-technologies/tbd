@@ -6,10 +6,10 @@ const startUpScript = `
   (s3:Skill {name: "Communication"}),
   (s4:Skill {name: "Attention to Detail"}),
   (s5:Skill {name: "Fun Loving"}),
-  (c1:Certificaiton {name: "Forklift Driver"}),
-  (c2:Certificaiton {name: "Welding"}),
-  (c3:Certificaiton {name: "Warehouse Safety"}),
-  (c4:Certificaiton {name: "First Aid"})
+  (c1:Certification {name: "Forklift Driver"}),
+  (c2:Certification {name: "Welding"}),
+  (c3:Certification {name: "Warehouse Safety"}),
+  (c4:Certification {name: "First Aid"})
   RETURN s1
 `
 const massDelete = `

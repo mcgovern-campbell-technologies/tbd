@@ -10,15 +10,15 @@ class GraphApi {
     this.driver = neo4j.driver(connection, neo4j.auth.basic(username, password));
 
     console.log('in constructor')
-    const session = this.driver.session();
-    session
-      .run(massDelete)
-      .then(result => {
-        return session
-          .run(startUpScript)
-      })
-      .then(result => {
-      })
+    // const session = this.driver.session();
+    // session
+    //   .run(massDelete)
+    //   .then(result => {
+    //     return session
+    //       .run(startUpScript)
+    //   })
+    //   .then(result => {
+    //   })
   }
 
   closeDriver() {
@@ -114,6 +114,7 @@ class GraphApi {
 
   addContractorCertification(identity, certification) {
     const session = this.driver.session();
+    console.log(certification);
     return session
       .run(`
         MATCH (c:Contractor) WHERE ID(c) = ${identity}
@@ -122,7 +123,8 @@ class GraphApi {
         (c)-[:HAS_CERTIFICATION_INSTANCE]->(cert)
         RETURN cert
       `)
-      .then(({ records }) => {
+      .then((result) => {
+        const { records } = result
         session.close();
         return extractNodes(records);
       })
