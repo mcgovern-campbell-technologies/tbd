@@ -19,8 +19,6 @@ function ProfileSideCard(props) {
 
       </p>
 
-      <button className="waves-effect waves-light btn center margin-bottom"> Book </button>
-
       <div className="divider"></div>
       <div>
         <img className="social-media" src={fbLogo}/>

@@ -41,45 +41,33 @@ class Profile extends Component {
             picture={picture}
             name={name}
           />
-          <div className ="col s5">
-            <span className="font-size-xl font-bold">Overview  Skills  Reviews</span>
-            <div className="divider"></div>
-
-
-            <p>Message Rob</p>
-            <div className="divider"></div>
-
-            <p>Jobs in the last 6 months</p>
-
-            <p>Company X</p>
-
-            <div className="divider"></div>
+          <div className="col s5">
+            Placeholder for Calendar
+            <p>
+            <button className="waves-effect waves-light btn center margin-bottom"> Book </button>
+            </p>
+          </div>
+        </div>
+        <div className ="section row">
+          <div className="col s12">
             <ProfileSkills
               skills={skills}
               given_name={given_name}
             />
+          </div>
 
+          <div className="divider"></div>
+
+          <div className="col s12">
             <ProfileCertifications
               certifications={certifications}
               given_name={given_name}
             />
-
-            <div className="divider"></div>
-
-            <h3>Reviews</h3>
-            <div className="divider"></div>
-
-            <div className="col s1">
-            Company X
-            </div>
-
-            <div className="col s8">
-            Company info  basdfasdfadglahglakfglksjlkasjlgfkjlasfjglj
-            alsgjdlaskjdgl;akjsdg;lajsdlgkjsladkjg
-            </div>
-
-
           </div>
+
+          <div className="divider"></div>
+
+
         </div>
       </div>
 
