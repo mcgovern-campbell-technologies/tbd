@@ -26,13 +26,20 @@ import {
 
 class Dashboard extends Component {
   render() {
-    console.log(this.props)
+    const { match } = this.props;
     return (
       <div>
-        <Route path='/dashboard/profile' component={Profile}/>
+        <Route path={`${match.path}/onBoardFlow`} component={OnBoardFlow}/>
+        <Route path={`${match.path}`} component={Profile}/>
       </div>
     );
   }
 }
 
-export default Dashboard;
+function mapStateToProps(state) {
+  return state
+}
+
+
+
+export default connect(mapStateToProps)(Dashboard);

@@ -93,9 +93,10 @@ class Profile extends Component {
   }
 }
 
-function mapStateToProps({ user, authReducer }) {
+function mapStateToProps(state) {
   console.log('inside Profile mapStateToProps');
-  const { profile } = authReducer
+  const { user, auth } = state;
+  const { profile } = auth;
   const { skills, location, certifications } = user;
   console.log('in profile map state to props', profile)
   return {
