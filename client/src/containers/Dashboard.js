@@ -27,7 +27,7 @@ import {
 class Dashboard extends Component {
   componentWillMount() {
     console.log('in componentDidMount')
-    if(this.props.skills.skillList.length === 0) {
+    if(this.props.skills.length === 0) {
       this.props.getSkills();
     }
   }
