@@ -13,6 +13,7 @@ const { username, password } = databaseCredentials
 const { contractorRouter } = require('./routers/routersIndex');
 
 var app = express();
+const graphApi = new GraphApi(username, password);
 
 /****Third Party Middlewares****/
 app.use(bodyParser.urlencoded({extended: true}));
@@ -21,7 +22,7 @@ app.use(bodyParser.json());
 /****Homebrew Middlewares****/
 //adds neo4j driver to the request object
 app.use('/api', (req, res, next) => {
-  req.graphApi = new GraphApi(username, password);
+  req.graphApi = graphApi;
   next();
 });
 

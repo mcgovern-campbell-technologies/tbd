@@ -57,18 +57,16 @@ class App extends React.Component {
           </ul>
         </nav>
         <div>
-          <Route exact path="/" component={LandingPage} />
           <PropsRoute path="/login" component={Login} {...this.props}/>
-          <Route path="/dashboard" render={() => (
+          <Route path="/" render={(props) => (
             this.props.auth.isAuthenticated? (
-              <Dashboard />
+              <Redirect to="/dashboard"/>
             ) : (
               <Redirect to="/landingPage"/>
             )
           )}/>
+          <Route path="/dashboard" component={Dashboard} />
           <Route exact path="/landingPage" component={LandingPage} />
-          <Route path="/OnBoardFlow" component={OnBoardFlow}/>
-          <Route path="/Profile" component={Profile}/>
           <Route path="/callback" render={(props) => <Callback handleAuthentication={handleAuthentication} {...props} {...this.props} /> }/>
         </div>
 

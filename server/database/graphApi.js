@@ -2,11 +2,23 @@ const neo4j = require('neo4j-driver').v1;
 const _ = require('lodash');
 const stringifyObject = require('stringify-object');
 const { contractorHasNecessaryProps, extractNodes } = require('./databaseUtilities');
+const { startUpScript, massDelete } = require('./startUpCypherScript')
 
 class GraphApi {
 
   constructor(username, password, connection = "bolt://localhost") {
     this.driver = neo4j.driver(connection, neo4j.auth.basic(username, password));
+
+    console.log('in constructor')
+    // const session = this.driver.session();
+    // session
+    //   .run(massDelete)
+    //   .then(result => {
+    //     return session
+    //       .run(startUpScript)
+    //   })
+    //   .then(result => {
+    //   })
   }
 
   closeDriver() {
@@ -65,6 +77,7 @@ class GraphApi {
 
   addSkillToContractor(identity, skill) {
     const session = this.driver.session();
+
     return session
       .run(`
         MATCH (c:Contractor) WHERE ID(c) = ${identity}
@@ -101,6 +114,7 @@ class GraphApi {
 
   addContractorCertification(identity, certification) {
     const session = this.driver.session();
+    console.log(certification);
     return session
       .run(`
         MATCH (c:Contractor) WHERE ID(c) = ${identity}
@@ -109,7 +123,8 @@ class GraphApi {
         (c)-[:HAS_CERTIFICATION_INSTANCE]->(cert)
         RETURN cert
       `)
-      .then(({ records }) => {
+      .then((result) => {
+        const { records } = result
         session.close();
         return extractNodes(records);
       })
