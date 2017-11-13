@@ -100,7 +100,8 @@ body {
 }
 
 .profile-image {
-  width: 75%;
+  width: 25%;
+  float: right;
 }
 
 a {

@@ -13,7 +13,7 @@ import { withRouter } from 'react-router'
 import * as actionCreators from '../redux/actions/userActions'
 
 //Components
-import { 
+import {
   ProfileSideCard,
   ProfileCertifications,
   ProfileSkills,
@@ -37,20 +37,14 @@ class Profile extends Component {
     return (
       <div>
         <div className="section row">
-          <ProfileSideCard 
+          <ProfileSideCard
             picture={picture}
             name={name}
           />
-          <div className ="col s9">
+          <div className ="col s5">
             <span className="font-size-xl font-bold">Overview  Skills  Reviews</span>
             <div className="divider"></div>
 
-            <p>
-              <span>About Rob</span>
-
-              <p>Lorem ipsum dolor sit amet, consectetuer adipiscing elit. Aenean commodo ligula eget dolor. Aenean massa. Cum sociis natoque penatibus et magnis dis parturient montes, nascetur ridiculus mus. Donec quam felis, ultricies nec, pellentesque eu, pretium quis, sem. Nulla consequat massa quis enim. Donec pede justo, fringilla vel, aliquet nec, vulputate eget, arcu. In enim justo, rhoncus ut, imperdiet a, venenatis vitae, justo. Nullam dictum felis eu pede mollis pretium. Integer tincidunt. Cras dapibus. Vivamus elementum </p>
-
-            </p>
 
             <p>Message Rob</p>
             <div className="divider"></div>
@@ -60,12 +54,12 @@ class Profile extends Component {
             <p>Company X</p>
 
             <div className="divider"></div>
-            <ProfileSkills 
+            <ProfileSkills
               skills={skills}
               given_name={given_name}
             />
 
-            <ProfileCertifications 
+            <ProfileCertifications
               certifications={certifications}
               given_name={given_name}
             />
