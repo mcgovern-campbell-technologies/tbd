@@ -1,5 +1,6 @@
 import { ajax } from 'rxjs/observable/dom/ajax';
 import { getSkillsFullfilled } from './../actions/actionCreators';
+import { GET_SKILLS, GET_SKILLS_FULLFILLED } from '../../utils/types';
 
 const getSkillsEpic = action$ => {
   return action$
@@ -13,16 +14,14 @@ const getSkillsEpic = action$ => {
     )
 }
 
-const skills = (state = {
-  skillList: []
-}, action) => {
+const skills = (state = [], action) => {
   const { type, payload } = action;
   switch (type) {
-    case 'GET_SKILLS_FULLFILLED':
-      console.log('GET_SKILLS_FULLFILLED', payload)
-      return Object.assign({}, state, {skillList: payload})
+    case GET_SKILLS_FULLFILLED:
+      console.log(GET_SKILLS_FULLFILLED, payload);
+      return payload;
     default:
-      return state
+      return state;
   }
 }
 
