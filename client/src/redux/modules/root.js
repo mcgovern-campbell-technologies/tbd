@@ -12,12 +12,14 @@ import exampleReducer, { exampleEpic } from './example';
 import authReducer, { authEpic } from './auth';
 import onBoardingReducer, { onBoardingEpic } from './onBoarding';
 import userReducer, { getUserEpic } from './user';
+import skills, { getSkillsEpic } from './skills'
 
 export const rootEpic = combineEpics(
   /* epics */
   exampleEpic,
   // authEpic,
   getUserEpic,
+  getSkillsEpic,
 );
 
 export const rootReducer = combineReducers({
@@ -29,5 +31,6 @@ export const rootReducer = combineReducers({
   one: (state = {}) => state,
   two: (state = {}) => state,
   router: routerReducer,
-  form: formReducer
+  form: formReducer,
+  skills,
 })
