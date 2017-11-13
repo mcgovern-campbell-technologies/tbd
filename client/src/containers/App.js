@@ -58,7 +58,7 @@ class App extends React.Component {
         </nav>
         <div>
           <PropsRoute path="/login" component={Login} {...this.props}/>
-          <Route path="/" render={(props) => (
+          <Route exact path="/" render={(props) => (
             this.props.auth.isAuthenticated? (
               <Redirect to="/dashboard"/>
             ) : (

@@ -25,12 +25,19 @@ import {
 } from './containerIndex'
 
 class Dashboard extends Component {
+  componentWillMount() {
+    console.log('in componentDidMount')
+    if(this.props.skills.skillList.length === 0) {
+      this.props.getSkills();
+    }
+  }
   render() {
     const { match } = this.props;
     return (
       <div>
         <Route path={`${match.path}/onBoardFlow`} component={OnBoardFlow}/>
-        <Route path={`${match.path}`} component={Profile}/>
+        <Route path={`${match.path}/profile`} component={Profile}/>
+        <Route exact path={`${match.path}`} render={() => (<Redirect to={`${match.path}/profile`}/>)}/>
       </div>
     );
   }
@@ -39,7 +46,10 @@ class Dashboard extends Component {
 function mapStateToProps(state) {
   return state
 }
+ 
+function mapDispatchToProps(dispatch) {
+  return bindActionCreators(actionCreators, dispatch)
+}
 
 
-
-export default connect(mapStateToProps)(Dashboard);
+export default connect(mapStateToProps, mapDispatchToProps)(Dashboard);
