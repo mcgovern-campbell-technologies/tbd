@@ -29,14 +29,14 @@ export function logoutSuccess() {
 
 export function getSkills(identity) {
   return { 
-    type: 'GET_SKILLS',
+    type: types.GET_SKILLS,
     payload: identity
   }
 }
 
 export function getSkillsFullfilled(skills) {
   return  {
-    type: 'GET_SKILLS_FULLFILLED',
+    type: types.GET_SKILLS_FULLFILLED,
     payload: skills
   }
 }
