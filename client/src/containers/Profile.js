@@ -13,7 +13,7 @@ import { withRouter } from 'react-router'
 import * as actionCreators from '../redux/actions/userActions'
 
 //Components
-import { 
+import {
   ProfileSideCard,
   ProfileCertifications,
   ProfileSkills,
@@ -37,55 +37,37 @@ class Profile extends Component {
     return (
       <div>
         <div className="section row">
-          <ProfileSideCard 
+          <ProfileSideCard
             picture={picture}
             name={name}
           />
-          <div className ="col s9">
-            <span className="font-size-xl font-bold">Overview  Skills  Reviews</span>
-            <div className="divider"></div>
-
+          <div className="col s5">
+            Placeholder for Calendar
             <p>
-              <span>About Rob</span>
-
-              <p>Lorem ipsum dolor sit amet, consectetuer adipiscing elit. Aenean commodo ligula eget dolor. Aenean massa. Cum sociis natoque penatibus et magnis dis parturient montes, nascetur ridiculus mus. Donec quam felis, ultricies nec, pellentesque eu, pretium quis, sem. Nulla consequat massa quis enim. Donec pede justo, fringilla vel, aliquet nec, vulputate eget, arcu. In enim justo, rhoncus ut, imperdiet a, venenatis vitae, justo. Nullam dictum felis eu pede mollis pretium. Integer tincidunt. Cras dapibus. Vivamus elementum </p>
-
+            <button className="waves-effect waves-light btn center margin-bottom"> Book </button>
             </p>
-
-            <p>Message Rob</p>
-            <div className="divider"></div>
-
-            <p>Jobs in the last 6 months</p>
-
-            <p>Company X</p>
-
-            <div className="divider"></div>
-            <ProfileSkills 
+          </div>
+        </div>
+        <div className ="section row">
+          <div className="col s12">
+            <ProfileSkills
               skills={skills}
               given_name={given_name}
             />
+          </div>
 
-            <ProfileCertifications 
+          <div className="divider"></div>
+
+          <div className="col s12">
+            <ProfileCertifications
               certifications={certifications}
               given_name={given_name}
             />
-
-            <div className="divider"></div>
-
-            <h3>Reviews</h3>
-            <div className="divider"></div>
-
-            <div className="col s1">
-            Company X
-            </div>
-
-            <div className="col s8">
-            Company info  basdfasdfadglahglakfglksjlkasjlgfkjlasfjglj
-            alsgjdlaskjdgl;akjsdg;lajsdlgkjsladkjg
-            </div>
-
-
           </div>
+
+          <div className="divider"></div>
+
+
         </div>
       </div>
 

@@ -99,6 +99,11 @@ body {
   padding-right: 10px;
 }
 
+.profile-image {
+  width: 25%;
+  float: right;
+}
+
 a {
   color: -webkit-link;
 }
