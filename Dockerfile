@@ -4,6 +4,8 @@ RUN mkdir -p /wwwroot
 
 WORKDIR /wwwroot
 
+RUN npm install --global nodemon
+
 COPY package.json /wwwroot
 COPY yarn.lock /wwwroot
 
