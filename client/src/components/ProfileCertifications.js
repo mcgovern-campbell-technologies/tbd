@@ -8,7 +8,7 @@ function ProfileCertifications(props) {
       <h5>Certifications</h5>
       <ul>
         {
-          _.map(certifications, cert => <li>{cert.name}</li>)
+          _.map(certifications, (cert, k) => <li key={k}>{cert.name}</li>)
         }
       </ul>
     </div>
