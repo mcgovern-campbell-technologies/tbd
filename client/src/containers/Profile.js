@@ -10,7 +10,7 @@ import { connect } from 'react-redux'
 import { withRouter } from 'react-router'
 
 //Actions
-import * as actionCreators from '../redux/actions/userActions'
+import * as actionCreators from '../redux/actions/actionCreators'
 
 //Components
 import {
@@ -19,6 +19,11 @@ import {
   ProfileSkills,
 } from './../components/componentIndex'
 
+//Containers
+import { 
+  ProfileSkillCard,
+} from './containerIndex'
+
 //Assets
 import fbLogo from '../assets/fbLogo.png'
 import lnLogo from '../assets/lnLogo.png'
@@ -26,14 +31,10 @@ import lnLogo from '../assets/lnLogo.png'
 class Profile extends Component {
   constructor(props) {
     super(props);
-    if (!this.props.profile) {
-      console.log('inside the profile check');
-      // this.props.getUser();
-    }
   }
+  
   render() {
-    const { skills, certifications, profile } = this.props;
-    const { picture, name, given_name } = profile;
+    const { picture, name, given_name } = this.props;
     return (
       <div>
         <div className="section row">
@@ -49,21 +50,10 @@ class Profile extends Component {
           </div>
         </div>
         <div className ="section row">
-          <div className="col s12">
-            <ProfileSkills
-              skills={skills}
-              given_name={given_name}
-            />
-          </div>
-
+          <ProfileSkillCard />
           <div className="divider"></div>
 
-          <div className="col s12">
-            <ProfileCertifications
-              certifications={certifications}
-              given_name={given_name}
-            />
-          </div>
+
 
           <div className="divider"></div>
 
@@ -76,17 +66,8 @@ class Profile extends Component {
 }
 
 function mapStateToProps(state) {
-  console.log('inside Profile mapStateToProps');
-  const { user, auth } = state;
-  const { profile } = auth;
-  const { skills, location, certifications } = user;
-  console.log('in profile map state to props', profile)
-  return {
-    profile,
-    skills,
-    location,
-    certifications,
-  }
+  const { properties } = state.user;
+  return { ...properties }
 }
 
 function mapDispatchToProps(dispatch) {
