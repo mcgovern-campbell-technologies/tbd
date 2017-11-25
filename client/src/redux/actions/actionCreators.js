@@ -34,6 +34,12 @@ export function getSkills(identity) {
   }
 }
 
+export function skillsWereChecked() {
+  return {
+    type: types.SKILLS_WERE_CHECKED,
+  }
+}
+
 export function getSkillsFullfilled(skills) {
   return  {
     type: types.GET_SKILLS_FULLFILLED,
@@ -55,10 +61,19 @@ export function getUserFulfilled(userObject) {
   }
 }
 
+export function addUser(profile) {
+  console.log('addUser firing', types.ADD_USER)
+  return {
+    type: types.ADD_USER,
+    payload: profile
+  }
+}
+
 export function updateUserInformation(update) {
   return {
     type: types.UPDATE_USER_INFORMATION,
     payload: update
   }
 }
+
 
