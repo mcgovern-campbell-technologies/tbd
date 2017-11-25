@@ -25,12 +25,17 @@ import {
 } from './containerIndex'
 
 class Dashboard extends Component {
-  componentWillMount() {
-    console.log('in componentDidMount')
-    if(this.props.skills.length === 0) {
-      this.props.getSkills();
-    }
+
+  constructor(props) {
+    super(props);
   }
+
+  componentWillMount() {
+    console.log('in componentWillMount ');
+    console.log(this.props.addUser);
+    this.props.getUser();
+  }
+
   render() {
     const { match } = this.props;
     return (
@@ -44,7 +49,7 @@ class Dashboard extends Component {
 }
 
 function mapStateToProps(state) {
-  return state
+  return {};
 }
  
 function mapDispatchToProps(dispatch) {
