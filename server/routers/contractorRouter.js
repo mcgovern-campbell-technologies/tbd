@@ -10,6 +10,7 @@ router.get('/', (req, res) => {
   const { email } = req.query;
   if (!email) {
     res.send({ error: "no email given"});
+    return;
   }
   req.graphApi.getContractorByEmail(email)
     .then(result => {
@@ -22,13 +23,13 @@ router.get('/', (req, res) => {
 });
 
 router.post('/', (req, res) => {
-  
+
   const { body, query } = req;
 
   if (_.keys(body).length === 0) {
     res.send(null);
   }
-  
+
   req.graphApi.createContractor(body)
     .then(result => {
       res.send(result);
