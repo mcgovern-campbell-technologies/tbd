@@ -16,7 +16,7 @@ class Callback extends React.Component {
   render() {
 
     if (!this.props.auth.isFetching) {
-      return <Redirect to="/" />
+      return <Redirect to="/dashboard" />
     }
     return (
       <div>
