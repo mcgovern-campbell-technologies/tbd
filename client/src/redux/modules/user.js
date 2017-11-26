@@ -7,9 +7,7 @@ import { getUserFulfilled, addUser } from './../actions/actionCreators';
 import * as types from '../../utils/types';
 
 const getUserEpic = (action$, state) => {
-  console.log('staet in get user', state.getState());
   const { auth } = state.getState();
-  console.log()
   return action$
     .ofType(types.GET_USER)
     .mergeMap(action => 

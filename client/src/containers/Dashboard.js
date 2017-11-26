@@ -31,25 +31,35 @@ class Dashboard extends Component {
   }
 
   componentWillMount() {
-    console.log('in componentWillMount ');
-    console.log(this.props.addUser);
-    this.props.getUser();
+    if (this.props.auth.profile.name) {
+      this.props.getUser();
+    }
+  }
+
+  compnentWillUpdate() {
+    if (this.props.auth.profile.name) {
+      this.props.getUser();
+    }
   }
 
   render() {
     const { match } = this.props;
-    return (
-      <div>
-        <Route path={`${match.path}/onBoardFlow`} component={OnBoardFlow}/>
-        <Route path={`${match.path}/profile`} component={Profile}/>
-        <Route exact path={`${match.path}`} render={() => (<Redirect to={`${match.path}/profile`}/>)}/>
-      </div>
-    );
+    return this.props.auth.profile.name? (
+        <div>
+          <Route path={`${match.path}/onBoardFlow`} component={OnBoardFlow}/>
+          <Route path={`${match.path}/profile`} component={Profile}/>
+          <Route exact path={`${match.path}`} render={() => (<Redirect to={`${match.path}/profile`}/>)}/>
+        </div>
+      ) : (
+        <p>loading...</p>
+      );
   }
 }
 
-function mapStateToProps(state) {
-  return {};
+function mapStateToProps({ auth }) {
+  return { 
+    auth
+  }
 }
  
 function mapDispatchToProps(dispatch) {
