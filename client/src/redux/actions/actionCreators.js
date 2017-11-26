@@ -27,4 +27,53 @@ export function logoutSuccess() {
   };
 }
 
+export function getSkills(identity) {
+  return { 
+    type: types.GET_SKILLS,
+    payload: identity
+  }
+}
+
+export function skillsWereChecked() {
+  return {
+    type: types.SKILLS_WERE_CHECKED,
+  }
+}
+
+export function getSkillsFullfilled(skills) {
+  return  {
+    type: types.GET_SKILLS_FULLFILLED,
+    payload: skills
+  }
+}
+
+export function getUser(email) {
+  return {
+    type: types.GET_USER,
+    payload: email
+  }
+}
+
+export function getUserFulfilled(userObject) {
+  return {
+    type: types.GET_USER_FULFILLED,
+    payload: userObject
+  }
+}
+
+export function addUser(profile) {
+  console.log('addUser firing', types.ADD_USER)
+  return {
+    type: types.ADD_USER,
+    payload: profile
+  }
+}
+
+export function updateUserInformation(update) {
+  return {
+    type: types.UPDATE_USER_INFORMATION,
+    payload: update
+  }
+}
+
 

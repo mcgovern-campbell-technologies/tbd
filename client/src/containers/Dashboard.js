@@ -25,21 +25,36 @@ import {
 } from './containerIndex'
 
 class Dashboard extends Component {
+
+  constructor(props) {
+    super(props);
+  }
+
+  componentWillMount() {
+    console.log('in componentWillMount ');
+    console.log(this.props.addUser);
+    this.props.getUser();
+  }
+
   render() {
     const { match } = this.props;
     return (
       <div>
         <Route path={`${match.path}/onBoardFlow`} component={OnBoardFlow}/>
-        <Route path={`${match.path}`} component={Profile}/>
+        <Route path={`${match.path}/profile`} component={Profile}/>
+        <Route exact path={`${match.path}`} render={() => (<Redirect to={`${match.path}/profile`}/>)}/>
       </div>
     );
   }
 }
 
 function mapStateToProps(state) {
-  return state
+  return {};
+}
+ 
+function mapDispatchToProps(dispatch) {
+  return bindActionCreators(actionCreators, dispatch)
 }
 
 
-
-export default connect(mapStateToProps)(Dashboard);
+export default connect(mapStateToProps, mapDispatchToProps)(Dashboard);

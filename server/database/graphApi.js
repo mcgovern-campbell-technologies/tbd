@@ -36,17 +36,17 @@ class GraphApi {
       `)
       .then(result => {
         const { records } = result;
-        return extractNodes(records);
+        return extractNodes(records)[0];
       })
   }
 
-  getContractorByEmail(email) {
+  getContractorByEmail(querySpecs) {
     const session = this.driver.session();
-    console.log('in getContractor')
+    console.log('in getContractor', querySpecs);
 
     return session
       .run(`
-        MATCH (e:Contractor { email:"${email}" })
+        MATCH (e:Contractor ${stringifyObject(querySpecs)})
         RETURN e
       `)
       .then(({ records }) => {

@@ -3,36 +3,45 @@ import { ajax } from 'rxjs/observable/dom/ajax';
 // import { Observable } from 'rxjs/Observable';
 // import 'rxjs/add/observable/dom/ajax';
 
-import { getUserFulfilled } from './../actions/userActions';
+import { getUserFulfilled, addUser } from './../actions/actionCreators';
 import * as types from '../../utils/types';
 
 const getUserEpic = (action$, state) => {
-  console.log(state)
+  console.log('staet in get user', state.getState());
+  const { auth } = state.getState();
+  console.log()
   return action$
     .ofType(types.GET_USER)
     .mergeMap(action => 
-      ajax.getJSON(`/api/empl/?email=${'connor@tbd.com'}`)
-        .map(response => {
-          getUserFulfilled(response)
-        })
-    )
+      ajax.getJSON(`/api/contractor/?name=${auth.profile.name}`))
+    .map(profile => {
+      console.log('getUser response', profile)
+      return !profile.error ? getUserFulfilled(profile) : addUser(profile)
+    })
+}
+
+const addUserEpic = (action$, state) => {
+  const { auth } = state;
+  return action$
+    .ofType(types.ADD_USER)
+    .mergeMap(action => 
+      ajax.post('/api/contractor', state.getState().auth.profile)
+        .map(({ response }) => response))
+    .map(profile => {
+      return getUserFulfilled(profile)
+    })
 }
 
 const userReducer = (state = {
-  skills: [
-    { name: 'team work' },
-    { name: 'tool and die making' },
-    { name: 'precision boring' },
-  ],
-  certifications: [
-    { name: 'CNC proficient' },
-  ],
-  location: null,
+  properties: {},
+  identity: undefined,
+  labels: [],
 }, action) => {
   const { type, payload } = action;
   switch(type) {
     case types.GET_USER_FULFILLED:
-      return state;
+      console.log('in GET_USER_FULFILLED')
+      return payload;
     default:
       return state;
   }
@@ -41,4 +50,5 @@ const userReducer = (state = {
 export {
   userReducer as default,
   getUserEpic,
+  addUserEpic
 }

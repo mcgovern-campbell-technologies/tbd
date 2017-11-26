@@ -13,6 +13,9 @@ import { bindActionCreators } from 'redux';
 import { connect } from 'react-redux';
 import * as actionCreators from '../redux/actions/actionCreators';
 
+
+import MuiThemeProvider from 'material-ui/styles/MuiThemeProvider';
+
 /* Import components */
 import { Login, Callback } from '../components/componentIndex';
 
@@ -49,28 +52,30 @@ class App extends React.Component {
 
   render() {
     return (
-      <div>
-        <nav>
-          <ul>
-            <li><Link to="/">Home</Link></li>
-            <li><Link to="/login">Login</Link></li>
-          </ul>
-        </nav>
+      <MuiThemeProvider>
         <div>
-          <PropsRoute path="/login" component={Login} {...this.props}/>
-          <Route path="/" render={(props) => (
-            this.props.auth.isAuthenticated? (
-              <Redirect to="/dashboard"/>
-            ) : (
-              <Redirect to="/landingPage"/>
-            )
-          )}/>
-          <Route path="/dashboard" component={Dashboard} />
-          <Route exact path="/landingPage" component={LandingPage} />
-          <Route path="/callback" render={(props) => <Callback handleAuthentication={handleAuthentication} {...props} {...this.props} /> }/>
-        </div>
+          <nav>
+            <ul>
+              <li><Link to="/">Home</Link></li>
+              <li><Link to="/login">Login</Link></li>
+            </ul>
+          </nav>
+          <div>
+            <PropsRoute path="/login" component={Login} {...this.props}/>
+            <Route exact path="/" render={(props) => (
+              this.props.auth.isAuthenticated? (
+                <Redirect to="/dashboard"/>
+              ) : (
+                <Redirect to="/landingPage"/>
+              )
+            )}/>
+            <Route path="/dashboard" component={Dashboard} />
+            <Route exact path="/landingPage" component={LandingPage} />
+            <Route path="/callback" render={(props) => <Callback handleAuthentication={handleAuthentication} {...props} {...this.props} /> }/>
+          </div>
 
-      </div>
+        </div>
+      </MuiThemeProvider>
     )
   }
 }

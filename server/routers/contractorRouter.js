@@ -7,12 +7,11 @@ const jwtCheck = require('./../auth/auth').jwtCheck;
 
 // router.use(jwtCheck)
 router.get('/', (req, res) => {
-  const { email } = req.query;
-  if (!email) {
+  if (!req.query) {
     res.send({ error: "no email given"});
     return;
   }
-  req.graphApi.getContractorByEmail(email)
+  req.graphApi.getContractorByEmail(req.query)
     .then(result => {
       console.log(result);
       res.send(result);

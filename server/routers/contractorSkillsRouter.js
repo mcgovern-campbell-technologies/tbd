@@ -29,7 +29,6 @@ router.post('/', (req, res) => {
     req.graphApi.addSkillToContractor(query.identity, skill)
       .then(result => {
         results.push(result[0]);
-        console.log('results array',ection);
         if(results.length === collection.length) {
           res.send(results);
         }

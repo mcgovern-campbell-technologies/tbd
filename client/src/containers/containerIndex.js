@@ -3,6 +3,7 @@ import Dashboard from './Dashboard'
 import LandingPage from './LandingPage'
 import OnBoardFlow from './OnBoardFlow'
 import Profile from './Profile'
+import ProfileSkillCard from './ProfileSkillCard'
 
 export {
   App,
@@ -10,4 +11,5 @@ export {
   LandingPage,
   OnBoardFlow,
   Profile,
+  ProfileSkillCard,
 }
