@@ -18,11 +18,8 @@ import configureStore from './redux/configureStore'
 import App from './containers/App'
 import AuthService from './utils/AuthService'
 
-const preloadedState = {
-  one: "Some test preloaded state. Don't forget to add prop when creating rootReducer(?)"
-}
 /* create store */
-const store = configureStore(preloadedState)
+const store = configureStore()
 
 /* create history */
 const history = createBrowserHistory()

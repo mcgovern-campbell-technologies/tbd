@@ -8,7 +8,6 @@ import { reducer as formReducer } from 'redux-form';
   they should be kept in the same file
   i.e. => import blahReducer, { blahEpic } from './blah'
 */
-import exampleReducer, { exampleEpic } from './example';
 import authReducer, { authEpic } from './auth';
 import onBoardingReducer, { onBoardingEpic } from './onBoarding';
 import userReducer, { getUserEpic, addUserEpic } from './user';
@@ -16,7 +15,6 @@ import skills, { getSkillsEpic } from './skills'
 
 export const rootEpic = combineEpics(
   /* epics */
-  exampleEpic,
   // authEpic,
   getUserEpic,
   getSkillsEpic,
@@ -25,12 +23,9 @@ export const rootEpic = combineEpics(
 
 export const rootReducer = combineReducers({
   /* reducers */
-  exampleReducer,
   auth: authReducer,
   onBoardingReducer,
   user: userReducer,
-  one: (state = {}) => state,
-  two: (state = {}) => state,
   router: routerReducer,
   form: formReducer,
   skills,
