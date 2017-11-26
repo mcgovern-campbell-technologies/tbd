@@ -25,6 +25,8 @@ import {
   LandingPage,
   OnBoardFlow,
   Profile,
+  AppNavBar,
+  SideNavBar,
 } from './containerIndex'
 
 /* Import Auth utilities*/
@@ -54,12 +56,19 @@ class App extends React.Component {
     return (
       <MuiThemeProvider>
         <div>
-          <nav>
+          {/*<SideNavBar />*/}
+          {/*<nav>
             <ul>
               <li><Link to="/">Home</Link></li>
               <li><Link to="/login">Login</Link></li>
             </ul>
-          </nav>
+          </nav>*/}
+          <AppNavBar 
+            isAuthenticated={this.props.isAuthenticated}
+            {...this.authService}
+            logoutSuccess={this.props.logoutSuccess}
+            location={this.props.location}
+          />
           <div>
             <PropsRoute path="/login" component={Login} {...this.props}/>
             <Route exact path="/" render={(props) => (
@@ -69,7 +78,7 @@ class App extends React.Component {
                 <Redirect to="/landingPage"/>
               )
             )}/>
-            <Route path="/dashboard" component={Dashboard} />
+            <Route path="/dashboard" render={(props) =>  <Dashboard {...props} authService={this.authService}/>} />
             <Route exact path="/landingPage" component={LandingPage} />
             <Route path="/callback" render={(props) => <Callback handleAuthentication={handleAuthentication} {...props} {...this.props} /> }/>
           </div>
