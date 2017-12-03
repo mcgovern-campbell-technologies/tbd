@@ -10,10 +10,11 @@ const getUserEpic = (action$, state) => {
   const { auth } = state.getState();
   return action$
     .ofType(types.GET_USER)
-    .mergeMap(action => 
+    .mergeMap(action =>
       ajax.getJSON(`/api/contractor/?name=${auth.profile.name}`))
     .map(profile => {
-      console.log('getUser response', profile)
+      //If no profile is returned from server, use locally stored auth.profile to addUser
+      if (!profile) return addUser(auth.profile);
       return !profile.error ? getUserFulfilled(profile) : addUser(profile)
     })
 }
@@ -22,7 +23,7 @@ const addUserEpic = (action$, state) => {
   const { auth } = state;
   return action$
     .ofType(types.ADD_USER)
-    .mergeMap(action => 
+    .mergeMap(action =>
       ajax.post('/api/contractor', state.getState().auth.profile)
         .map(({ response }) => response))
     .map(profile => {
