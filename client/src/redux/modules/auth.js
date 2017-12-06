@@ -46,6 +46,7 @@ const authReducer = (state = {
     case types.LOGOUT_SUCCESS:
       return {
         ...state,
+        isFetching: false,
         isAuthenticated: false,
         profile: {},
       };
