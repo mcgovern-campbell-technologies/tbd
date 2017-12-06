@@ -6,8 +6,10 @@ import ProfileSideCard from './ProfileSideCard';
 import ProfileCertifications from './ProfileCertifications'
 import SkillChip from './SkillChip';
 import ProfileSkillWrapper from './ProfileSkillWrapper';
+import AddSkillBox from './AddSkillBox';
 
 export {
+  AddSkillBox,
   ContactForm,
   LocationForm,
   Login,

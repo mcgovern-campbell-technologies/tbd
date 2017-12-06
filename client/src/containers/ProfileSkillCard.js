@@ -8,6 +8,7 @@ import { withRouter } from 'react-router';
 import {
   SkillChip,
   ProfileSkillWrapper,
+  AddSkillBox,
 } from './../components/componentIndex'
 
 
@@ -19,15 +20,35 @@ class ProfileSkillCard extends Component {
 
   constructor(props) {
     super(props);
+    console.log(props)
     this.state = {
-      expanded: false
+      expanded: false,
+      skillBoxOpen: false,
     }
   }
 
   componentWillMount() {
-    if(!this.props.checked) {
-      this.props.getSkills();
+    console.log('componentWillMount')
+    if (!this.props.checked && this.props.user.identity !== undefined) {
+      console.log('i pass the skill check')
+      this.props.getSkills(this.props.user.identity);
     }
+  }
+
+  // componentWillUpdate() {
+  //   console.log(this.props.user)
+  //   if (!this.props.checked && this.props.user.identity !== undefined) {
+  //     console.log('i pass the skill check')
+  //     this.props.getSkills(this.props.user.identity);
+  //   }
+  // }
+
+  openAddSkillBox() {
+    this.setState({ skillBoxOpen: true });
+  }
+
+  closeAddSkillBox() {
+    this.setState({ skillBoxOpen: false });
   }
 
   render() {
@@ -43,32 +64,42 @@ class ProfileSkillCard extends Component {
     }))
 
     return (
-      <ProfileSkillWrapper expanded={this.state.expanded}> 
-        { 
-          this.state.expanded ? 
-              testSkills.map(({ properties, identity }) => 
-                <SkillChip 
-                  key={identity} 
-                  { ...properties }
-                />)
-            : 
-              testSkills
-                .slice(0, 5)
-                .map(({ properties, identity }) => 
+      <div>
+        <AddSkillBox 
+          open={this.state.skillBoxOpen}
+          closeAddSkillBox={this.closeAddSkillBox.bind(this)}
+          addSkill={this.props.addSkill}
+        />
+        <ProfileSkillWrapper 
+          expanded={this.state.expanded}
+          openAddSkillBox={this.openAddSkillBox.bind(this)}
+        > 
+          { 
+            this.state.expanded ? 
+                testSkills.map(({ properties, identity }) => 
                   <SkillChip 
                     key={identity} 
                     { ...properties }
                   />)
+              : 
+                testSkills
+                  .slice(0, 5)
+                  .map(({ properties, identity }) => 
+                    <SkillChip 
+                      key={identity} 
+                      { ...properties }
+                    />)
 
-            
-        }
-      </ProfileSkillWrapper>
+              
+          }
+        </ProfileSkillWrapper>
+      </div>
     )
   }
 }
 
-function mapStateToProps({ skills }) {
-  return skills;
+function mapStateToProps({ skills, user }) {
+  return { skills, user };
 }
 
 function mapDispatchToProps(dispatch) {
