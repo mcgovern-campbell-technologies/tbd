@@ -35,7 +35,7 @@ export default class AuthService {
           this.auth0.client.userInfo(authResult.accessToken, function(err, user) {
 
             localStorage.setItem('profile', JSON.stringify(user));
-            resolve();
+            resolve(JSON.stringify(user));
           });
 
           // navigate to the home route
@@ -69,6 +69,6 @@ export default class AuthService {
   getProfile() {
     // Retrieves the profile data from window.localStorage
     const profile = window.localStorage.getItem('profile');
-    return profile ? JSON.parse(window.localStorage.profile) : {};
+    return profile ? JSON.parse(window.localStorage.getItem('profile')) : {};
   }
 }
