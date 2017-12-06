@@ -1,7 +1,6 @@
 import * as types from '../../utils/types';
 
 export function getUser(email) {
-  console.log('get user')
   return {
     type: types.GET_USER,
     payload: email
