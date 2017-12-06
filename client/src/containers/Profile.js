@@ -20,7 +20,7 @@ import {
 } from './../components/componentIndex'
 
 //Containers
-import { 
+import {
   ProfileSkillCard,
 } from './containerIndex'
 
@@ -32,7 +32,7 @@ class Profile extends Component {
   constructor(props) {
     super(props);
   }
-  
+
   render() {
     const { picture, name, given_name } = this.props;
     return (
@@ -66,8 +66,10 @@ class Profile extends Component {
 }
 
 function mapStateToProps(state) {
-  const { properties } = state.user;
-  return { ...properties }
+  if (state.user) {
+    const { properties } = state.user;
+    return { ...properties }
+  }
 }
 
 function mapDispatchToProps(dispatch) {
