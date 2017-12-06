@@ -28,7 +28,7 @@ export function logoutSuccess() {
 }
 
 export function getSkills(identity) {
-  return { 
+  return {
     type: types.GET_SKILLS,
     payload: identity
   }
@@ -47,10 +47,10 @@ export function getSkillsFullfilled(skills) {
   }
 }
 
-export function getUser(email) {
+export function getUser(profile) {
   return {
     type: types.GET_USER,
-    payload: email
+    payload: profile.name
   }
 }
 
@@ -62,7 +62,6 @@ export function getUserFulfilled(userObject) {
 }
 
 export function addUser(profile) {
-  console.log('addUser firing', types.ADD_USER)
   return {
     type: types.ADD_USER,
     payload: profile
@@ -75,5 +74,3 @@ export function updateUserInformation(update) {
     payload: update
   }
 }
-
-

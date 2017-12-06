@@ -18,7 +18,7 @@ import { Test } from '../components/componentIndex';
 import { Callback } from '../components/componentIndex';
 
 /* Import containers */
-import { 
+import {
   LandingPage,
   OnBoardFlow,
   Profile,
@@ -30,21 +30,27 @@ class Dashboard extends Component {
     super(props);
   }
 
-  componentWillMount() {
-    if (this.props.auth.profile.name) {
-      this.props.getUser();
-    }
-  }
+  // componentWillMount() {
+  //   // getUser tries to get the user, and if it doesn't get a user, will try addUser
+  //   console.log('this.props.auth in Dashboard')
+  //   console.log(this.props.auth)
+  //   setTimeout(_ => this.props.getUser(this.props.auth.profile.name), 3000)
+  //   // if (this.props.auth.profile.name) {
+  //     // this.props.getUser(this.props.auth.profile.name);
+  //   // }
+  // }
 
-  compnentWillUpdate() {
-    if (this.props.auth.profile.name) {
-      this.props.getUser();
+  componentDidMount() {
+    const { authService, getUser } = this.props;
+
+    if (authService.isAuthenticated()) {
+      getUser(authService.getProfile())
     }
   }
 
   render() {
-    const { match } = this.props;
-    return this.props.auth.profile.name? (
+    const { auth, match } = this.props;
+    return auth.profile.name ? (
         <div>
           <Route path={`${match.path}/onBoardFlow`} component={OnBoardFlow}/>
           <Route path={`${match.path}/profile`} component={Profile}/>
@@ -57,11 +63,11 @@ class Dashboard extends Component {
 }
 
 function mapStateToProps({ auth }) {
-  return { 
+  return {
     auth
   }
 }
- 
+
 function mapDispatchToProps(dispatch) {
   return bindActionCreators(actionCreators, dispatch)
 }

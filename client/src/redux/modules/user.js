@@ -8,23 +8,34 @@ import * as types from '../../utils/types';
 
 const getUserEpic = (action$, state) => {
   const { auth } = state.getState();
+  const currentState = state.getState()
   return action$
     .ofType(types.GET_USER)
-    .mergeMap(action => 
-      ajax.getJSON(`/api/contractor/?name=${auth.profile.name}`))
+    .mergeMap(action => {
+      return ajax.getJSON(`/api/contractor/?name=${auth.profile.name}`)
+    })
     .map(profile => {
-      console.log('getUser response', profile)
+      //If no profile is returned from server, use locally stored auth.profile to addUser
+      if (!profile) {
+        profile = auth.profile
+        // const profileStr = window.localStorage.getItem('profile');
+        // profile = JSON.parse(profileStr);
+        return addUser(profile);
+      }
       return !profile.error ? getUserFulfilled(profile) : addUser(profile)
     })
 }
 
 const addUserEpic = (action$, state) => {
-  const { auth } = state;
+  const { auth } = state.getState();
   return action$
     .ofType(types.ADD_USER)
-    .mergeMap(action => 
-      ajax.post('/api/contractor', state.getState().auth.profile)
-        .map(({ response }) => response))
+    .mergeMap(action => {
+      const profileStr = window.localStorage.getItem('profile');
+      const profile = JSON.parse(profileStr);
+      return ajax.post('/api/contractor', profile)
+        .map(({ response }) => response)
+    })
     .map(profile => {
       return getUserFulfilled(profile)
     })
@@ -38,7 +49,6 @@ const userReducer = (state = {
   const { type, payload } = action;
   switch(type) {
     case types.GET_USER_FULFILLED:
-      console.log('in GET_USER_FULFILLED')
       return payload;
     default:
       return state;

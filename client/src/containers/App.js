@@ -20,7 +20,7 @@ import MuiThemeProvider from 'material-ui/styles/MuiThemeProvider';
 import { Login, Callback } from '../components/componentIndex';
 
 /* Import containers */
-import { 
+import {
   Dashboard,
   LandingPage,
   OnBoardFlow,
@@ -33,24 +33,23 @@ import {
 import AuthService from '../utils/AuthService';
 const authService = new AuthService();
 
-/* Create handleAuthentication handler to kick off authService if correct URL hash exists */
-const handleAuthentication = (nextState, replace) => {
-  return new Promise ((resolve, reject) => {
-    if (/access_token|id_token|error/.test(nextState.location.hash)) {
-      authService.handleAuthentication().then(_ => {
-        resolve();
-      });
-    }
-  })
-}
+// /* Create handleAuthentication handler to kick off authService if correct URL hash exists */
+// const handleAuthentication = (nextState, replace) => {
+//   return new Promise ((resolve, reject) => {
+//     if (/access_token|id_token|error/.test(nextState.location.hash)) {
+//       authService.handleAuthentication().then(_ => {
+//         resolve();
+//       });
+//     }
+//   })
+// }
 
 class App extends React.Component {
-  
+
   constructor(props) {
     super(props);
     this.authService = authService;
   }
-
 
   render() {
     return (
@@ -63,7 +62,7 @@ class App extends React.Component {
               <li><Link to="/login">Login</Link></li>
             </ul>
           </nav>*/}
-          <AppNavBar 
+          <AppNavBar
             isAuthenticated={this.props.isAuthenticated}
             {...this.authService}
             logoutSuccess={this.props.logoutSuccess}
@@ -80,7 +79,7 @@ class App extends React.Component {
             )}/>
             <Route path="/dashboard" render={(props) =>  <Dashboard {...props} authService={this.authService}/>} />
             <Route exact path="/landingPage" component={LandingPage} />
-            <Route path="/callback" render={(props) => <Callback handleAuthentication={handleAuthentication} {...props} {...this.props} /> }/>
+            <Route path="/callback" render={(props) => <Callback {...props} {...this.props} /> }/>
           </div>
 
         </div>
