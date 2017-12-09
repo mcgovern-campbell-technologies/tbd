@@ -75,9 +75,10 @@ export function updateUserInformation(update) {
   }
 }
 
-export function addSkill(skill) {
+export function addSkill(skill, identity) {
   return {
     type: types.ADD_SKILL,
-    payload: skill
+    payload: skill,
+    identity
   }
 }

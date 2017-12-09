@@ -13,7 +13,7 @@ const getSkillsEpic = (action$, state) => {
     .ofType(GET_SKILLS)
     .mergeMap(
       action => {
-        return ajax.getJSON(`/api/contractor/skills?identity=${state.getState().user.identity}`)
+        return ajax.getJSON(`/api/contractor/skills?identity=${action.payload}`)
           .map(response => {
             console.log(response)
             return getSkillsFullfilled(response)
@@ -24,16 +24,13 @@ const getSkillsEpic = (action$, state) => {
 }
 
 const addSkillEpic = (action$, state) => {
-  const exampleSkill = { name: "Leadership"}
   return action$
     .ofType(ADD_SKILL)
     .mergeMap(
       action => {
         const { identity } = state.getState().user;
-        console.log(identity);
-        return ajax.post(`/api/contractor/skills?identity=${identity}`, exampleSkill)
-          .map(response => {
-            console.log(response)
+        return ajax.post(`/api/contractor/skills?identity=${identity}`, action.payload)
+          .map(({ response }) => {
             return getSkillsFullfilled(response)
           })
       }
