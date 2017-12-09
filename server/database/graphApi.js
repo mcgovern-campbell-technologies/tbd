@@ -42,8 +42,6 @@ class GraphApi {
 
   getContractorByEmail(querySpecs) {
     const session = this.driver.session();
-    console.log('in getContractor', querySpecs);
-
     return session
       .run(`
         MATCH (e:Contractor ${stringifyObject(querySpecs)})
@@ -59,8 +57,22 @@ class GraphApi {
       });
   }
 
+  getParentSkillList(queryString) {
+    const session = this.driver.session();
+    console.log({ queryString })
+    return session
+      .run(`
+        MATCH (s:Skill)
+        WHERE s.name =~ '(?i)${queryString}.*'
+        RETURN s
+      `)
+      .then(({ records }) => extractNodes(records))
+      .then(nodes => nodes.map(node => node.properties.name))
+  }
+
   getContractorSkills(identity) {
     const session = this.driver.session();
+    console.log('contractor skill')
     return session
       .run(`
         MATCH (c:Contractor) WHERE ID(c) = ${identity}

@@ -3,7 +3,7 @@ const router = express.Router();
 
 router.get('/', (req, res) => {
   const { identity } = req.query;
-
+  console.log('in contractorSkillsRouter get', identity)
   req.graphApi.getContractorSkills(identity)
     .then(result => {
       res.send(result);
