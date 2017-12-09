@@ -4,18 +4,12 @@ import Chip from 'material-ui/Chip';
 class SkillChip extends Component {
 
   render() {
-    const styles = {
-      chip: {
-        margin: 4,
-      },
-      wrapper: {
-        display: 'flex',
-        flexWrap: 'wrap',
-      },
+    const style = {
+      margin: 4
     }
     return (
       <Chip 
-        style={styles.chip}
+        style={style}
       >
         { this.props.name }
       </Chip>

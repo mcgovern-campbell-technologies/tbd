@@ -11,14 +11,15 @@ import { reducer as formReducer } from 'redux-form';
 import authReducer, { authEpic } from './auth';
 import onBoardingReducer, { onBoardingEpic } from './onBoarding';
 import userReducer, { getUserEpic, addUserEpic } from './user';
-import skills, { getSkillsEpic } from './skills'
+import skills, { getSkillsEpic, addSkillEpic } from './skills'
 
 export const rootEpic = combineEpics(
   /* epics */
   // authEpic,
   getUserEpic,
   getSkillsEpic,
-  addUserEpic
+  addSkillEpic,
+  addUserEpic,
 );
 
 export const rootReducer = combineReducers({

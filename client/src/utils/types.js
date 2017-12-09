@@ -10,5 +10,6 @@ export const ADD_USER = "ADD_USER";
 
 export const GET_SKILLS = 'GET_SKILLS';
 export const GET_SKILLS_FULLFILLED = 'GET_SKILLS_FULLFILLED';
+export const ADD_SKILL = 'ADD_SKILL';
 export const SKILLS_WERE_CHECKED = 'SKILLS_WERE_CHECKED';
 

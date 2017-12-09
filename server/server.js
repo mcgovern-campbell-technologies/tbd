@@ -10,7 +10,10 @@ const { databaseCredentials } = require('./../secrets.js');
 const { username, password } = databaseCredentials
 
 //routers
-const { contractorRouter } = require('./routers/routersIndex');
+const { 
+  contractorRouter,
+  skillRouter
+} = require('./routers/routersIndex');
 
 var app = express();
 const graphApi = new GraphApi(username, password);
@@ -40,6 +43,7 @@ app.get('/api/unprotected', function(req, res) {
 
 /****Apply Routers****/
 app.use('/api/contractor', contractorRouter); 
+app.use('/api/skill', skillRouter);
 
 app.listen(port);
 

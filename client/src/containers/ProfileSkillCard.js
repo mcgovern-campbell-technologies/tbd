@@ -8,6 +8,7 @@ import { withRouter } from 'react-router';
 import {
   SkillChip,
   ProfileSkillWrapper,
+  AddSkillBox,
 } from './../components/componentIndex'
 
 
@@ -19,56 +20,56 @@ class ProfileSkillCard extends Component {
 
   constructor(props) {
     super(props);
+    console.log(props)
+    this.identity = this.props.identity? this.props.identity : 7135;
     this.state = {
-      expanded: false
+      expanded: false,
+      skillBoxOpen: false,
     }
   }
 
   componentWillMount() {
-    if(!this.props.checked) {
-      this.props.getSkills();
-    }
+    this.props.getSkills(this.identity);
+  }
+
+  componentDidMount() {
+    // this.props.getSkills(this.identity);
+    console.log(this.props.skills)
+  }
+
+  openAddSkillBox() {
+    this.setState({ skillBoxOpen: true });
+  }
+
+  closeAddSkillBox() {
+    this.setState({ skillBoxOpen: false });
   }
 
   render() {
 
-    const styles = {
-      display: 'flex',
-      flexWrap: 'wrap',
-    }
-
-    const testSkills = _.range(0, 40).map(value => ({
-      properties: { name: 'test' },
-      identity: value 
-    }))
-
     return (
-      <ProfileSkillWrapper expanded={this.state.expanded}> 
-        { 
-          this.state.expanded ? 
-              testSkills.map(({ properties, identity }) => 
-                <SkillChip 
-                  key={identity} 
-                  { ...properties }
-                />)
-            : 
-              testSkills
-                .slice(0, 5)
-                .map(({ properties, identity }) => 
-                  <SkillChip 
-                    key={identity} 
-                    { ...properties }
-                  />)
+      <div>
 
-            
-        }
-      </ProfileSkillWrapper>
+        <AddSkillBox 
+          open={this.state.skillBoxOpen}
+          identity={this.identity}
+          closeAddSkillBox={this.closeAddSkillBox.bind(this)}
+          addSkill={this.props.addSkill}
+          skills={this.props.skills.list.map(({ properties }) => properties.name)}
+        />
+        <ProfileSkillWrapper 
+          expanded={this.state.expanded}
+          openAddSkillBox={this.openAddSkillBox.bind(this)}
+        > 
+          { this.props.skills.list.map(({ properties }) => <SkillChip {...properties}/>) }
+        </ProfileSkillWrapper>
+      </div>
     )
   }
 }
 
-function mapStateToProps({ skills }) {
-  return skills;
+function mapStateToProps({ skills, user }) {
+  return { skills, user };
 }
 
 function mapDispatchToProps(dispatch) {

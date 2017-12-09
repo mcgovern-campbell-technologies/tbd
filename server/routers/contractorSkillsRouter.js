@@ -1,10 +1,9 @@
 const express = require('express');
 const router = express.Router();
-const _ = require('lodash');
 
 router.get('/', (req, res) => {
   const { identity } = req.query;
-
+  console.log('in contractorSkillsRouter get', identity)
   req.graphApi.getContractorSkills(identity)
     .then(result => {
       res.send(result);
@@ -13,31 +12,20 @@ router.get('/', (req, res) => {
 router.post('/', (req, res) => {
 
   const { body, query } = req;
-  var skills;
-
-  if(!body.skills) {
-    skills = [body];
-  } else {
-    skills = body.skills;
-  }
-
-  const results = [];
-
-  console.log(skills);
-
-  _.each(skills, (skill, index, collection) => {
-    req.graphApi.addSkillToContractor(query.identity, skill)
-      .then(result => {
-        results.push(result[0]);
-        if(results.length === collection.length) {
-          res.send(results);
-        }
-      })
-      .catch(err => {
-        console.error(err);
-        results.push(err);
-      })
-  })
+  const { identity } = query;
+  console.log(body);
+  req.graphApi.addSkillToContractor(identity, body)
+    .then(result => {
+      console.log(result)
+      return req.graphApi.getContractorSkills(identity)
+    })
+    .then(result => {
+      res.send(result);
+    })
+    .catch(err => {
+      console.error(err);
+      res.send(err);
+    })
 })
 
 module.exports = router;

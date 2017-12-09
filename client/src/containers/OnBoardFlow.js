@@ -6,7 +6,7 @@ import { withRouter } from 'react-router'
 
 import { Route } from 'react-router'
 
-import * as actionCreators from '../redux/actions/userActions'
+import * as actionCreators from '../redux/actions/actionCreators'
 
 import { ContactForm, LocationForm } from './../components/componentIndex.js'
 

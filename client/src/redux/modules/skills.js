@@ -1,20 +1,40 @@
 import { ajax } from 'rxjs/observable/dom/ajax';
 import { Observable } from 'rxjs'
 import { getSkillsFullfilled, skillsWereChecked } from './../actions/actionCreators';
-import { GET_SKILLS, GET_SKILLS_FULLFILLED, SKILLS_WERE_CHECKED } from '../../utils/types';
+import { 
+  GET_SKILLS, 
+  GET_SKILLS_FULLFILLED, 
+  SKILLS_WERE_CHECKED,
+  ADD_SKILL,
+} from '../../utils/types';
 
-const getSkillsEpic = action$ => {
+const getSkillsEpic = (action$, state) => {
   return action$
-    .ofType('GET_SKILLS')
+    .ofType(GET_SKILLS)
     .mergeMap(
-      action => 
-        ajax.getJSON(`/api/contractor/skills?identity=${7116}`)
+      action => {
+        return ajax.getJSON(`/api/contractor/skills?identity=${action.payload}`)
           .map(response => {
             console.log(response)
             return getSkillsFullfilled(response)
           })
+      }
     )
     .concat(action$.mapTo({ type: GET_SKILLS_FULLFILLED }))
+}
+
+const addSkillEpic = (action$, state) => {
+  return action$
+    .ofType(ADD_SKILL)
+    .mergeMap(
+      action => {
+        const { identity } = state.getState().user;
+        return ajax.post(`/api/contractor/skills?identity=${identity}`, action.payload)
+          .map(({ response }) => {
+            return getSkillsFullfilled(response)
+          })
+      }
+    )
 }
 
 const skills = (state = { 
@@ -35,4 +55,5 @@ const skills = (state = {
 export {
   skills as default,
   getSkillsEpic,
+  addSkillEpic,
 }
