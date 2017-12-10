@@ -21,7 +21,6 @@ class ProfileSkillCard extends Component {
 
   constructor(props) {
     super(props);
-    console.log(props)
     this.identity = this.props.identity? this.props.identity : 7135;
     this.state = {
       expanded: false,
@@ -35,7 +34,6 @@ class ProfileSkillCard extends Component {
 
   componentDidMount() {
     // this.props.getSkills(this.identity);
-    console.log(this.props.skills)
   }
 
   openAddSkillBox() {
@@ -51,17 +49,17 @@ class ProfileSkillCard extends Component {
     return (
       <div>
 
-        <AddSkillBox 
+        <AddSkillBox
           open={this.state.skillBoxOpen}
           identity={this.identity}
           closeAddSkillBox={this.closeAddSkillBox.bind(this)}
           addSkill={this.props.addSkill}
           skills={this.props.skills.list.map(({ properties }) => properties.name)}
         />
-        <ProfileSkillWrapper 
+        <ProfileSkillWrapper
           expanded={this.state.expanded}
           openAddSkillBox={this.openAddSkillBox.bind(this)}
-        > 
+        >
           { this.props.skills.list.map((skill) => <SkillListItem { ...skill }/>) }
         </ProfileSkillWrapper>
       </div>
