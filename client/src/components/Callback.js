@@ -12,17 +12,12 @@ class Callback extends React.Component {
     this.checkUser();
   }
 
-  // componentWillReceiveProps(nextProps) {
-  //   console.log("nextProps in Callback.js")
-  //   console.log(nextProps);
-  //   this.checkUser();
-  // }
-
   checkUser() {
     const {authService} = this.props
     this.props.loginRequest()
     this.handleAuthentication().then(profile => {
       if (authService.isAuthenticated()) {
+        this.props.getUser(profile);
         this.props.loginSuccess(profile);
       } else {
         this.props.loginError({error: "something went wrong."});
