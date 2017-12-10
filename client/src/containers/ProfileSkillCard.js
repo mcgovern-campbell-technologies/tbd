@@ -7,6 +7,7 @@ import { withRouter } from 'react-router';
 
 import {
   SkillChip,
+  SkillListItem,
   ProfileSkillWrapper,
   AddSkillBox,
 } from './../components/componentIndex'
@@ -61,7 +62,7 @@ class ProfileSkillCard extends Component {
           expanded={this.state.expanded}
           openAddSkillBox={this.openAddSkillBox.bind(this)}
         > 
-          { this.props.skills.list.map(({ properties }) => <SkillChip {...properties}/>) }
+          { this.props.skills.list.map((skill) => <SkillListItem { ...skill }/>) }
         </ProfileSkillWrapper>
       </div>
     )
