@@ -48,9 +48,12 @@ export function getSkillsFullfilled(skills) {
 }
 
 export function getUser(profile) {
+  if (typeof profile === 'string') {
+    profile = JSON.parse(profile)
+  }
   return {
     type: types.GET_USER,
-    payload: profile.name
+    payload: profile.sub
   }
 }
 
