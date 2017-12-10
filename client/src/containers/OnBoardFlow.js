@@ -39,23 +39,23 @@ class OnBoardFlow extends Component {
   render() {
     const { match } = this.props
     return (
-      <div>  
-        <Route 
+      <div>
+        <Route
           exact
-          path={`${match.path}/`} 
+          path={`${match.path}/`}
           component={() => (
             <ContactForm onSubmit={this.handleContactSubmit}/>
           )}
         />
-        <Route 
-          path={`${match.path}/locationInfo`} 
+        <Route
+          path={`${match.path}/locationInfo`}
           component={ () => (
-            <LocationForm 
+            <LocationForm
               options={this.options}
               selectValue={this.selectValue}
               handleLocationSubmit={this.handleLocationSubmit}
             />
-          )} 
+          )}
         />
       </div>
 
@@ -76,4 +76,3 @@ function mapDispatchToProps(dispatch) {
 }
 
 export default withRouter(connect(mapStateToProps, mapDispatchToProps)(OnBoardFlow))
-

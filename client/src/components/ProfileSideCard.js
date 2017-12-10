@@ -5,7 +5,6 @@ import lnLogo from '../assets/lnLogo.png';
 
 function ProfileSideCard(props) {
   const { name, email, picture } = props;
-  console.log(name, picture)
   return (
     <div className="col s7">
       <img className="profile-image"src={picture}/>

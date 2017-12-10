@@ -77,7 +77,7 @@ class App extends React.Component {
                 <Redirect to="/landingPage"/>
               )
             )}/>
-            <Route path="/dashboard" render={(props) =>  <Dashboard {...props} authService={this.authService}/>} />
+            <Route path="/dashboard" render={(props) =>  <Dashboard {...props} user={this.props.user} authService={this.authService}/>} />
             <Route exact path="/landingPage" component={LandingPage} />
             <Route path="/callback" render={(props) => <Callback {...props} {...this.props} /> }/>
           </div>

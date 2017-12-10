@@ -1,8 +1,5 @@
 import { ajax } from 'rxjs/observable/dom/ajax';
 
-// import { Observable } from 'rxjs/Observable';
-// import 'rxjs/add/observable/dom/ajax';
-
 import { getUserFulfilled, addUser } from './../actions/actionCreators';
 import * as types from '../../utils/types';
 
@@ -12,17 +9,15 @@ const getUserEpic = (action$, state) => {
   return action$
     .ofType(types.GET_USER)
     .mergeMap(action => {
-      return ajax.getJSON(`/api/contractor/?name=${auth.profile.name}`)
+      return ajax.getJSON(`/api/contractor/?sub=${action.payload}`)
     })
     .map(profile => {
       //If no profile is returned from server, use locally stored auth.profile to addUser
-      if (!profile) {
+      if (!profile || profile.error) {
         profile = auth.profile
-        // const profileStr = window.localStorage.getItem('profile');
-        // profile = JSON.parse(profileStr);
         return addUser(profile);
       }
-      return !profile.error ? getUserFulfilled(profile) : addUser(profile)
+      return getUserFulfilled(profile);
     })
 }
 

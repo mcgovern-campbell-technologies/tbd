@@ -30,27 +30,17 @@ class Dashboard extends Component {
     super(props);
   }
 
-  // componentWillMount() {
-  //   // getUser tries to get the user, and if it doesn't get a user, will try addUser
-  //   console.log('this.props.auth in Dashboard')
-  //   console.log(this.props.auth)
-  //   setTimeout(_ => this.props.getUser(this.props.auth.profile.name), 3000)
-  //   // if (this.props.auth.profile.name) {
-  //     // this.props.getUser(this.props.auth.profile.name);
-  //   // }
-  // }
-
   componentDidMount() {
     const { authService, getUser } = this.props;
 
     if (authService.isAuthenticated()) {
-      getUser(authService.getProfile())
+      getUser(this.props.auth.profile)
     }
   }
 
   render() {
-    const { auth, match } = this.props;
-    return auth.profile.name ? (
+    const { auth, match, user } = this.props;
+    return user ? (
         <div>
           <Route path={`${match.path}/onBoardFlow`} component={OnBoardFlow}/>
           <Route path={`${match.path}/profile`} component={Profile}/>
