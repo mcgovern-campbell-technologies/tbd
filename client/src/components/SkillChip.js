@@ -5,7 +5,8 @@ class SkillChip extends Component {
 
   render() {
     const style = {
-      margin: 4
+      margin: 4,
+      display: 'inline-block'
     }
     return (
       <Chip 

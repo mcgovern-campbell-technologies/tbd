@@ -7,6 +7,7 @@ import ProfileCertifications from './ProfileCertifications'
 import SkillChip from './SkillChip';
 import ProfileSkillWrapper from './ProfileSkillWrapper';
 import AddSkillBox from './AddSkillBox';
+import SkillListItem from './SkillListItem';
 
 export {
   AddSkillBox,
@@ -18,4 +19,5 @@ export {
   ProfileCertifications,
   SkillChip,
   ProfileSkillWrapper,
+  SkillListItem,
 }
