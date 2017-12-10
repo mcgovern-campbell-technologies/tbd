@@ -12,7 +12,7 @@ const getUserEpic = (action$, state) => {
   return action$
     .ofType(types.GET_USER)
     .mergeMap(action => {
-      return ajax.getJSON(`/api/contractor/?name=${auth.profile.name}`)
+      return ajax.getJSON(`/api/contractor/?name=${action.payload}`)
     })
     .map(profile => {
       //If no profile is returned from server, use locally stored auth.profile to addUser

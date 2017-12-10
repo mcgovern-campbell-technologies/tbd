@@ -41,10 +41,11 @@ class Dashboard extends Component {
   // }
 
   componentDidMount() {
+    console.log(this.props);
     const { authService, getUser } = this.props;
 
     if (authService.isAuthenticated()) {
-      getUser(authService.getProfile())
+      getUser(this.props.auth.profile)
     }
   }
 
