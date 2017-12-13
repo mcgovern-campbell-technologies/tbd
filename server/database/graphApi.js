@@ -38,8 +38,12 @@ class GraphApi {
   }
 
   updateContractor(emplObj) {
-    const updatedProperties = Object.keys(emplObj.properties).map(property => {
-      return `SET n.${property} = "${emplObj.properties[property]}" `
+    console.log('updating contractor')
+    const properties = JSON.parse(emplObj.properties)
+    const updatedProperties = Object.keys(properties).map(property => {
+      const value = properties[property]
+      console.log(property, value)
+      return `SET n.${property} = "${value}" `
     })
 
     const session = this.driver.session();
