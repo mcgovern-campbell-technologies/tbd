@@ -34,7 +34,7 @@ class Profile extends Component {
   }
 
   render() {
-    const { picture, name, given_name } = this.props;
+    const { picture, name, given_name } = this.props.user.properties;
     return (
       <div>
         <div className="section row">
@@ -53,10 +53,9 @@ class Profile extends Component {
           <ProfileSkillCard />
           <div className="divider"></div>
 
-
+          <div onClick={_ => this.props.updateUser(this.props.user)}>Fire update user</div>
 
           <div className="divider"></div>
-
 
         </div>
       </div>
@@ -67,8 +66,8 @@ class Profile extends Component {
 
 function mapStateToProps(state) {
   if (state.user) {
-    const { properties } = state.user;
-    return { ...properties }
+    const user = state.user;
+    return { user }
   }
 }
 
