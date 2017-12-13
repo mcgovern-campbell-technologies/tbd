@@ -71,9 +71,9 @@ export function addUser(profile) {
   }
 }
 
-export function updateUserInformation(update) {
+export function updateUser(update) {
   return {
-    type: types.UPDATE_USER_INFORMATION,
+    type: types.UPDATE_USER,
     payload: update
   }
 }
