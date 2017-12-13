@@ -71,10 +71,10 @@ export function addUser(profile) {
   }
 }
 
-export function updateUser(update) {
+export function updateUser(userObj) {
   return {
     type: types.UPDATE_USER,
-    payload: update
+    payload: userObj
   }
 }
 
