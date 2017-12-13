@@ -36,6 +36,46 @@ const addUserEpic = (action$, state) => {
     })
 }
 
+const dummyEmplObj = {
+  "identity":"579",
+  "labels":["Contractor"],
+  "properties":{
+    "family_name":"Grohl",
+    "gender":"male",
+    "given_name":"David",
+    "locale":"en-GB",
+    "name":"Dave Grohl",
+    "nickname":"Grohlsy",
+    "picture":"https://i.ytimg.com/vi/mRf3-JkwqfU/hqdefault.jpg"
+  }
+}
+
+dummyEmplObj.properties = JSON.stringify(dummyEmplObj.properties)
+
+const updateUserEpic = (action$, state) => {
+  const { auth, user } = state.getState();
+  const currentState = state.getState()
+  return action$
+    .ofType(types.UPDATE_USER)
+    .mergeMap(action => {
+      action.payload.properties = JSON.stringify(action.payload.properties)
+
+      return ajax.post('/api/contractor/update', action.payload)
+        .map(({ response }) => response)
+    })
+    .map(profile => {
+      console.log('profile returned from Update API call')
+      console.log(profile)
+      //If no profile is returned from server, use locally stored auth.profile to addUser
+      if (!profile || profile.error) {
+        profile = auth.profile
+      }
+      console.log('calling getUserFulfilled with profile')
+      console.log(profile)
+      return getUserFulfilled(profile);
+    })
+}
+
 const userReducer = (state = {
   properties: {},
   identity: undefined,
@@ -53,5 +93,6 @@ const userReducer = (state = {
 export {
   userReducer as default,
   getUserEpic,
-  addUserEpic
+  addUserEpic,
+  updateUserEpic
 }
