@@ -10,10 +10,13 @@
   },
   "dependencies": {
     "auth0-lock": "^10.23.1",
+    "autosuggest-highlight": "^3.1.1",
     "jwt-decode": "^2.2.0",
-    "material-ui": "^0.19.4",
+    "material-ui": "beta-1",
+    "material-ui-icons": "^1.0.0-beta.17",
     "prop-types": "^15.6.0",
     "react": "^15.6.1",
+    "react-autosuggest": "^9.3.2",
     "react-dom": "^15.6.1",
     "react-redux": "^5.0.5",
     "react-router": "^4.1.2",
@@ -23,7 +26,8 @@
     "redux": "^3.7.2",
     "redux-form": "^7.1.1",
     "redux-observable": "^0.16.0",
-    "rxjs": "^5.4.3"
+    "rxjs": "^5.4.3",
+    "typeface-roboto": "^0.0.45"
   },
   "devDependencies": {
     "auth0-js": "^8.10.1",
