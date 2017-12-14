@@ -38,6 +38,19 @@ router.post('/', (req, res) => {
     });
 });
 
+router.post('/update', (req, res) => {
+  const { body } = req;
+  req.graphApi.updateContractor(body)
+    .then(result => {
+      res.send(result)
+    })
+    .catch(err => {
+      console.log('error when attempting to update contractor')
+      console.log(err);
+      res.send(err);
+    })
+})
+
 router.use('/skills', contractorSkillsRouter);
 router.use('/certifications', contractorCertificaitonsRouter);
 

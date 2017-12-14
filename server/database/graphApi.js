@@ -5,7 +5,6 @@ const { contractorHasNecessaryProps, extractNodes } = require('./databaseUtiliti
 const { startUpScript, massDelete } = require('./startUpCypherScript')
 
 class GraphApi {
-
   constructor(username, password, connection = "bolt://localhost") {
     this.driver = neo4j.driver(connection, neo4j.auth.basic(username, password));
 
@@ -25,9 +24,7 @@ class GraphApi {
     this.driver.close();
   }
 
-
   createContractor(emplObj) {
-    
     const session = this.driver.session();
     return session
       .run(`
@@ -37,6 +34,27 @@ class GraphApi {
       .then(result => {
         const { records } = result;
         return extractNodes(records)[0];
+      })
+  }
+
+  updateContractor(emplObj) {
+    console.log('updating contractor')
+    const properties = JSON.parse(emplObj.properties)
+    const updatedProperties = Object.keys(properties).map(property => {
+      const value = properties[property]
+      console.log(property, value)
+      return `SET n.${property} = "${value}" `
+    })
+
+    const session = this.driver.session();
+    return session
+      .run(`
+        MATCH (n:Contractor) WHERE id(n) = ${emplObj.identity}
+        ${updatedProperties.join('')}
+      `)
+      .then(result => {
+        const { records } = result;
+        return extractNodes(records)[0]
       })
   }
 
@@ -96,7 +114,7 @@ class GraphApi {
         MATCH (parentSkill:Skill { name: "${skill.name}" })
         CREATE (skill:SkillInstance ${stringifyObject(skill)})-[:INSTANCE_OF]->(parentSkill),
         (c)-[:HAS_SKILL_INSTANCE]->(skill)
-        RETURN skill 
+        RETURN skill
       `)
       .then(({ records }) => {
         session.close();
@@ -148,4 +166,3 @@ class GraphApi {
 }
 
 module.exports = GraphApi;
-
