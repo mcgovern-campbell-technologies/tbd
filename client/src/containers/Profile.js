@@ -34,20 +34,15 @@ class Profile extends Component {
   }
 
   render() {
-    const { picture, name, given_name } = this.props.user.properties;
+    const { picture, name, given_name, blurb } = this.props.user.properties;
     return (
       <div>
         <div className="section row">
           <ProfileSideCard
             picture={picture}
             name={name}
+            blurb={blurb}
           />
-          <div className="col s5">
-            Placeholder for Calendar
-            <p>
-            <button className="waves-effect waves-light btn center margin-bottom"> Book </button>
-            </p>
-          </div>
         </div>
         <div className ="section row">
           <ProfileSkillCard />
