@@ -59,8 +59,8 @@ class ProfileSkillCard extends Component {
         <ProfileSkillWrapper
           expanded={this.state.expanded}
           openAddSkillBox={this.openAddSkillBox.bind(this)}
-        >
-          { this.props.skills.list.map((skill) => <SkillListItem { ...skill }/>) }
+        > 
+          { this.props.skills.list.map((skill) => <SkillListItem key={skill.identity} { ...skill }/>) }
         </ProfileSkillWrapper>
       </div>
     )
