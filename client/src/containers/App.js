@@ -44,6 +44,19 @@ const authService = new AuthService();
 //   })
 // }
 
+const styles = {
+  app: {
+    marginTop: 100,
+    marginLeft: 50
+  },
+  appBar: {
+    height: 50,
+  },
+  sideBar: {
+    width: 50
+  }
+}
+
 class App extends React.Component {
 
   constructor(props) {
@@ -53,22 +66,15 @@ class App extends React.Component {
 
   render() {
     return (
-      <MuiThemeProvider>
         <div>
-          {/*<SideNavBar />*/}
-          {/*<nav>
-            <ul>
-              <li><Link to="/">Home</Link></li>
-              <li><Link to="/login">Login</Link></li>
-            </ul>
-          </nav>*/}
           <AppNavBar
+            className={styles.appBar}
             isAuthenticated={this.props.isAuthenticated}
             {...this.authService}
             logoutSuccess={this.props.logoutSuccess}
             location={this.props.location}
           />
-          <div>
+          <div className={styles.app}>
             <PropsRoute path="/login" component={Login} {...this.props}/>
             <Route exact path="/" render={(props) => (
               this.props.auth.isAuthenticated? (
@@ -81,9 +87,7 @@ class App extends React.Component {
             <Route exact path="/landingPage" component={LandingPage} />
             <Route path="/callback" render={(props) => <Callback {...props} {...this.props} /> }/>
           </div>
-
         </div>
-      </MuiThemeProvider>
     )
   }
 }

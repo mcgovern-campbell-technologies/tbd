@@ -22,6 +22,7 @@ import {
   LandingPage,
   OnBoardFlow,
   Profile,
+  SideNavBar,
 } from './containerIndex'
 
 class Dashboard extends Component {
@@ -42,9 +43,12 @@ class Dashboard extends Component {
     const { auth, match, user } = this.props;
     return user ? (
         <div>
-          <Route path={`${match.path}/onBoardFlow`} component={OnBoardFlow}/>
-          <Route path={`${match.path}/profile`} component={Profile}/>
-          <Route exact path={`${match.path}`} render={() => (<Redirect to={`${match.path}/profile`}/>)}/>
+          <SideNavBar />
+          <div style={{marginRight: 200}}>
+            <Route path={`${match.path}/onBoardFlow`} component={OnBoardFlow}/>
+            <Route path={`${match.path}/profile`} component={Profile}/>
+            <Route exact path={`${match.path}`} render={() => (<Redirect to={`${match.path}/profile`}/>)}/>
+          </div>
         </div>
       ) : (
         <p>loading...</p>
