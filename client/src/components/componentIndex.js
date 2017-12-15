@@ -8,6 +8,7 @@ import SkillChip from './SkillChip';
 import ProfileSkillWrapper from './ProfileSkillWrapper';
 import AddSkillBox from './AddSkillBox';
 import SkillListItem from './SkillListItem';
+import AutoComplete from './AutoComplete';
 
 export {
   AddSkillBox,
@@ -20,4 +21,5 @@ export {
   SkillChip,
   ProfileSkillWrapper,
   SkillListItem,
+  AutoComplete,
 }

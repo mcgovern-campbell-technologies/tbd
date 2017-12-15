@@ -11,9 +11,8 @@ class SkillChip extends Component {
     return (
       <Chip 
         style={style}
-      >
-        { this.props.name }
-      </Chip>
+        label={this.props.name}
+      />
     )
   }
 }

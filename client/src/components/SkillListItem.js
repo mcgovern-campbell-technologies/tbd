@@ -28,7 +28,8 @@ export default class SkillListItem extends Component {
     return (
       <div style={this.styles.wrapper}> 
         <SkillChip { ...this.props.properties} style={this.styles.skillChip} />
-        {_.range(0, _.ceil(Math.random() * 5)).map( () => <Avatar
+        {_.range(0, _.ceil(Math.random() * 5)).map((value) => <Avatar
+          key={value}
           size={35}
           style={this.styles.avatar}
         />)}

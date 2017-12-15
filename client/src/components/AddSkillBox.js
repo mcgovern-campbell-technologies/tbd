@@ -1,14 +1,25 @@
 import React, { Component } from 'react';
-import Dialog from 'material-ui/Dialog';
-import FlatButton from 'material-ui/FlatButton';
-import AutoComplete from 'material-ui/AutoComplete';
+import  
+  Dialog, {
+  DialogContent,
+  DialogContentText,
+  DialogTitle,
+  DialogActions,
+}from 'material-ui/Dialog';
+import Button from 'material-ui/Button';
+import Typography from 'material-ui/Typography';
+import TextField from 'material-ui/TextField';
+// import AutoComplete from 'material-ui/Autocomplete';
+
 
 import { ajax } from 'rxjs/observable/dom/ajax';
-import { Observable, Subject } from 'rxjs';
+import { Subject } from 'rxjs';
 
 import _ from 'lodash';
 
 import { removeCollectionValues } from '../utils/collectionUtils';
+
+import { AutoComplete } from './componentIndex';
 
 class AddSkillBox extends Component {
 
@@ -23,27 +34,17 @@ class AddSkillBox extends Component {
       )
 
     this.state = {
-      skillsList: [],
+      skillList: [],
       newSkillIsValid: false,
       newSkill: {
-        name: undefined
+        name: ''
       }
     }
 
-    this.handleAutoCompleteUpdateInput = this.handleAutoCompleteUpdateInput.bind(this);
-    this.handleAutoCompleteNewRequest = this.handleAutoCompleteNewRequest.bind(this);
+    this.updateNewSkillName = this.updateNewSkillName.bind(this);
+    this.fetchNewSkillList = this.fetchNewSkillList.bind(this);
+    this.clearSkillList = this.clearSkillList.bind(this);
     this.handleAddSkill = this.handleAddSkill.bind(this);
-
-    this.actions = [
-      <FlatButton
-        onClick={props.closeAddSkillBox}
-        label="Cancel"
-      />,
-      <FlatButton
-        label="Add"
-        onClick={this.handleAddSkill}
-      />,
-    ];
 
   }
 
@@ -54,18 +55,23 @@ class AddSkillBox extends Component {
         ajax.get(`/api/skill?queryString=${value}`)
           .takeUntil(skillListInput)
       )
-      .map(({ response }) => removeCollectionValues(response, this.props.skills));
+      .map(({ response }) => 
+        removeCollectionValues(response, this.props.skills)
+
+      );
 
     return skillListInput;
   }
 
-  handleAutoCompleteUpdateInput(value) {
-    this.skillListInput$.next(value);
+  updateNewSkillName(newValue) {
+    this.setState({ newSkill: { ...this.state.newSkill, name: newValue }});
   }
 
-  handleAutoCompleteNewRequest(value) {
-    this.setState({ newSkill: { ...this.state.newSkill, name: value }})
-    this.setState({ newSkillIsValid: _.includes(this.state.skillsList, value)})
+  fetchNewSkillList(value) {
+    this.skillListInput$.next(value);
+  }
+  clearSkillList(value) {
+    this.setState({ skillList: [] });
   }
 
   handleAddSkill() {
@@ -79,20 +85,33 @@ class AddSkillBox extends Component {
       <Dialog
         title="Add a Skill"
         open={this.props.open}
-        actions={this.actions}
       >
-        <div style={{}}>
-          <AutoComplete 
-            id="skillName"
-            dataSource={this.state.skillsList}
-            onUpdateInput={this.handleAutoCompleteUpdateInput}
-            onNewRequest={this.handleAutoCompleteNewRequest}
+        <DialogTitle> 
+          Add a Skill
+        </DialogTitle>
+        <DialogContent>
+
+          <AutoComplete
+            suggestions={this.state.skillList}
+            inputValue={this.state.newSkill.name}
+            fetchSuggestions={this.fetchNewSkillList}
+            clearSuggestions={this.clearSkillList}
+            updateInput={this.updateNewSkillName}
           />
-          <p>{this.state.newSkillIsValid? "valid" : "invalid" }</p>
-        </div>
+          <Typography>{this.state.newSkillIsValid? "valid" : "invalid" }</Typography>
+        </DialogContent>
+        <DialogActions>
+          <Button
+            onClick={this.props.closeAddSkillBox}
+          >Cancel</Button>
+          <Button
+            onClick={this.handleAddSkill}
+          >Add</Button>
+        </DialogActions>
       </Dialog>
     );
   }
 }
+
 
 export default AddSkillBox;

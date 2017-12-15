@@ -1,11 +1,12 @@
 import React, { Component } from 'react';
-import {Card, CardActions, CardHeader, CardMedia, CardTitle, CardText} from 'material-ui/Card';
-import FloatingActionButton from 'material-ui/FloatingActionButton';
+import Card, { CardActions, CardHeader, CardMedia, CardTitle, CardText, CardContent } from 'material-ui/Card';
 import Chip from 'material-ui/Chip';
-import ContentAdd from 'material-ui/svg-icons/content/add-circle';
-import Edit from 'material-ui/svg-icons/editor/mode-edit'
-import RaisedButton from 'material-ui/RaisedButton';
+// import ContentAdd from 'material-ui/svg-icons/content/add-circle';
+// import Edit from 'material-ui/svg-icons/editor/mode-edit'
 import IconButton from 'material-ui/IconButton';
+import Button from 'material-ui/Button';
+import Icon from 'material-ui/Icon';
+import ModeEdit from 'material-ui-icons/ModeEdit';
 
 
 class ProfileSkillWrapper extends Component {
@@ -24,31 +25,28 @@ class ProfileSkillWrapper extends Component {
     }
 
     return (
-      <Card 
-        showExpandableButton={true}
-      >
+      <Card>
         <CardHeader
-          title={<CardTitle title='Skills'/>}
+          // title={<CardTitle title='Skills'/>}
         >
           <IconButton style={styles.actionIcon}>
-            <Edit/>
+            <ModeEdit/>
           </IconButton>
         </CardHeader>
-        <CardMedia>
-          <div style={styles.wrapper}>
+        <CardContent>
             { this.props.children }
-          </div>
-        </CardMedia>
+        </CardContent>
         <CardActions>
-          {/*<Chip>
-            More
-            <ContentAdd />
-          </Chip>*/}
+          <Button>
+            <Chip
+              label={'more'}
+            />
+          </Button>
           <IconButton 
             style={styles.actionIcon}
             onClick={this.props.openAddSkillBox}
           >
-            <ContentAdd />
+            <Icon>add_circle</Icon>
           </IconButton>
         </CardActions>
       </Card>
