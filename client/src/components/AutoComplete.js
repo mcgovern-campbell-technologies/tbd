@@ -141,7 +141,7 @@ class AutoComplete extends React.Component {
 
 AutoComplete.propTypes = {
   classes: PropTypes.object.isRequired,
-  suggestions: PropTypes.object.isRequired,
+  suggestions: PropTypes.array.isRequired,
   inputValue: PropTypes.string.isRequired,
   fetchSuggestions: PropTypes.func.isRequired,
   clearSuggestions: PropTypes.func.isRequired,
