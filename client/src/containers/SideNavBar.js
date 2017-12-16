@@ -27,8 +27,7 @@ class SideNavBar extends Component {
           paper: classnames(classes.drawerPaper)
         }
         }
-        open={true}
-        type={'permanent'}
+        open={false}
       >
         <MenuItem>Item 1</MenuItem>
         <MenuItem>Item 2</MenuItem>
