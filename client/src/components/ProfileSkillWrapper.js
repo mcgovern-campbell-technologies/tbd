@@ -6,6 +6,7 @@ import Chip from 'material-ui/Chip';
 import IconButton from 'material-ui/IconButton';
 import Button from 'material-ui/Button';
 import Icon from 'material-ui/Icon';
+import Typography from 'material-ui/Typography';
 import ModeEdit from 'material-ui-icons/ModeEdit';
 
 
@@ -25,31 +26,32 @@ class ProfileSkillWrapper extends Component {
     }
 
     return (
-      <Card>
-        <CardHeader
-          // title={<CardTitle title='Skills'/>}
-        >
-          <IconButton style={styles.actionIcon}>
-            <ModeEdit/>
-          </IconButton>
-        </CardHeader>
-        <CardContent>
-            { this.props.children }
-        </CardContent>
-        <CardActions>
-          <Button>
-            <Chip
-              label={'more'}
-            />
-          </Button>
-          <IconButton 
-            style={styles.actionIcon}
-            onClick={this.props.openAddSkillBox}
-          >
-            <Icon>add_circle</Icon>
-          </IconButton>
-        </CardActions>
-      </Card>
+      <div className='pa2'>
+        <Card>
+          <CardHeader
+            title='Skills'
+            action={
+              <IconButton 
+                onClick={this.props.openEditSkillsBox}
+              >
+                <ModeEdit/>
+              </IconButton>
+            }
+          />
+          <CardContent>
+            <div className='pa1'>
+              { this.props.children }
+            </div>
+          </CardContent>
+          <CardActions>
+            <Button>
+              <Chip
+                label={'more'}
+              />
+            </Button>
+          </CardActions>
+        </Card>
+      </div>
     )
   }
 }
