@@ -9,7 +9,7 @@ import {
   SkillChip,
   SkillListItem,
   ProfileSkillWrapper,
-  AddSkillBox,
+  EditSkillsBox,
 } from './../components/componentIndex'
 
 
@@ -24,7 +24,7 @@ class ProfileSkillCard extends Component {
     this.identity = this.props.identity? this.props.identity : 7135;
     this.state = {
       expanded: false,
-      skillBoxOpen: false,
+      editSkillsBoxOpen: true,
     }
   }
 
@@ -36,12 +36,12 @@ class ProfileSkillCard extends Component {
     // this.props.getSkills(this.identity);
   }
 
-  openAddSkillBox() {
-    this.setState({ skillBoxOpen: true });
+  openEditSkillsBox() {
+    this.setState({ editSkillsBoxOpen: true });
   }
 
-  closeAddSkillBox() {
-    this.setState({ skillBoxOpen: false });
+  closeEditSkillsBox() {
+    this.setState({ editSkillsBoxOpen: false });
   }
 
   render() {
@@ -49,16 +49,16 @@ class ProfileSkillCard extends Component {
     return (
       <div>
 
-        <AddSkillBox
-          open={this.state.skillBoxOpen}
+        <EditSkillsBox
+          open={this.state.editSkillsBoxOpen}
           identity={this.identity}
-          closeAddSkillBox={this.closeAddSkillBox.bind(this)}
+          closeAddSkillBox={this.closeEditSkillsBox.bind(this)}
           addSkill={this.props.addSkill}
-          skills={this.props.skills.list.map(({ properties }) => properties.name)}
+          skills={this.props.skills.list}
         />
         <ProfileSkillWrapper
           expanded={this.state.expanded}
-          openAddSkillBox={this.openAddSkillBox.bind(this)}
+          openEditSkillsBox={this.openEditSkillsBox.bind(this)}
         > 
           { this.props.skills.list.map((skill) => <SkillListItem key={skill.identity} { ...skill }/>) }
         </ProfileSkillWrapper>
