@@ -74,7 +74,7 @@ class App extends React.Component {
             logoutSuccess={this.props.logoutSuccess}
             location={this.props.location}
           />
-          <div className={styles.app}>
+          <div className='pt5'>
             <PropsRoute path="/login" component={Login} {...this.props}/>
             <Route exact path="/" render={(props) => (
               this.props.auth.isAuthenticated? (
