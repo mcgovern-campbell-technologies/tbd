@@ -5,9 +5,9 @@ import Chip from 'material-ui/Chip';
 // import Edit from 'material-ui/svg-icons/editor/mode-edit'
 import IconButton from 'material-ui/IconButton';
 import Button from 'material-ui/Button';
-import Icon from 'material-ui/Icon';
 import Typography from 'material-ui/Typography';
 import ModeEdit from 'material-ui-icons/ModeEdit';
+import Add from 'material-ui-icons/Add';
 
 
 class ProfileSkillWrapper extends Component {
@@ -39,15 +39,12 @@ class ProfileSkillWrapper extends Component {
             }
           />
           <CardContent>
-            <div className='pa1'>
-              { this.props.children }
-            </div>
+            { this.props.children }
           </CardContent>
           <CardActions>
             <Button>
-              <Chip
-                label={'more'}
-              />
+              <Add />
+              More
             </Button>
           </CardActions>
         </Card>
