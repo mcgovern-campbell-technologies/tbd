@@ -7,7 +7,7 @@ class SkillChip extends Component {
 
   render() {
     return (
-      <div className='pv2 pr1'>
+      <div className='dib pv2 pr1'>
         <Chip
           label={this.props.name}
           onRequestDelete={this.props.handleRequestDelete}
