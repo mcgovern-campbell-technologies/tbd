@@ -24,16 +24,12 @@ class ProfileSkillCard extends Component {
     this.identity = this.props.identity? this.props.identity : 7135;
     this.state = {
       expanded: false,
-      editSkillsBoxOpen: true,
+      editSkillsBoxOpen: false,
     }
   }
 
   componentWillMount() {
     this.props.getSkills(this.identity);
-  }
-
-  componentDidMount() {
-    // this.props.getSkills(this.identity);
   }
 
   openEditSkillsBox() {
