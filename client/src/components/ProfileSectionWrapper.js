@@ -1,56 +1,75 @@
 import React, { Component } from 'react';
+import PropTypes from 'prop-types';
+
 import Card, { CardActions, CardHeader, CardMedia, CardTitle, CardText, CardContent } from 'material-ui/Card';
 import Chip from 'material-ui/Chip';
-// import ContentAdd from 'material-ui/svg-icons/content/add-circle';
-// import Edit from 'material-ui/svg-icons/editor/mode-edit'
 import IconButton from 'material-ui/IconButton';
 import Button from 'material-ui/Button';
 import Typography from 'material-ui/Typography';
 import ModeEdit from 'material-ui-icons/ModeEdit';
 import Add from 'material-ui-icons/Add';
+import ExpandLess from 'material-ui-icons/ExpandLess';
+import ExpandMore from 'material-ui-icons/ExpandMore';
 
 
 class ProfileSectionWrapper extends Component {
 
-  render() {
+  expand() {
+    this.setState({ expanded: true })
+  }
 
-    const styles = {
-      wrapper: {
-        // display: 'flex',
-        // flexWrap: 'wrap',
-        // inline: false
-      },
-      actionIcon: {
-        float: 'right',
-      }
+  colapse() {
+    this.setState({ expanded: false })
+  }
+
+  constructor(props) {
+    super(props);
+
+    this.state = {
+      expanded: false
     }
 
+    this.expand = this.expand.bind(this);
+    this.colapse = this.colapse.bind(this);
+  }
+
+  render() {
     return (
       <div className='pa2'>
         <Card>
           <CardHeader
-            title='Skills'
+            title={this.props.title}
             action={
               <IconButton 
-                onClick={this.props.openEditSkillsBox}
+                onClick={this.props.handleHeaderAction}
               >
-                <ModeEdit/>
+                { this.props.edit? <ModeEdit/> : <Add /> }
               </IconButton>
             }
           />
           <CardContent>
-            { this.props.children }
+            { this.state.expanded? this.props.children : this.props.children.slice(0, 3) }
           </CardContent>
           <CardActions>
-            <Button>
-              <Add />
-              More
+            <Button
+              onClick={this.state.expanded? this.colapse : this.expand }
+            >
+              { this.state.expanded? <ExpandLess /> : <ExpandMore /> }
+              { this.state.expanded? 'Less' : 'More' }
             </Button>
           </CardActions>
         </Card>
       </div>
     )
   }
+}
+
+ProfileSectionWrapper.propTypes = {
+  title: PropTypes.string.isRequired,
+  children: PropTypes.array.isRequired,
+  handleHeaderAction: PropTypes.func.isRequired,
+  childrenShown: PropTypes.number,
+  edit: PropTypes.bool,
 }
 
 export default ProfileSectionWrapper;

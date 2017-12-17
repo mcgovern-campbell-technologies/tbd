@@ -53,8 +53,10 @@ class ProfileSkillCard extends Component {
           skills={this.props.skills.list}
         />
         <ProfileSectionWrapper
+          title='Skills'
+          edit
           expanded={this.state.expanded}
-          openEditSkillsBox={this.openEditSkillsBox.bind(this)}
+          handleHeaderAction={this.openEditSkillsBox.bind(this)}
         > 
           { this.props.skills.list.map((skill) => <SkillListItem key={skill.identity} { ...skill }/>) }
         </ProfileSectionWrapper>

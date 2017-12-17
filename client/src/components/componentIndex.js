@@ -5,7 +5,7 @@ import Callback from './Callback';
 import ProfileSideCard from './ProfileSideCard';
 import ProfileCertifications from './ProfileCertifications'
 import SkillChip from './SkillChip';
-import ProfileSkillWrapper from './ProfileSkillWrapper';
+import ProfileSectionWrapper from './ProfileSectionWrapper';
 import EditSkillsBox from './EditSkillsBox';
 import SkillListItem from './SkillListItem';
 import AutoComplete from './AutoComplete';
@@ -19,7 +19,7 @@ export {
   ProfileSideCard,
   ProfileCertifications,
   SkillChip,
-  ProfileSkillWrapper,
+  ProfileSectionWrapper,
   SkillListItem,
   AutoComplete,
 }
