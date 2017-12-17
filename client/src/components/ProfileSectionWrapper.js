@@ -10,7 +10,7 @@ import ModeEdit from 'material-ui-icons/ModeEdit';
 import Add from 'material-ui-icons/Add';
 
 
-class ProfileSkillWrapper extends Component {
+class ProfileSectionWrapper extends Component {
 
   render() {
 
@@ -53,4 +53,4 @@ class ProfileSkillWrapper extends Component {
   }
 }
 
-export default ProfileSkillWrapper;
+export default ProfileSectionWrapper;
