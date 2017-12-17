@@ -1,26 +1,33 @@
 import React, { Component } from 'react';
 
 import AppBar from 'material-ui/AppBar';
-import FlatButton from 'material-ui/FlatButton';
-import IconMenu from 'material-ui/IconMenu';
-import MenuItem from 'material-ui/MenuItem';
+import Toolbar from 'material-ui/Toolbar';
+import Button from 'material-ui/Button';
+import IconMenu from 'material-ui/Menu';
+import { MenuItem }from 'material-ui/Menu';
 import IconButton from 'material-ui/IconButton';
-import MoreVertIcon from 'material-ui/svg-icons/navigation/more-vert';
-import { Link } from 'react-router'
+import Typography from 'material-ui/Typography'
+// import MoreVertIcon from 'material-ui/svg-icons/navigation/more-vert';
+import Icon from 'material-ui-icons/MoreVert';
+import { Link } from 'react-router';
+import { withStyles } from 'material-ui/styles';
 
 const Login = (props) =>  {
   return (
-    <FlatButton 
-      label="Login" 
+    <Button 
       onClick={props.login}
-    />
+    >
+      Login
+    </Button>
   );
 }
 
 const Logged = (props) => (
   <IconMenu
     iconButtonElement={
-      <IconButton><MoreVertIcon /></IconButton>
+      <IconButton>
+        <Icon/>
+      </IconButton>
     }
     targetOrigin={{horizontal: 'right', vertical: 'top'}}
     anchorOrigin={{horizontal: 'right', vertical: 'top'}}
@@ -38,22 +45,39 @@ class AppNavBar extends Component {
   render() {
     return (
       <AppBar 
-        title="TBD"
-        color="grey"
-        iconElementRight={this.props.isAuthenticated() ? (
-            <Logged 
-              logoutSuccess={this.props.logoutSuccess}
-              logout={this.props.logout}
-            /> 
-          ) : (
-            <Login 
-              login={this.props.login}
-            />
-          )
-        }   
-      />
+        style={this.props.style}
+      >
+        <Toolbar>
+          <Typography type="title">
+            TBD
+          </Typography>
+          {
+            this.props.isAuthenticated() ? (
+              <Logged 
+                logoutSuccess={this.props.logoutSuccess}
+                logout={this.props.logout}
+              /> 
+            ) : (
+              <Login 
+                login={this.props.login}
+              />
+            )
+          } 
+        </Toolbar>
+      </AppBar>
     )
   }
 }
+        // iconElementRight={this.props.isAuthenticated() ? (
+        //     <Logged 
+        //       logoutSuccess={this.props.logoutSuccess}
+        //       logout={this.props.logout}
+        //     /> 
+        //   ) : (
+        //     <Login 
+        //       login={this.props.login}
+        //     />
+        //   )
+        // }   
 
 export default AppNavBar

@@ -8,8 +8,8 @@ import { withRouter } from 'react-router';
 import {
   SkillChip,
   SkillListItem,
-  ProfileSkillWrapper,
-  AddSkillBox,
+  ProfileSectionWrapper,
+  EditSkillsBox,
 } from './../components/componentIndex'
 
 
@@ -24,7 +24,7 @@ class ProfileSkillCard extends Component {
     this.identity = this.props.identity? this.props.identity : 7135;
     this.state = {
       expanded: false,
-      skillBoxOpen: false,
+      editSkillsBoxOpen: false,
     }
   }
 
@@ -32,16 +32,12 @@ class ProfileSkillCard extends Component {
     this.props.getSkills(this.identity);
   }
 
-  componentDidMount() {
-    // this.props.getSkills(this.identity);
+  openEditSkillsBox() {
+    this.setState({ editSkillsBoxOpen: true });
   }
 
-  openAddSkillBox() {
-    this.setState({ skillBoxOpen: true });
-  }
-
-  closeAddSkillBox() {
-    this.setState({ skillBoxOpen: false });
+  closeEditSkillsBox() {
+    this.setState({ editSkillsBoxOpen: false });
   }
 
   render() {
@@ -49,19 +45,21 @@ class ProfileSkillCard extends Component {
     return (
       <div>
 
-        <AddSkillBox
-          open={this.state.skillBoxOpen}
+        <EditSkillsBox
+          open={this.state.editSkillsBoxOpen}
           identity={this.identity}
-          closeAddSkillBox={this.closeAddSkillBox.bind(this)}
+          closeAddSkillBox={this.closeEditSkillsBox.bind(this)}
           addSkill={this.props.addSkill}
-          skills={this.props.skills.list.map(({ properties }) => properties.name)}
+          skills={this.props.skills.list}
         />
-        <ProfileSkillWrapper
+        <ProfileSectionWrapper
+          title='Skills'
+          edit
           expanded={this.state.expanded}
-          openAddSkillBox={this.openAddSkillBox.bind(this)}
-        >
-          { this.props.skills.list.map((skill) => <SkillListItem { ...skill }/>) }
-        </ProfileSkillWrapper>
+          handleHeaderAction={this.openEditSkillsBox.bind(this)}
+        > 
+          { this.props.skills.list.map((skill) => <SkillListItem key={skill.identity} { ...skill }/>) }
+        </ProfileSectionWrapper>
       </div>
     )
   }

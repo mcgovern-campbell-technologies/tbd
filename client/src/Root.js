@@ -13,6 +13,8 @@ import * as reactRouterRedux from 'react-router-redux';
 /* import store configure */
 import configureStore from './redux/configureStore';
 
+import 'typeface-roboto';
+
 /*Containers*/
 // import { } from './containers/index'
 import App from './containers/App';
