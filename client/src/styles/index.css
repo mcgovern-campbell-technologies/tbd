@@ -100,8 +100,15 @@ body {
 }
 
 .profile-image {
-  width: 25%;
-  float: right;
+  width: 120px;
+  height: 120px;
+  border-radius: 50%;
+  overflow: hidden;
+  float: left;
+}
+
+.profile-image img {
+  height: 100%;
 }
 
 a {
