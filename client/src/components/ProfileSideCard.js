@@ -1,30 +1,71 @@
 import React from 'react';
-
+import {Card, CardActions, CardHeader, CardMedia, CardTitle, CardText} from 'material-ui/Card';
+import FloatingActionButton from 'material-ui/FloatingActionButton';
+import Chip from 'material-ui/Chip';
+import ContentAdd from 'material-ui/svg-icons/content/add-circle';
+import Edit from 'material-ui/svg-icons/editor/mode-edit'
+import RaisedButton from 'material-ui/RaisedButton';
+import IconButton from 'material-ui/IconButton';
 import fbLogo from '../assets/fbLogo.png';
 import lnLogo from '../assets/lnLogo.png';
 
 function ProfileSideCard(props) {
   const { name, email, picture, blurb } = props;
 
+  const styles = {
+    wrapper: {
+      // display: 'flex',
+      // flexWrap: 'wrap',
+      // inline: false
+    },
+    actionIcon: {
+      float: 'right',
+    },
+    profilePosition: {
+      display: 'inline-block',
+      verticalAlign: 'top',
+      whiteSpace: 'normal',
+      paddingRight: '90px'
+    },
+    headerWrapper: {
+      display: 'flex'
+    },
+    header: {
+      flexGrow: '1'
+    },
+    position: {
+      paddingLeft: '16px'
+    }
+  }
+
   return (
-    <div className="col s7">
-      <img className="profile-image" src={picture}/>
-      <p className="font-size-xl font-bold margin-bottom-none">{name}</p>
-      <p className="font-size-m margin-top-none">Machinist</p>
-
-      <div>
-        <span>About {name}</span>
-
-        <p>{blurb}</p>
-
+    <Card>
+      <div style={styles.headerWrapper}>
+        <div className="profile-image">
+          <img src={picture}/>
+        </div>
+        <CardHeader style={styles.header} title={<CardTitle title={name}/>}>
+          <IconButton style={styles.actionIcon}>
+            <Edit/>
+          </IconButton>
+          <div className="profile-position" style={styles.position}>
+            <span>Skilled Machinist</span>
+          </div>
+        </CardHeader>
       </div>
+      <CardMedia>
+        <div>
 
-      <div className="divider"></div>
-      <div>
-        <img className="social-media" src={fbLogo}/>
-        <img className="social-media" src={lnLogo}/>
-      </div>
-    </div>
+          <div>
+            {blurb}
+          </div>
+
+          {/* <div className="divider"></div> */}
+        </div>
+      </CardMedia>
+      <CardActions>
+      </CardActions>
+    </Card>
   );
 }
 
