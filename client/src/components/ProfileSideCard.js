@@ -1,10 +1,7 @@
 import React from 'react';
 import {Card, CardActions, CardHeader, CardMedia, CardTitle, CardText} from 'material-ui/Card';
-import FloatingActionButton from 'material-ui/FloatingActionButton';
 import Chip from 'material-ui/Chip';
-import ContentAdd from 'material-ui/svg-icons/content/add-circle';
-import Edit from 'material-ui/svg-icons/editor/mode-edit'
-import RaisedButton from 'material-ui/RaisedButton';
+import ModeEdit from 'material-ui-icons/ModeEdit';
 import IconButton from 'material-ui/IconButton';
 import fbLogo from '../assets/fbLogo.png';
 import lnLogo from '../assets/lnLogo.png';
@@ -46,7 +43,7 @@ function ProfileSideCard(props) {
         </div>
         <CardHeader style={styles.header} title={<CardTitle title={name}/>}>
           <IconButton style={styles.actionIcon}>
-            <Edit/>
+            <ModeEdit/>
           </IconButton>
           <div className="profile-position" style={styles.position}>
             <span>Skilled Machinist</span>
