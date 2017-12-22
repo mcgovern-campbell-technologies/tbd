@@ -27,6 +27,7 @@
     "redux-form": "^7.1.1",
     "redux-observable": "^0.16.0",
     "rxjs": "^5.4.3",
+    "tachyons": "4.9.0",
     "typeface-roboto": "^0.0.45"
   },
   "devDependencies": {
