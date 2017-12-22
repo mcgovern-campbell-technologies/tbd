@@ -3,9 +3,9 @@ import LocationForm from './LocationForm';
 import Login from './Login';
 import Callback from './Callback';
 import ProfileSideCard from './ProfileSideCard';
-import ProfileCertifications from './ProfileCertifications'
-import SkillChip from './SkillChip';
 import ProfileSectionWrapper from './ProfileSectionWrapper';
+import ProfileSectionListItem from './ProfileSectionListItem';
+import SkillChip from './SkillChip';
 import EditSkillsBox from './EditSkillsBox';
 import SkillListItem from './SkillListItem';
 import AutoComplete from './AutoComplete';
@@ -17,9 +17,9 @@ export {
   Login,
   Callback,
   ProfileSideCard,
-  ProfileCertifications,
-  SkillChip,
   ProfileSectionWrapper,
+  ProfileSectionListItem,
+  SkillChip,
   SkillListItem,
   AutoComplete,
 }
