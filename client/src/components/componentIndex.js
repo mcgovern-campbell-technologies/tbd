@@ -8,11 +8,13 @@ import ProfileSectionWrapper from './ProfileSectionWrapper';
 import ProfileSectionListItem from './ProfileSectionListItem';
 import SkillChip from './SkillChip';
 import EditSkillsBox from './EditSkillsBox';
+import EditProfileBox from './EditProfileBox';
 import SkillListItem from './SkillListItem';
 import AutoComplete from './AutoComplete';
 
 export {
   EditSkillsBox,
+  EditProfileBox,
   ContactForm,
   LocationForm,
   Login,
