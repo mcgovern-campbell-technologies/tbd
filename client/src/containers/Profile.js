@@ -37,7 +37,7 @@ class Profile extends Component {
     const { picture, name, given_name, blurb } = this.props.user.properties;
     return (
       <div>
-        <div className="section row">
+        <div className="pa2">
           <ProfileSideCard
             picture={picture}
             name={name}
