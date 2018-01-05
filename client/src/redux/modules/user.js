@@ -54,7 +54,6 @@ dummyEmplObj.properties = JSON.stringify(dummyEmplObj.properties)
 
 const updateUserEpic = (action$, state) => {
   const { auth, user } = state.getState();
-  const currentState = state.getState()
   return action$
     .ofType(types.UPDATE_USER)
     .mergeMap(action => {
@@ -64,14 +63,10 @@ const updateUserEpic = (action$, state) => {
         .map(({ response }) => response)
     })
     .map(profile => {
-      console.log('profile returned from Update API call')
-      console.log(profile)
       //If no profile is returned from server, use locally stored auth.profile to addUser
       if (!profile || profile.error) {
         profile = auth.profile
       }
-      console.log('calling getUserFulfilled with profile')
-      console.log(profile)
       return getUserFulfilled(profile);
     })
 }
