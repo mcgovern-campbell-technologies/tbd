@@ -46,11 +46,6 @@ class Profile extends Component {
           <ProfileSkillCard />
           <ProfileCertificationsCard />
           <div className="divider"></div>
-
-          <div onClick={_ => this.props.updateUser(this.props.user)}>Fire update user</div>
-
-          <div className="divider"></div>
-
         </div>
       </div>
 
