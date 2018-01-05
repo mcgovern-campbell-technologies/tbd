@@ -34,30 +34,18 @@ class Profile extends Component {
   }
 
   render() {
-    const { picture, name, given_name } = this.props.user.properties;
     return (
       <div>
-        <div className="section row">
+        <div className="pa2">
           <ProfileSideCard
-            picture={picture}
-            name={name}
+            user={this.props.user}
+            updateUser={this.props.updateUser}
           />
-          <div className="col s5">
-            Placeholder for Calendar
-            <p>
-            <button className="waves-effect waves-light btn center margin-bottom"> Book </button>
-            </p>
-          </div>
         </div>
         <div className ="section row">
           <ProfileSkillCard />
           <ProfileCertificationsCard />
           <div className="divider"></div>
-
-          <div onClick={_ => this.props.updateUser(this.props.user)}>Fire update user</div>
-
-          <div className="divider"></div>
-
         </div>
       </div>
 
