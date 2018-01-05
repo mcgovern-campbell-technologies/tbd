@@ -15,13 +15,13 @@ import * as actionCreators from '../redux/actions/actionCreators'
 //Components
 import {
   ProfileSideCard,
-  ProfileCertifications,
   ProfileSkills,
 } from './../components/componentIndex'
 
 //Containers
 import {
   ProfileSkillCard,
+  ProfileCertificationsCard,
 } from './containerIndex'
 
 //Assets
@@ -51,6 +51,7 @@ class Profile extends Component {
         </div>
         <div className ="section row">
           <ProfileSkillCard />
+          <ProfileCertificationsCard />
           <div className="divider"></div>
 
           <div onClick={_ => this.props.updateUser(this.props.user)}>Fire update user</div>
