@@ -15,6 +15,7 @@ class ProfileSideCard extends Component {
       editProfileBoxOpen: false,
     }
     this.openEditProfileBox = this.openEditProfileBox.bind(this)
+    this.closeEditProfileBox = this.closeEditProfileBox.bind(this)
   }
 
   openEditProfileBox() {
@@ -26,7 +27,7 @@ class ProfileSideCard extends Component {
   }
 
   render () {
-    const { name, email, picture, blurb } = this.props;
+    const { name, email, picture, blurb } = this.props.user.properties;
 
     const styles = {
       wrapper: {
@@ -57,9 +58,10 @@ class ProfileSideCard extends Component {
     return (
       <div>
         <EditProfileBox
+          user={this.props.user}
           open={this.state.editProfileBoxOpen}
-          closeEditProfileBox={this.closeEditProfileBox.bind(this)}
-          blurb={blurb}
+          updateUser={this.props.updateUser}
+          closeEditProfileBox={this.closeEditProfileBox}
         />
         <Card>
 
