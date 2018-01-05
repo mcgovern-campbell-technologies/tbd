@@ -34,14 +34,12 @@ class Profile extends Component {
   }
 
   render() {
-    const { picture, name, given_name, blurb } = this.props.user.properties;
     return (
       <div>
         <div className="pa2">
           <ProfileSideCard
-            picture={picture}
-            name={name}
-            blurb={blurb}
+            user={this.props.user}
+            updateUser={this.props.updateUser}
           />
         </div>
         <div className ="section row">
