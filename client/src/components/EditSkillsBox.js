@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import PropTypes from 'prop-types'
+import PropTypes from 'prop-types';
 
 /* Material Components */
 import  
@@ -107,21 +107,18 @@ class EditSkillsBox extends Component {
                 />
               )
             }
-            <Chip
-              label={<Input/>}
-            />
-            {/*<AutoComplete
+            
+            <AutoComplete
               suggestions={this.state.skillList}
               inputValue={this.state.newSkill.name}
               fetchSuggestions={this.fetchNewSkillList}
               clearSuggestions={this.clearSkillList}
               updateInput={this.updateNewSkillName}
-            />*/}
+            />
           </DialogContent>
           <DialogActions>
             <Button
               onClick={() => {
-                console.log(this.props.closeAddSkillBox)
                 this.props.closeAddSkillBox()
               }}
             >Cancel</Button>

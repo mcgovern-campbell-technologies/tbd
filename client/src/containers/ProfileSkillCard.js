@@ -3,10 +3,8 @@ import _ from 'lodash';
 
 import { bindActionCreators } from 'redux';
 import { connect } from 'react-redux';
-import { withRouter } from 'react-router';
 
 import {
-  SkillChip,
   SkillListItem,
   ProfileSectionWrapper,
   EditSkillsBox,
@@ -21,7 +19,6 @@ class ProfileSkillCard extends Component {
 
   constructor(props) {
     super(props);
-    this.identity = this.props.identity? this.props.identity : 7135;
     this.state = {
       expanded: false,
       editSkillsBoxOpen: false,
@@ -29,7 +26,7 @@ class ProfileSkillCard extends Component {
   }
 
   componentWillMount() {
-    this.props.getSkills(this.identity);
+    this.props.getSkills(this.props.user.identity? this.props.user.identity: 7135);
   }
 
   openEditSkillsBox() {
@@ -56,6 +53,7 @@ class ProfileSkillCard extends Component {
           title='Skills'
           edit
           expanded={this.state.expanded}
+          childrenShownOnUnexpanded={3}
           handleHeaderAction={this.openEditSkillsBox.bind(this)}
         > 
           { this.props.skills.list.map((skill) => <SkillListItem key={skill.identity} { ...skill }/>) }
