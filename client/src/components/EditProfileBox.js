@@ -71,20 +71,18 @@ class EditProfileBox extends Component {
               label="Name"
               defaultValue={defaultName}
               onChange={this.handleTextFieldChange}
-              multiline={false}
               fullWidth={true}
               margin="normal"
-            ></TextField>
+            />
 
             <TextField
               id="profession"
               label="Profession"
               defaultValue={defaultProfession}
               onChange={this.handleTextFieldChange}
-              multiline={false}
               fullWidth={true}
               margin="normal"
-            ></TextField>
+            />
 
             <TextField
               id="blurb"
@@ -94,16 +92,12 @@ class EditProfileBox extends Component {
               multiline={true}
               fullWidth={true}
               margin="normal"
-            ></TextField>
+            />
 
           </DialogContent>
 
           <DialogActions>
-            <Button
-              onClick={() => {
-                this.props.closeEditProfileBox()
-              }}
-            >Cancel</Button>
+            <Button onClick={this.props.closeEditProfileBox}>Cancel</Button>
             <Button
               onClick={() => {
                 this.props.updateUser(this.state.user)
