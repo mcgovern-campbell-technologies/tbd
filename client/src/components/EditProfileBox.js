@@ -29,7 +29,6 @@ import {
 } from './componentIndex';
 
 class EditProfileBox extends Component {
-
   constructor(props) {
     super(props);
 
@@ -48,30 +47,54 @@ class EditProfileBox extends Component {
 
   handleTextFieldChange(e) {
     const user = {...this.state.user}
-    user.properties.blurb = e.target.value
+    user.properties[e.target.id] = e.target.value
     this.setState({ user });
   }
 
   render() {
     const defaultBlurb = this.state.user.properties ? this.state.user.properties.blurb : ''
+    const defaultName = this.state.user.properties ? this.state.user.properties.name : ''
+    const defaultProfession = this.state.user.properties ? this.state.user.properties.profession : ''
 
     return (
         <Dialog
           title="Edit your profile"
           open={this.props.open}
-          className='w-two-thirds'
         >
           <DialogTitle>
             Edit Your Profile
           </DialogTitle>
 
-          <DialogContent className='w-two-thirds'>
+          <DialogContent>
             <TextField
+              id="name"
+              label="Name"
+              defaultValue={defaultName}
+              onChange={this.handleTextFieldChange}
+              multiline={false}
+              fullWidth={true}
+              margin="normal"
+            ></TextField>
+
+            <TextField
+              id="profession"
+              label="Profession"
+              defaultValue={defaultProfession}
+              onChange={this.handleTextFieldChange}
+              multiline={false}
+              fullWidth={true}
+              margin="normal"
+            ></TextField>
+
+            <TextField
+              id="blurb"
+              label="About Me"
               defaultValue={defaultBlurb}
               onChange={this.handleTextFieldChange}
               multiline={true}
-            >
-            </TextField>
+              fullWidth={true}
+              margin="normal"
+            ></TextField>
 
           </DialogContent>
 
