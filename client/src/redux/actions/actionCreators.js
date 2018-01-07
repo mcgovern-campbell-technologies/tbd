@@ -85,3 +85,16 @@ export function addSkill(skill, identity) {
     identity
   }
 }
+
+export function getCertifications() {
+  return {
+    type: types.GET_CERTIFICATIONS,
+  }
+}
+
+export function getCertificationsFulfilled(certifications) {
+  return {
+    type: types.GET_CERTIFICATIONS_FULFILLED,
+    payload: certifications
+  }
+}
