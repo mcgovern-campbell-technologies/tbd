@@ -3,11 +3,15 @@ import React, { Component } from 'react';
 import AppBar from 'material-ui/AppBar';
 import Toolbar from 'material-ui/Toolbar';
 import Button from 'material-ui/Button';
+<<<<<<< HEAD
+=======
+import IconMenu from 'material-ui/Menu';
+>>>>>>> Add the logout button to the AppNavBar
 import Menu, { MenuItem }from 'material-ui/Menu';
 import IconButton from 'material-ui/IconButton';
 import Typography from 'material-ui/Typography'
 // import MoreVertIcon from 'material-ui/svg-icons/navigation/more-vert';
-import Icon from 'material-ui-icons/MoreVert';
+import MoreVertIcon from 'material-ui-icons/MoreVert';
 import { Link } from 'react-router';
 import { withStyles } from 'material-ui/styles';
 
@@ -21,26 +25,18 @@ const Login = (props) =>  {
   );
 }
 
-const Logged = (props) => {
-  return (
-    <Menu
-      open={false} //TODO: Need to change this onClick.
-      iconButtonElement={
-        <IconButton>
-          <Icon/>
-        </IconButton>
-      }
-      targetOrigin={{horizontal: 'right', vertical: 'top'}}
-      anchorOrigin={{horizontal: 'right', vertical: 'top'}}
-    >
-      <MenuItem primaryText="Help" />
-      <MenuItem primaryText="Sign out" onClick  ={() => {
+
+const Logged = (props) => (
+  <Button 
+    onClick={() => {
         props.logoutSuccess();
         props.logout();
-      }}/>
-    </Menu>
-  )
-};
+      }
+    }
+  >
+    Logout
+  </Button>
+);
 
 class AppNavBar extends Component {
   constructor() {
@@ -67,6 +63,7 @@ class AppNavBar extends Component {
         style={this.props.style}
       >
         <Toolbar>
+<<<<<<< HEAD
           <Typography type="title">
             TBD
           </Typography>
@@ -82,6 +79,23 @@ class AppNavBar extends Component {
               />
             )
           }
+=======
+          <div className='fr w-20' />
+          <div className='fr'>
+            {
+              this.props.isAuthenticated() ? (
+                <Logged 
+                  logoutSuccess={this.props.logoutSuccess}
+                  logout={this.props.logout}
+                /> 
+              ) : (
+                <Login 
+                  login={this.props.login}
+                />
+              )
+            } 
+          </div>
+>>>>>>> Add the logout button to the AppNavBar
         </Toolbar>
       </AppBar>
     )
