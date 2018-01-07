@@ -5,8 +5,6 @@ import { MenuItem } from 'material-ui/Menu';
 import AppBar from 'material-ui/';
 import { withStyles } from 'material-ui/styles';
 
-console.log(classnames);
-
 const drawerWidth = 1000;
 const styles = () => ({
   drawerPaper: {

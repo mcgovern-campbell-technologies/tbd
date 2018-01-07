@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 
-import { 
+import {
   ProfileSectionWrapper,
   ProfileSectionListItem,
 } from './../components/componentIndex'
@@ -34,7 +34,8 @@ class ProfileCertificationsCard extends Component {
           childrenShownOnUnexpanded={2}
         >
           {[
-            <ProfileSectionListItem 
+            <ProfileSectionListItem
+              key="this key is just to prevent a warning in console - feel free to change/remove" 
               openEditBox={this.openEditCertificationBox}
             />
           ]}

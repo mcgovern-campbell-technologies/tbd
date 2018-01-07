@@ -24,7 +24,6 @@ import {
   Dashboard,
   LandingPage,
   OnBoardFlow,
-  Profile,
   AppNavBar,
   SideNavBar,
 } from './containerIndex'

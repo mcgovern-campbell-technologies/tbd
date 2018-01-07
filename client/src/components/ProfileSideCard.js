@@ -1,30 +1,98 @@
-import React from 'react';
-
+import React, {Component} from 'react';
+import Card, {CardActions, CardContent, CardHeader, CardMedia, CardTitle, CardText} from 'material-ui/Card';
+import Chip from 'material-ui/Chip';
+import ModeEdit from 'material-ui-icons/ModeEdit';
+import IconButton from 'material-ui/IconButton';
 import fbLogo from '../assets/fbLogo.png';
 import lnLogo from '../assets/lnLogo.png';
+import { EditProfileBox } from './componentIndex';
 
-function ProfileSideCard(props) {
-  const { name, email, picture } = props;
-  return (
-    <div className="col s7">
-      <img className="profile-image"src={picture}/>
-      <p className="font-size-xl font-bold margin-bottom-none">{name}</p>
-      <p className="font-size-m margin-top-none">Machinist</p>
+class ProfileSideCard extends Component {
+  constructor(props) {
+    super(props);
+    this.state = {
+      expanded: false,
+      editProfileBoxOpen: false,
+    }
+    this.openEditProfileBox = this.openEditProfileBox.bind(this)
+    this.closeEditProfileBox = this.closeEditProfileBox.bind(this)
+  }
 
+  openEditProfileBox() {
+    this.setState({ editProfileBoxOpen: true });
+  }
+
+  closeEditProfileBox() {
+    this.setState({ editProfileBoxOpen: false });
+  }
+
+  render () {
+    const { name, email, picture, blurb, profession } = this.props.user.properties;
+
+    const styles = {
+      wrapper: {
+        // display: 'flex',
+        // flexWrap: 'wrap',
+        // inline: false
+      },
+      actionIcon: {
+        float: 'right',
+      },
+      profilePosition: {
+        display: 'inline-block',
+        verticalAlign: 'top',
+        whiteSpace: 'normal',
+        paddingRight: '90px'
+      },
+      headerWrapper: {
+        display: 'flex'
+      },
+      header: {
+        flexGrow: '1'
+      },
+      position: {
+        paddingLeft: '16px'
+      }
+    }
+
+    return (
       <div>
-              <span>About Rob</span>
+        <EditProfileBox
+          user={this.props.user}
+          open={this.state.editProfileBoxOpen}
+          updateUser={this.props.updateUser}
+          closeEditProfileBox={this.closeEditProfileBox}
+        />
+        <Card>
 
-              <p>Lorem ipsum dolor sit amet, consectetuer adipiscing elit. Aenean commodo ligula eget dolor. Aenean massa. Cum sociis natoque penatibus et magnis dis parturient montes, nascetur ridiculus mus. Donec quam felis, ultricies nec, pellentesque eu, pretium quis, sem. Nulla consequat massa quis enim. Donec pede justo, fringilla vel, aliquet nec, vulputate eget, arcu. In enim justo, rhoncus ut, imperdiet a, venenatis vitae, justo. Nullam dictum felis eu pede mollis pretium. Integer tincidunt. Cras dapibus. Vivamus elementum </p>
+          <div style={styles.headerWrapper}>
+            <div className="profile-image">
+              <img src={picture}/>
+            </div>
 
+            <CardHeader style={styles.header} title={name} subheader={profession} />
+
+            <IconButton onClick={this.openEditProfileBox} style={styles.actionIcon}>
+              <ModeEdit/>
+            </IconButton>
+          </div>
+
+          <CardContent>
+            <div>
+
+              <div>
+                {blurb}
+              </div>
+
+              <div className="divider"></div>
+            </div>
+          </CardContent>
+
+          <CardActions></CardActions>
+        </Card>
       </div>
-
-      <div className="divider"></div>
-      <div>
-        <img className="social-media" src={fbLogo}/>
-        <img className="social-media" src={lnLogo}/>
-      </div>
-    </div>
-  );
+    )
+  }
 }
 
 export default ProfileSideCard;
