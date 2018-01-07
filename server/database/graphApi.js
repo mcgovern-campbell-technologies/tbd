@@ -75,12 +75,12 @@ class GraphApi {
       });
   }
 
-  getParentSkillList(queryString) {
+  getParentNodeList(queryString, label) {
     const session = this.driver.session();
     console.log({ queryString })
     return session
       .run(`
-        MATCH (s:Skill)
+        MATCH (s:${label})
         WHERE s.name =~ '(?i)${queryString}.*'
         RETURN s
       `)
