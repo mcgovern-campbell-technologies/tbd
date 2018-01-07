@@ -27,7 +27,7 @@ class ProfileSideCard extends Component {
   }
 
   render () {
-    const { name, email, picture, blurb } = this.props.user.properties;
+    const { name, email, picture, blurb, profession } = this.props.user.properties;
 
     const styles = {
       wrapper: {
@@ -70,11 +70,7 @@ class ProfileSideCard extends Component {
               <img src={picture}/>
             </div>
 
-            <CardHeader style={styles.header} title={name}>
-              <div className="profile-position" style={styles.position}>
-                <span>Skilled Machinist</span>
-              </div>
-            </CardHeader>
+            <CardHeader style={styles.header} title={name} subheader={profession} />
 
             <IconButton onClick={this.openEditProfileBox} style={styles.actionIcon}>
               <ModeEdit/>
