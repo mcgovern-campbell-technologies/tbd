@@ -22,7 +22,6 @@ const Login = (props) =>  {
 }
 
 const Logged = (props) => {
-  console.log('Logged should show')
   return (
     <Menu
       open={false} //TODO: Need to change this onClick.
