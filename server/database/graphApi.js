@@ -5,7 +5,7 @@ const { contractorHasNecessaryProps, extractNodes } = require('./databaseUtiliti
 const { startUpScript, massDelete } = require('./startUpCypherScript')
 
 class GraphApi {
-  constructor(username, password, connection = "bolt://localhost") {
+  constructor(username, password, connection) {
     this.driver = neo4j.driver(connection, neo4j.auth.basic(username, password));
 
     console.log('in constructor')

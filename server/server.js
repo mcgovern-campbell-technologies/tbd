@@ -7,16 +7,16 @@ var jwtCheck = require('./auth/auth').jwtCheck;
 
 const GraphApi = require('./database/GraphApi')
 const { databaseCredentials } = require('./../secrets.js');
-const { username, password } = databaseCredentials
+const { username, password, connection } = databaseCredentials
 
 //routers
-const { 
+const {
   contractorRouter,
   skillRouter
 } = require('./routers/routersIndex');
 
 var app = express();
-const graphApi = new GraphApi(username, password);
+const graphApi = new GraphApi(username, password, connection);
 
 /****Third Party Middlewares****/
 app.use(bodyParser.urlencoded({extended: true}));
@@ -42,7 +42,7 @@ app.get('/api/unprotected', function(req, res) {
 })
 
 /****Apply Routers****/
-app.use('/api/contractor', contractorRouter); 
+app.use('/api/contractor', contractorRouter);
 app.use('/api/skill', skillRouter);
 
 app.listen(port);
