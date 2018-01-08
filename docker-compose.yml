@@ -11,6 +11,9 @@ services:
       - type: bind
         source: ./
         target: /wwwroot
+    environment:
+      #This DB connection string needs to match the name of the neo4j service below
+      neo4jConnectionString: 'bolt://neo4j'
 
   neo4j:
     image: 'neo4j'
@@ -21,3 +24,5 @@ services:
       - type: volume
         source: ${HOME}/neo4j/data
         target: /data
+    environment:
+      NEO4J_AUTH: 'none'
