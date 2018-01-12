@@ -1,0 +1,53 @@
+version: '3.3'
+services:
+  webapp:
+    deploy:
+      replicas: 1
+    networks:
+      - tbd_net
+    image: 'tbd_web'
+    ports:
+      - 3000:3000
+      - 4000:4000
+    volumes:
+      - type: bind
+        source: ./
+        target: /wwwroot
+    environment:
+      #This DB connection string needs to match the name of the neo4j service below
+      neo4jConnectionString: 'bolt://neo4j'
+
+  neo4j:
+    image: 'neo4j'
+    deploy:
+      replicas: 1
+    networks:
+      - tbd_net
+    ports:
+      - 7474:7474
+      - 7687:7687
+    volumes:
+      - type: volume
+        source: db-data
+        target: /data
+    environment:
+      NEO4J_AUTH: 'none'
+
+  visualizer:
+    image: dockersamples/visualizer:stable
+    networks:
+      - tbd_net
+    ports:
+    - "8080:8080"
+    stop_grace_period: 1m30s
+    volumes:
+      - "/var/run/docker.sock:/var/run/docker.sock"
+    deploy:
+      placement:
+        constraints: [node.role == manager]
+
+volumes:
+  db-data:
+
+networks:
+  tbd_net:
