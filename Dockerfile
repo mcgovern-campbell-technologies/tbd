@@ -4,12 +4,12 @@ RUN mkdir -p /wwwroot
 
 WORKDIR /wwwroot
 
+RUN npm install --global nodemon
 
 COPY package.json /wwwroot
 COPY yarn.lock /wwwroot
 
 RUN yarn install
-RUN npm install --global nodemon
 
 COPY . /wwwroot
 
