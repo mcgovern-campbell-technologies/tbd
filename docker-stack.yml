@@ -5,7 +5,7 @@ services:
       replicas: 1
     networks:
       - tbd_net
-    image: 'tbd_web'
+    image: 'lukewilson/tbd_web'
     ports:
       - 3000:3000
       - 4000:4000
