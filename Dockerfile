@@ -6,13 +6,15 @@ WORKDIR /wwwroot
 
 RUN npm install --global nodemon
 
-COPY package.json /wwwroot
-COPY yarn.lock /wwwroot
+COPY package.json yarn.lock /wwwroot/
 
+RUN yarn install
+
+WORKDIR /wwwroot/client
 RUN yarn install
 
 COPY . /wwwroot
 
-EXPOSE 3000
+EXPOSE 3000, 4000
 
 CMD ["npm", "start"]
