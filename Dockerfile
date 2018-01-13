@@ -9,7 +9,7 @@ RUN npm install --global nodemon
 COPY package.json yarn.lock /wwwroot/
 RUN yarn install
 
-COPY ./client/package.json /wwwroot/client/package.json
+COPY ./client/package.json ./client/yarn.lock /wwwroot/client/
 WORKDIR /wwwroot/client
 RUN yarn install
 
