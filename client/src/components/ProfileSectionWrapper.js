@@ -41,7 +41,7 @@ class ProfileSectionWrapper extends Component {
           <CardHeader
             title={this.props.title}
             action={
-              <IconButton 
+              <IconButton
                 onClick={this.props.handleHeaderAction}
               >
                 { this.props.edit? <ModeEdit/> : <Add /> }
@@ -51,7 +51,7 @@ class ProfileSectionWrapper extends Component {
           <CardContent>
             { this.state.expanded? this.props.children : this.props.children.slice(0, this.props.childrenShownOnUnexpanded) }
           </CardContent>
-          { 
+          {
             showExpandColapseButton ?
               <CardActions>
                 <Button
@@ -72,7 +72,7 @@ ProfileSectionWrapper.propTypes = {
   title: PropTypes.string.isRequired,
   children: PropTypes.array.isRequired,
   handleHeaderAction: PropTypes.func.isRequired,
-  childrenShownOnUnexpanded: PropTypes.number.isRequired,
+  // childrenShownOnUnexpanded: PropTypes.number.isRequired,
   edit: PropTypes.bool,
 }
 
