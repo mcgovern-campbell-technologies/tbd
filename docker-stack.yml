@@ -7,7 +7,7 @@ services:
       - tbd_net
     image: 'lukewilson/tbd_web'
     ports:
-      - 3000:3000
+      - 80:3000
       - 4000:4000
     # volumes:
     #   - type: bind
