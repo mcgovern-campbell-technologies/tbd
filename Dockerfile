@@ -15,6 +15,6 @@ RUN yarn install
 
 COPY . /wwwroot
 
-EXPOSE 3000, 4000
+EXPOSE 3000 4000
 
 CMD ["npm", "start"]
