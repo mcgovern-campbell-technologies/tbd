@@ -17,4 +17,6 @@ COPY . /wwwroot
 
 EXPOSE 3000 4000
 
+WORKDIR /wwwroot
+
 CMD ["npm", "start"]
