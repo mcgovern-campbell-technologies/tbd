@@ -1,6 +1,8 @@
 import auth0 from 'auth0-js';
 
 const FRONTEND_DOMAIN_URL = process.env.FRONTEND_DOMAIN_URL || 'abcdef'
+console.log('window.location')
+console.log(window.location)
 
 export default class AuthService {
   constructor() {
