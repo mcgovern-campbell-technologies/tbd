@@ -14,4 +14,4 @@ COPY . /wwwroot
 
 EXPOSE 3000 4000
 
-CMD ["npm", "start"]
+CMD ["npm", "run", "start-production"]
