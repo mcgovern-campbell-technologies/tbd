@@ -1,5 +1,7 @@
 import auth0 from 'auth0-js';
 
+const FRONTEND_DOMAIN_URL = process.env.FRONTEND_DOMAIN_URL || 'localhost'
+
 export default class AuthService {
   constructor() {
     this.login = this.login.bind(this);
@@ -12,8 +14,8 @@ export default class AuthService {
   auth0 = new auth0.WebAuth({
     domain: 'mcgovern-campbell-technologies.auth0.com',
     clientID: '81rhOqw5QUmgjEZ8osYF4PDQc0pCGaSt',
-    redirectUri: 'http://localhost:3000/callback',
-    audience: 'http://localhost:4000/api',
+    redirectUri: `http://${FRONTEND_DOMAIN_URL}/callback`,
+    audience: `http://${FRONTEND_DOMAIN_URL}:4000/api`,
     responseType: 'token id_token',
     scope: 'openid profile'
   });
