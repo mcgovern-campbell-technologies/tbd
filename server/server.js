@@ -3,7 +3,8 @@ var bodyParser = require('body-parser');
 var path = require('path');
 var port = process.env.PORT || 4000;
 console.log('=======================================')
-console.log(process.env)
+console.log(process.env.neo4jConnectionString)
+console.log(process.env.FRONTEND_DOMAIN_URL)
 console.log('=======================================')
 
 var jwtCheck = require('./auth/auth').jwtCheck;
