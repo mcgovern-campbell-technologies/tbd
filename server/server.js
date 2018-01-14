@@ -5,7 +5,7 @@ var port = process.env.PORT || 4000;
 
 var jwtCheck = require('./auth/auth').jwtCheck;
 
-const GraphApi = require('./server/database/GraphApi')
+const GraphApi = require('./database/GraphApi')
 const { databaseCredentials } = require('./../secrets.js');
 const { username, password, connection } = databaseCredentials
 
