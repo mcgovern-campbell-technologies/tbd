@@ -70,7 +70,7 @@ class ProfileSectionWrapper extends Component {
 
 ProfileSectionWrapper.propTypes = {
   title: PropTypes.string.isRequired,
-  // children: PropTypes.array.isRequired,
+  children: PropTypes.array.isRequired,
   handleHeaderAction: PropTypes.func.isRequired,
   // childrenShownOnUnexpanded: PropTypes.number.isRequired,
   edit: PropTypes.bool,
