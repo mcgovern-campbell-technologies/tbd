@@ -75,7 +75,7 @@ class EditSkillsBox extends Component {
           </DialogTitle>
           <DialogContent className='w-two-thirds'>
             {
-              this.props.skills
+              !this.props.skills
               ?
               null
               :
