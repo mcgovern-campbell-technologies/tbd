@@ -2,6 +2,9 @@ var express = require('express');
 var bodyParser = require('body-parser');
 var path = require('path');
 var port = process.env.PORT || 4000;
+console.log('=======================================')
+console.log(process.env)
+console.log('=======================================')
 
 var jwtCheck = require('./auth/auth').jwtCheck;
 
