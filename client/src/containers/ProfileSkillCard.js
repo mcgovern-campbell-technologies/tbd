@@ -47,9 +47,9 @@ class ProfileSkillCard extends Component {
 
   render() {
 
+    console.log('this.props from ProfileSkillCard')
+    console.log(this.props)
     return (
-      console.log('this.props from ProfileSkillCard')
-      console.log(this.props)
       <div>
 
         <EditSkillsBox
