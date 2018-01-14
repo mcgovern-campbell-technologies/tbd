@@ -29,6 +29,8 @@ class ProfileSkillCard extends Component {
   }
 
   componentWillMount() {
+    console.log('this.identity')
+    console.log(this.identity)
     this.props.getSkills(this.identity);
   }
 
@@ -43,6 +45,8 @@ class ProfileSkillCard extends Component {
   render() {
 
     return (
+      console.log('this.props from ProfileSkillCard')
+      console.log(this.props)
       <div>
 
         <EditSkillsBox
