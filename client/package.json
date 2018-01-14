@@ -36,6 +36,6 @@
     "react-scripts": "1.0.10"
   },
   "author": "Connor, Jennica, Luke, Nancy",
-  "license": "ISC"
-
+  "license": "ISC",
+  "proxy": "http://192.241.142.86:4000/"
 }
