@@ -9,7 +9,11 @@ console.log('=======================================')
 
 var jwtCheck = require('./auth/auth').jwtCheck;
 
+<<<<<<< HEAD
 const GraphApi = require('./database/graphApi.js')
+=======
+const GraphApi = require('./server/database/GraphApi')
+>>>>>>> try a different path for graphApi.js
 const { databaseCredentials } = require('./../secrets.js');
 const { username, password, connection } = databaseCredentials
 
