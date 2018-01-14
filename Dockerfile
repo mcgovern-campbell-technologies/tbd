@@ -13,5 +13,3 @@ RUN npm run full-install
 COPY . /wwwroot
 
 EXPOSE 3000 4000
-
-CMD ["npm", "start"]
