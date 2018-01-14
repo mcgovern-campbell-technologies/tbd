@@ -1,7 +1,7 @@
 import auth0 from 'auth0-js';
 
-// const FRONTEND_DOMAIN_URL = process.env.FRONTEND_DOMAIN_URL || 'localhost'
-const FRONTEND_DOMAIN_URL = process.env.FRONTEND_DOMAIN_URL || window.location.host
+// const DOMAIN = process.env.DOMAIN || 'localhost'
+const DOMAIN = process.env.DOMAIN || window.location.host
 
 export default class AuthService {
   constructor() {
@@ -15,8 +15,8 @@ export default class AuthService {
   auth0 = new auth0.WebAuth({
     domain: 'mcgovern-campbell-technologies.auth0.com',
     clientID: '81rhOqw5QUmgjEZ8osYF4PDQc0pCGaSt',
-    redirectUri: `http://${FRONTEND_DOMAIN_URL}/callback`,
-    audience: `http://${FRONTEND_DOMAIN_URL}:4000/api`,
+    redirectUri: `http://${DOMAIN}/callback`,
+    audience: `http://${DOMAIN}:4000/api`,
     responseType: 'token id_token',
     scope: 'openid profile'
   });
