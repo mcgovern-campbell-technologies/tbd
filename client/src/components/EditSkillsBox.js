@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 
 /* Material Components */
-import  
+import
   Dialog, {
   DialogContent,
   DialogContentText,
@@ -20,12 +20,12 @@ import { ajax } from 'rxjs/observable/dom/ajax';
 import { Subject } from 'rxjs';
 
 import _ from 'lodash'
- 
+
 // import _ from 'lodash';
 import { removeCollectionValues } from '../utils/collectionUtils';
 
 /* Custom components */
-import { 
+import {
   Autocomplete,
   SkillChip
 } from './componentIndex';
@@ -70,13 +70,17 @@ class EditSkillsBox extends Component {
           open={this.props.open}
           className='w-two-thirds'
         >
-          <DialogTitle> 
+          <DialogTitle>
             Edit Your Skills
           </DialogTitle>
           <DialogContent className='w-two-thirds'>
             {
-              this.props.skills.map(({ properties, identity }) => 
-                <SkillChip 
+              this.props.skills
+              ?
+              null
+              :
+              this.props.skills.map(({ properties, identity }) =>
+                <SkillChip
                   { ...properties }
                   identity={identity}
                   key={identity}
@@ -84,7 +88,7 @@ class EditSkillsBox extends Component {
                 />
               )
             }
-            
+
             <Autocomplete
               placeholder={'Whats your skill\'s name?'}
               handleSelection={this.updateNewSkillName}
