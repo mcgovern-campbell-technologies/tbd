@@ -1,7 +1,7 @@
 import auth0 from 'auth0-js';
 
 // const FRONTEND_DOMAIN_URL = process.env.FRONTEND_DOMAIN_URL || 'localhost'
-const FRONTEND_DOMAIN_URL = process.env.FRONTEND_DOMAIN_URL || window.location.origin
+const FRONTEND_DOMAIN_URL = process.env.FRONTEND_DOMAIN_URL || window.location.host
 
 export default class AuthService {
   constructor() {
