@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import PropTypes from 'prop-types'
 
 /* Material Components */
-import  
+import
   Dialog, {
   DialogContent,
   DialogContentText,
@@ -18,12 +18,12 @@ import Input from 'material-ui/Input';
 /* Rxjs */
 import { ajax } from 'rxjs/observable/dom/ajax';
 import { Subject } from 'rxjs';
- 
+
 // import _ from 'lodash';
 import { removeCollectionValues } from '../utils/collectionUtils';
 
 /* Custom components */
-import { 
+import {
   AutoComplete,
   SkillChip
 } from './componentIndex';
@@ -36,7 +36,7 @@ class EditSkillsBox extends Component {
     this.skillListInput$ = this.createSkillListInput$();
 
     this.skillListInputSubscription = this.skillListInput$
-      .subscribe(skills => 
+      .subscribe(skills =>
         this.setState({ skillsList: skills })
       )
 
@@ -58,11 +58,11 @@ class EditSkillsBox extends Component {
   createSkillListInput$() {
     const skillListInput = new Subject()
       .throttleTime(300)
-      .concatMap(value => 
+      .concatMap(value =>
         ajax.get(`/api/skill?queryString=${value}`)
           .takeUntil(skillListInput)
       )
-      .map(({ response }) => 
+      .map(({ response }) =>
         removeCollectionValues(response, this.props.skills)
 
       );
@@ -94,13 +94,17 @@ class EditSkillsBox extends Component {
           open={this.props.open}
           className='w-two-thirds'
         >
-          <DialogTitle> 
+          <DialogTitle>
             Edit Your Skills
           </DialogTitle>
           <DialogContent className='w-two-thirds'>
             {
+              this.props.skills
+              ?
+              null
+              :
               this.props.skills.map(({ properties, identity }) => 
-                <SkillChip 
+                <SkillChip
                   { ...properties }
                   key={identity}
                   handleRequestDelete={() => console.log('requesting delete')}
