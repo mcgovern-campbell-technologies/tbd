@@ -8,7 +8,6 @@ console.log(process.env.DOMAIN)
 console.log('=======================================')
 
 var jwtCheck = require('./auth/auth').jwtCheck;
-//comment
 
 const GraphApi = require('./database/graphApi.js')
 const { databaseCredentials } = require('./../secrets.js');
