@@ -21,7 +21,7 @@ class ProfileSkillCard extends Component {
 
   constructor(props) {
     super(props);
-    this.identity = this.props.identity? this.props.identity : 7135;
+    this.identity = this.props.identity? this.props.identity : 0;
     this.state = {
       expanded: false,
       editSkillsBoxOpen: false,
