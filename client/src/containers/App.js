@@ -43,18 +43,18 @@ const authService = new AuthService();
 //   })
 // }
 
-const styles = {
-  app: {
-    marginTop: 100,
-    marginLeft: 50
-  },
-  appBar: {
-    height: 50,
-  },
-  sideBar: {
-    width: 50
-  }
-}
+// const styles = {
+//   app: {
+//     marginTop: 100,
+//     marginLeft: 50
+//   },
+//   appBar: {
+//     height: 50,
+//   },
+//   sideBar: {
+//     width: 50
+//   }
+// }
 
 class App extends React.Component {
 
@@ -65,9 +65,9 @@ class App extends React.Component {
 
   render() {
     return (
+      <div>
         <div>
           <AppNavBar
-            className={styles.appBar}
             isAuthenticated={this.props.isAuthenticated}
             {...this.authService}
             logoutSuccess={this.props.logoutSuccess}
@@ -87,6 +87,7 @@ class App extends React.Component {
             <Route path="/callback" render={(props) => <Callback {...props} {...this.props} /> }/>
           </div>
         </div>
+      </div>
     )
   }
 }
