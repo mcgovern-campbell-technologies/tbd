@@ -1,11 +1,12 @@
 import { ajax } from 'rxjs/observable/dom/ajax';
 import { Observable } from 'rxjs'
-import { getSkillsFullfilled, skillsWereChecked } from './../actions/actionCreators';
+import { getSkillsFullfilled, skillsWereChecked, getSkills } from './../actions/actionCreators';
 import { 
   GET_SKILLS, 
   GET_SKILLS_FULLFILLED, 
   SKILLS_WERE_CHECKED,
   ADD_SKILL,
+  DELETE_SKILL,
 } from '../../utils/types';
 
 const getSkillsEpic = (action$, state) => {
@@ -13,9 +14,9 @@ const getSkillsEpic = (action$, state) => {
     .ofType(GET_SKILLS)
     .mergeMap(
       action => {
-        return ajax.getJSON(`/api/contractor/skills?identity=${action.payload}`)
+        const { identity } = state.getState().user;
+        return ajax.getJSON(`/api/contractor/skills?identity=${identity}`)
           .map(response => {
-            console.log(response)
             return getSkillsFullfilled(response)
           })
       }
@@ -34,6 +35,16 @@ const addSkillEpic = (action$, state) => {
             return getSkillsFullfilled(response)
           })
       }
+    )
+}
+
+const deleteSkillEpic = (action$, state) => {
+  return action$
+    .ofType(DELETE_SKILL)
+    .mergeMap(
+      action => 
+        ajax.delete(`/api/contractor/skills?identity=${action.payload}`)
+          .map(response => getSkills())
     )
 }
 
@@ -56,4 +67,5 @@ export {
   skills as default,
   getSkillsEpic,
   addSkillEpic,
+  deleteSkillEpic,
 }
