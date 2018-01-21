@@ -19,25 +19,51 @@ class ProfileCertificationsCard extends Component {
 
     this.state = {
       editCertificationBoxOpen: false,
+      edit: false,
       activeCertification: {
-        name: '',
-        location: ' ',
-        institution: '',
+        properties: {
+          name: '',
+          institution: '',
+          date: '',
+        }
       },
     }
 
     this.openEditCertificationBox = this.openEditCertificationBox.bind(this);
     this.closeEditCertificationBox = this.closeEditCertificationBox.bind(this);
+    this.handleEditCertificationFields = this.handleEditCertificationFields.bind(this);
+    this.addCertification = this.addCertification.bind(this);
+  }
+
+  handleEditCertificationFields(name) {
+    return (event) => {
+      const value = event.target ? event.target.value : event;
+      this.setState({ 
+        activeCertification: {
+          ...this.state.activeCertification,
+          properties: { ...this.state.activeCertification.properties, [name]: value}
+        }
+      })
+    }
+  }
+
+  addCertification() {
+    console.log('hitting addCertification')
+    this.props.addCertification(this.state.activeCertification.properties);
   }
 
   openEditCertificationBox(node) {
-    console.log(node)
-    this.setState({ activeCertification: node })
+    if (node) {
+      this.setState({ activeCertification: node })
+      this.setState({ edit: true })
+    }
     this.setState({ editCertificationBoxOpen: true })
   }
 
   closeEditCertificationBox() {
     this.setState({ editCertificationBoxOpen: false })
+    //I know this is the dirtiest thing youve ever seen
+    setTimeout(() => this.setState({ edit: false }), 100)
   }
 
   componentWillMount() {
@@ -49,7 +75,7 @@ class ProfileCertificationsCard extends Component {
       <div>
         <ProfileSectionWrapper
           title='Certifications'
-          handleHeaderAction={() => console.log('hi')}
+          handleHeaderAction={() => this.openEditCertificationBox()}
           childrenShownOnUnexpanded={2}
         >
           {
@@ -65,6 +91,9 @@ class ProfileCertificationsCard extends Component {
           open={ this.state.editCertificationBoxOpen }
           node={ this.state.activeCertification }
           closeEditCertificationBox={ this.closeEditCertificationBox }
+          handleAddCertification={this.addCertification}
+          edit={ this.state.edit }
+          handleEditCertificationFields={this.handleEditCertificationFields}
         />
       </div>
     )
