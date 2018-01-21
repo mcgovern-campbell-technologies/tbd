@@ -3,23 +3,28 @@ import PropTypes from 'prop-types';
 
 import Chip from 'material-ui/Chip';
 
-class SkillChip extends Component {
+function SkillChip (props) {
+  const { name, handleRequestDelete, identity } = props;
 
-  render() {
-    return (
-      <div className='dib pv2 pr1'>
-        <Chip
-          label={this.props.name}
-          onRequestDelete={this.props.handleRequestDelete}
-        />
-      </div>
-    )
-  }
+  return (
+    <div className='dib pv2 pr1'>
+      <Chip
+        label={name}
+        onRequestDelete={
+          handleRequestDelete? 
+            () => {
+              handleRequestDelete(identity)
+            } : null
+        }
+      />
+    </div>
+  )
 }
 
 SkillChip.propTypes = {
   name: PropTypes.string.isRequired,
   handleRequestDelete: PropTypes.func,
+  identity: PropTypes.string,
 }
 
 export default SkillChip;

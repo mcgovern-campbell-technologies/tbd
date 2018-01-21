@@ -18,13 +18,15 @@ import Input from 'material-ui/Input';
 /* Rxjs */
 import { ajax } from 'rxjs/observable/dom/ajax';
 import { Subject } from 'rxjs';
+
+import _ from 'lodash'
  
 // import _ from 'lodash';
 import { removeCollectionValues } from '../utils/collectionUtils';
 
 /* Custom components */
 import { 
-  AutoComplete,
+  Autocomplete,
   SkillChip
 } from './componentIndex';
 
@@ -33,15 +35,7 @@ class EditSkillsBox extends Component {
   constructor(props) {
     super(props);
 
-    this.skillListInput$ = this.createSkillListInput$();
-
-    this.skillListInputSubscription = this.skillListInput$
-      .subscribe(skills => 
-        this.setState({ skillsList: skills })
-      )
-
     this.state = {
-      skillList: [],
       newSkillIsValid: false,
       newSkill: {
         name: ''
@@ -49,42 +43,24 @@ class EditSkillsBox extends Component {
     }
 
     this.updateNewSkillName = this.updateNewSkillName.bind(this);
-    this.fetchNewSkillList = this.fetchNewSkillList.bind(this);
-    this.clearSkillList = this.clearSkillList.bind(this);
     this.handleAddSkill = this.handleAddSkill.bind(this);
+    this.handleDeleteSkill = this.handleDeleteSkill.bind(this);
 
-  }
-
-  createSkillListInput$() {
-    const skillListInput = new Subject()
-      .throttleTime(300)
-      .concatMap(value => 
-        ajax.get(`/api/skill?queryString=${value}`)
-          .takeUntil(skillListInput)
-      )
-      .map(({ response }) => 
-        removeCollectionValues(response, this.props.skills)
-
-      );
-
-    return skillListInput;
   }
 
   updateNewSkillName(newValue) {
+    this.setState({ newSkillIsValid: !_.includes(this.props.skills, newValue)})
     this.setState({ newSkill: { ...this.state.newSkill, name: newValue }});
-  }
-
-  fetchNewSkillList(value) {
-    this.skillListInput$.next(value);
-  }
-  clearSkillList(value) {
-    this.setState({ skillList: [] });
   }
 
   handleAddSkill() {
     if (this.state.newSkillIsValid) {
       this.props.addSkill(this.state.newSkill, this.props.identity)
     }
+  }
+
+  handleDeleteSkill(identity) {
+    this.props.handleDeleteSkill(identity)
   }
 
   render() {
@@ -102,18 +78,17 @@ class EditSkillsBox extends Component {
               this.props.skills.map(({ properties, identity }) => 
                 <SkillChip 
                   { ...properties }
+                  identity={identity}
                   key={identity}
-                  handleRequestDelete={() => console.log('requesting delete')}
+                  handleRequestDelete={this.handleDeleteSkill}
                 />
               )
             }
             
-            <AutoComplete
-              suggestions={this.state.skillList}
-              inputValue={this.state.newSkill.name}
-              fetchSuggestions={this.fetchNewSkillList}
-              clearSuggestions={this.clearSkillList}
-              updateInput={this.updateNewSkillName}
+            <Autocomplete
+              placeholder={'Whats your skill\'s name?'}
+              handleSelection={this.updateNewSkillName}
+              url={'/api/skill'}
             />
           </DialogContent>
           <DialogActions>
@@ -131,6 +106,8 @@ class EditSkillsBox extends Component {
     );
   }
 }
+
+
 
 EditSkillsBox.propTypes ={
   addSkill: PropTypes.func.isRequired,
