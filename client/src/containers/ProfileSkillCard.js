@@ -23,10 +23,13 @@ class ProfileSkillCard extends Component {
       expanded: false,
       editSkillsBoxOpen: false,
     }
+    this.handleDeleteSkill = this.handleDeleteSkill.bind(this);
   }
 
   componentWillMount() {
-    this.props.getSkills(this.props.user.identity? this.props.user.identity: 7135);
+    if(this.props.user.identity) {
+      this.props.getSkills(this.props.user.identity);
+    }
   }
 
   openEditSkillsBox() {
@@ -35,6 +38,11 @@ class ProfileSkillCard extends Component {
 
   closeEditSkillsBox() {
     this.setState({ editSkillsBoxOpen: false });
+  }
+
+  handleDeleteSkill(identity) {
+    console.log('ProfileSkillCard handle delete', identity)
+    this.props.deleteSkill(identity);
   }
 
   render() {
@@ -48,6 +56,7 @@ class ProfileSkillCard extends Component {
           closeAddSkillBox={this.closeEditSkillsBox.bind(this)}
           addSkill={this.props.addSkill}
           skills={this.props.skills.list}
+          handleDeleteSkill={this.handleDeleteSkill}
         />
         <ProfileSectionWrapper
           title='Skills'
