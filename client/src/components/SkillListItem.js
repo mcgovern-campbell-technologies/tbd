@@ -20,10 +20,13 @@ export default class SkillListItem extends Component {
         <SkillChip { ...this.props.properties}/>
         <div className='dib fr'>
           {
-            _.range(0, _.ceil(Math.random() * 5)).map((value) => 
-              <div className='fr dib pa1'>
+
+            _.uniq(_.range(0, _.ceil(Math.random() * 5))).map((value, key) => 
+              <div 
+                className='fr dib pa1'
+                key={key}
+              >
                 <Avatar
-                  key={value}
                   sizes='10'
                 > </Avatar>
               </div>
