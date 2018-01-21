@@ -1,4 +1,4 @@
-import AutoComplete from './AutoComplete';
+import Autocomplete from './Autocomplete';
 import Callback from './Callback';
 import ContactForm from './ContactForm';
 import EditCertificationBox from './EditCertificationBox';
@@ -13,9 +13,11 @@ import ProfileSectionListItem from './ProfileSectionListItem';
 import EditSkillsBox from './EditSkillsBox';
 import EditProfileBox from './EditProfileBox';
 import SkillListItem from './SkillListItem';
+import ExperienceListItem from './ExperienceListItem';
+import AddExperienceBox from './AddExperienceBox';
 
 export {
-  AutoComplete,
+  Autocomplete,
   Callback,
   ContactForm,
   EditCertificationBox,
@@ -28,4 +30,6 @@ export {
   ProfileSectionWrapper,
   ProfileSectionListItem,
   SkillListItem,
+  ExperienceListItem,
+  AddExperienceBox
 }
