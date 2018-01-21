@@ -3,10 +3,6 @@ import React, { Component } from 'react';
 import AppBar from 'material-ui/AppBar';
 import Toolbar from 'material-ui/Toolbar';
 import Button from 'material-ui/Button';
-<<<<<<< HEAD
-=======
-import IconMenu from 'material-ui/Menu';
->>>>>>> Add the logout button to the AppNavBar
 import Menu, { MenuItem }from 'material-ui/Menu';
 import IconButton from 'material-ui/IconButton';
 import Typography from 'material-ui/Typography'
@@ -63,7 +59,6 @@ class AppNavBar extends Component {
         style={this.props.style}
       >
         <Toolbar>
-<<<<<<< HEAD
           <Typography type="title">
             TBD
           </Typography>
@@ -79,23 +74,7 @@ class AppNavBar extends Component {
               />
             )
           }
-=======
-          <div className='fr w-20' />
-          <div className='fr'>
-            {
-              this.props.isAuthenticated() ? (
-                <Logged 
-                  logoutSuccess={this.props.logoutSuccess}
-                  logout={this.props.logout}
-                /> 
-              ) : (
-                <Login 
-                  login={this.props.login}
-                />
-              )
-            } 
-          </div>
->>>>>>> Add the logout button to the AppNavBar
+
         </Toolbar>
       </AppBar>
     )
