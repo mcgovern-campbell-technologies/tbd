@@ -10,8 +10,6 @@ import ProfileSideCard from './ProfileSideCard';
 import SkillChip from './SkillChip';
 import ProfileSectionWrapper from './ProfileSectionWrapper';
 import ProfileSectionListItem from './ProfileSectionListItem';
-import EditSkillsBox from './EditSkillsBox';
-import EditProfileBox from './EditProfileBox';
 import SkillListItem from './SkillListItem';
 import ExperienceListItem from './ExperienceListItem';
 import AddExperienceBox from './AddExperienceBox';
