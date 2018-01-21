@@ -34,7 +34,7 @@ class ProfileSectionWrapper extends Component {
   }
 
   render() {
-    const showExpandColapseButton = this.props.children.length >= this.props.childrenShownOnUnexpanded;
+    // const showExpandColapseButton = this.props.children.length >= this.props.childrenShownOnUnexpanded;
     return (
       <div className='pa2'>
         <Card>
@@ -49,10 +49,10 @@ class ProfileSectionWrapper extends Component {
             }
           />
           <CardContent>
-            { this.state.expanded? this.props.children : this.props.children.slice(0, this.props.childrenShownOnUnexpanded) }
+            { this.props.children }
           </CardContent>
           { 
-            showExpandColapseButton ?
+            /*showExpandColapseButton ?
               <CardActions>
                 <Button
                   onClick={this.state.expanded? this.colapse : this.expand }
@@ -60,7 +60,7 @@ class ProfileSectionWrapper extends Component {
                   { this.state.expanded? <ExpandLess /> : <ExpandMore /> }
                   { this.state.expanded? 'Less' : 'More' }
                 </Button>
-              </CardActions> : null
+              </CardActions> : null*/
           }
         </Card>
       </div>
@@ -72,7 +72,7 @@ ProfileSectionWrapper.propTypes = {
   title: PropTypes.string.isRequired,
   children: PropTypes.array.isRequired,
   handleHeaderAction: PropTypes.func.isRequired,
-  childrenShownOnUnexpanded: PropTypes.number.isRequired,
+  // childrenShownOnUnexpanded: PropTypes.number.isRequired,
   edit: PropTypes.bool,
 }
 
