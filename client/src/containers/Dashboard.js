@@ -44,7 +44,7 @@ class Dashboard extends Component {
     return user ? (
         <div>
           <div className='fl w-20 pa2'>
-            <SideNavBar />
+            {/*<SideNavBar />*/}
           </div>
           <div className='fl w-80 pa2'>
             <Route path={`${match.path}/onBoardFlow`} component={OnBoardFlow}/>
