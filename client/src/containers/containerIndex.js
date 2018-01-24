@@ -8,6 +8,7 @@ import ProfileSkillCard from './ProfileSkillCard';
 import ProfileCertificationsCard from './ProfileCertificationsCard';
 import ProfileExperienceCard from './ProfileExperienceCard';
 import SideNavBar from './SideNavBar';
+import TeamManager from './TeamManager';
 
 export {
   App,
@@ -20,4 +21,5 @@ export {
   ProfileCertificationsCard,
   ProfileExperienceCard,
   SideNavBar,
+  TeamManager,
 }
