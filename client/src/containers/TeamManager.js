@@ -6,6 +6,7 @@ import {
 } from './containerIndex';
 import {
   TeamManagerWrapper,
+  AddTeamBox,
 } from './../components/componentIndex';
 
 class TeamManager extends Component {
@@ -13,7 +14,7 @@ class TeamManager extends Component {
     super(props);
 
     this.state = {
-      AddTeamBoxOpen: false,
+      AddTeamBoxOpen: true,
     }
 
     this.toggleAddTeamBox = this.toggleAddTeamBox.bind(this)
@@ -29,7 +30,10 @@ class TeamManager extends Component {
       <TeamManagerWrapper
         openAddTeamBox={this.toggleAddTeamBox}
       >
-        
+        <AddTeamBox 
+          open={this.state.AddTeamBoxOpen}
+          closeAddTeamBox={this.toggleAddTeamBox}
+        />
       </TeamManagerWrapper>
     )
   }
