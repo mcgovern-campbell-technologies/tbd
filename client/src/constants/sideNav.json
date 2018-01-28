@@ -3,12 +3,17 @@
     "name": "Dashboard"
   },
   {
-    "name": "Profile"
+    "name": "Profile",
+    "path": "profile"
   },
   {
     "name": "Schedule"
   },
   {
     "name": "Settings"
+  },
+  {
+    "name": "Team Manager",
+    "path": "teamManager"
   }
 ]

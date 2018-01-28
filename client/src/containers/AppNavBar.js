@@ -7,7 +7,7 @@ import Menu, { MenuItem }from 'material-ui/Menu';
 import IconButton from 'material-ui/IconButton';
 import Typography from 'material-ui/Typography'
 // import MoreVertIcon from 'material-ui/svg-icons/navigation/more-vert';
-import Icon from 'material-ui-icons/MoreVert';
+import MoreVertIcon from 'material-ui-icons/MoreVert';
 import { Link } from 'react-router';
 import { withStyles } from 'material-ui/styles';
 
@@ -21,26 +21,18 @@ const Login = (props) =>  {
   );
 }
 
-const Logged = (props) => {
-  return (
-    <Menu
-      open={false} //TODO: Need to change this onClick.
-      iconButtonElement={
-        <IconButton>
-          <Icon/>
-        </IconButton>
-      }
-      targetOrigin={{horizontal: 'right', vertical: 'top'}}
-      anchorOrigin={{horizontal: 'right', vertical: 'top'}}
-    >
-      <MenuItem primaryText="Help" />
-      <MenuItem primaryText="Sign out" onClick  ={() => {
+
+const Logged = (props) => (
+  <Button 
+    onClick={() => {
         props.logoutSuccess();
         props.logout();
-      }}/>
-    </Menu>
-  )
-};
+      }
+    }
+  >
+    Logout
+  </Button>
+);
 
 class AppNavBar extends Component {
   constructor() {
@@ -82,6 +74,7 @@ class AppNavBar extends Component {
               />
             )
           }
+
         </Toolbar>
       </AppBar>
     )

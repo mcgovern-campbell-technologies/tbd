@@ -12,7 +12,8 @@ const { username, password, connection } = databaseCredentials
 //routers
 const {
   contractorRouter,
-  skillRouter
+  skillRouter,
+  certificationRouter,
 } = require('./routers/routersIndex');
 
 var app = express();
@@ -44,6 +45,7 @@ app.get('/api/unprotected', function(req, res) {
 /****Apply Routers****/
 app.use('/api/contractor', contractorRouter);
 app.use('/api/skill', skillRouter);
+app.use('/api/certification', certificationRouter);
 
 app.listen(port);
 

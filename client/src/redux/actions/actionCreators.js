@@ -30,7 +30,6 @@ export function logoutSuccess() {
 export function getSkills(identity) {
   return {
     type: types.GET_SKILLS,
-    payload: identity
   }
 }
 
@@ -83,5 +82,52 @@ export function addSkill(skill, identity) {
     type: types.ADD_SKILL,
     payload: skill,
     identity
+  }
+}
+
+export function deleteSkill(identity) {
+  return {
+    type: types.DELETE_SKILL,
+    payload: identity,
+  }
+}
+
+export function getCertifications() {
+  return {
+    type: types.GET_CERTIFICATIONS,
+  }
+}
+
+export function getCertificationsFulfilled(certifications) {
+  return {
+    type: types.GET_CERTIFICATIONS_FULFILLED,
+    payload: certifications
+  }
+}
+
+export function addCertification(certification) {
+  return {
+    type: types.ADD_CERTIFICATION,
+    payload: certification
+  }
+}
+
+export function getExperiences() {
+  return {
+    type: types.GET_EXPERIENCES
+  }
+}
+
+export function getExperiencesFullfilled(payload) {
+  return {
+    type: types.GET_EXPERIENCES_FULLFILLED,
+    payload
+  }
+}
+
+export function addExperience(exp) {
+  return {
+    type: types.ADD_EXPERIENCE,
+    payload: exp
   }
 }

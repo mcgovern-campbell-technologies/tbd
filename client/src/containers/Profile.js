@@ -22,6 +22,7 @@ import {
 import {
   ProfileSkillCard,
   ProfileCertificationsCard,
+  ProfileExperienceCard,
 } from './containerIndex'
 
 //Assets
@@ -43,10 +44,15 @@ class Profile extends Component {
           />
         </div>
         <div className ="section row">
-          <ProfileSkillCard />
-          <ProfileCertificationsCard />
+          {
+            this.props.user.identity? <div>
+              <ProfileSkillCard /> 
+              <ProfileCertificationsCard />
+              <ProfileExperienceCard />
+            </div> : null
+          } 
           <div className="divider"></div>
-        </div>
+        </div>  
       </div>
 
     )

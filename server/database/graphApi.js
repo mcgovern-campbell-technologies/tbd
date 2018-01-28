@@ -37,6 +37,20 @@ class GraphApi {
       })
   }
 
+  deleteNode(identity) {
+    const session = this.driver.session();
+
+    return session
+      .run(`
+        MATCH (n) WHERE ID(n) = ${identity}
+        DETACH DELETE n
+      `)
+      .then(result => {
+        console.log(result)
+        return result
+      })
+  }
+
   updateContractor(emplObj) {
     const properties = JSON.parse(emplObj.properties)
     const updatedProperties = Object.keys(properties).map(property => {
@@ -75,12 +89,12 @@ class GraphApi {
       });
   }
 
-  getParentSkillList(queryString) {
+  getParentNodeList(queryString, label) {
     const session = this.driver.session();
     console.log({ queryString })
     return session
       .run(`
-        MATCH (s:Skill)
+        MATCH (s:${label})
         WHERE s.name =~ '(?i)${queryString}.*'
         RETURN s
       `)
@@ -154,14 +168,50 @@ class GraphApi {
         RETURN cert
       `)
       .then((result) => {
-        const { records } = result
+        const { records } = result;
         session.close();
         return extractNodes(records);
       })
       .catch(err => {
         console.error(err)
       })
+  }
 
+  addContractorExpirience(identity, experience) {
+    const session = this.driver.session();
+    return session
+      .run(`
+        MATCH (cont:Contractor) WHERE ID(cont) = ${identity}
+        MATCH (local:Location { name: "${experience.location}"}),
+        (company:Company { name: "${experience.company}"})
+        WHERE (company)-[:HAS_LOCATION]->(local)
+        CREATE (cont)-[:HAS_EXPERIENCE]->(e:Experience ${stringifyObject(experience)}),
+        (e)-[:AT]->(local)
+        RETURN e
+      `)
+      .then(result => {
+        const { records } = result;
+        session.close();
+        console.log(extractNodes(records))
+        return extractNodes(records);
+      })
+      .catch(err => console.error(err))
+  }
+
+  getContractorExpirience(identity) {
+    const session = this.driver.session();
+    return session  
+      .run(`
+        MATCH (cont:Contractor) WHERE ID(cont) = ${identity}
+        MATCH (cont)-[:HAS_EXPERIENCE]->(exp)
+        RETURN exp
+      `)
+      .then(result => {
+        const { records } = result;
+        session.close();
+        return extractNodes(records);
+      })
+      .catch(err => console.error(err));
   }
 }
 
