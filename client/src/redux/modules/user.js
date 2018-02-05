@@ -3,13 +3,15 @@ import { ajax } from 'rxjs/observable/dom/ajax';
 import { getUserFulfilled, addUser } from './../actions/actionCreators';
 import * as types from '../../utils/types';
 
+const DOMAIN = process.env.DOMAIN || 'localhost'
+
 const getUserEpic = (action$, state) => {
   const { auth } = state.getState();
   const currentState = state.getState()
   return action$
     .ofType(types.GET_USER)
     .mergeMap(action => {
-      return ajax.getJSON(`/api/contractor/?sub=${action.payload}`)
+      return ajax.getJSON(`http://${DOMAIN}:4000/api/contractor/?sub=${action.payload}`)
     })
     .map(profile => {
       //If no profile is returned from server, use locally stored auth.profile to addUser
@@ -28,7 +30,7 @@ const addUserEpic = (action$, state) => {
     .mergeMap(action => {
       const profileStr = window.localStorage.getItem('profile');
       const profile = JSON.parse(profileStr);
-      return ajax.post('/api/contractor', profile)
+      return ajax.post(`http://${DOMAIN}:4000/api/contractor`, profile)
         .map(({ response }) => response)
     })
     .map(profile => {
@@ -59,7 +61,7 @@ const updateUserEpic = (action$, state) => {
     .mergeMap(action => {
       action.payload.properties = JSON.stringify(action.payload.properties)
 
-      return ajax.post('/api/contractor/update', action.payload)
+      return ajax.post(`http://${DOMAIN}:4000/api/contractor/update`, action.payload)
         .map(({ response }) => response)
     })
     .map(profile => {
