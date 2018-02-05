@@ -1,18 +1,19 @@
 import { ajax } from 'rxjs/observable/dom/ajax';
 import { Observable } from 'rxjs'
 
-import { 
-  GET_EXPERIENCES, 
-  GET_EXPERIENCES_FULLFILLED, 
+import {
+  GET_EXPERIENCES,
+  GET_EXPERIENCES_FULLFILLED,
   ADD_EXPERIENCE,
 } from '../../utils/types';
 
-import { 
+import {
   getExperiences,
   getExperiencesFullfilled,
   addExperience,
 } from './../actions/actionCreators';
 
+const DOMAIN = window.location.host || 'localhost'
 
 const getExperiencesEpic = (action$, state) => {
   return action$
@@ -20,7 +21,7 @@ const getExperiencesEpic = (action$, state) => {
     .filter(action => state.getState().user.identity)
     .mergeMap(
       action => {
-        return ajax.getJSON(`/api/contractor/experience?identity=${state.getState().user.identity}`)
+        return ajax.getJSON(`http://${DOMAIN}:4000/api/contractor/experience?identity=${state.getState().user.identity}`)
           .map(response => {
             return getExperiencesFullfilled(response)
           })
@@ -35,7 +36,7 @@ const addExperienceEpic = (action$, state) => {
     .mergeMap(
       action => {
         return ajax.post(
-          `/api/contractor/experience?identity=${state.getState().user.identity}`,
+          `http://${DOMAIN}:4000/api/contractor/experience?identity=${state.getState().user.identity}`,
           action.payload)
           .map(result => getExperiences())
       }
@@ -47,9 +48,9 @@ const experiences =  (state = {
 }, action) => {
   const { type, payload } = action
   switch(type) {
-    case GET_EXPERIENCES_FULLFILLED: 
+    case GET_EXPERIENCES_FULLFILLED:
       return {...state, list: payload }
-    default: 
+    default:
       return state
   }
 }

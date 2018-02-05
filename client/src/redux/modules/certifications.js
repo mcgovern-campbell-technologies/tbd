@@ -12,11 +12,13 @@ import {
   ADD_CERTIFICATION,
 } from '../../utils/types';
 
+const DOMAIN = window.location.host || 'localhost'
+
 const getCertificationsEpic = (action$, state) =>
   action$
     .ofType(GET_CERTIFICATIONS)
     .mergeMap(action => {
-      return ajax.getJSON(`/api/contractor/certifications?identity=${state.getState().user.identity}`)
+      return ajax.getJSON(`http://${DOMAIN}:4000/api/contractor/certifications?identity=${state.getState().user.identity}`)
           .map(response => {
             return getCertificationsFulfilled(response)
           })
@@ -27,7 +29,7 @@ const addCertificationEpic = (action$, state) =>
     .ofType(ADD_CERTIFICATION)
     .mergeMap(
       action =>
-        ajax.post(`/api/contractor/certifications?identity=${state.getState().user.identity}`, action.payload)
+        ajax.post(`http://${DOMAIN}:4000/api/contractor/certifications?identity=${state.getState().user.identity}`, action.payload)
           .map(response => {
             console.log(response)
             return getCertifications()
