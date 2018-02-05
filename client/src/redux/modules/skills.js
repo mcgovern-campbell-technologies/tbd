@@ -9,6 +9,8 @@ import {
 } from '../../utils/types';
 
 const DOMAIN = process.env.DOMAIN || 'localhost'
+console.log("DOMAIN in skills.js")
+console.log(DOMAIN);
 
 const getSkillsEpic = (action$, state) => {
   return action$
