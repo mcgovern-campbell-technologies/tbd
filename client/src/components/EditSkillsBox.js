@@ -75,7 +75,7 @@ class EditSkillsBox extends Component {
           </DialogTitle>
           <DialogContent className='w-two-thirds'>
             {
-              this.props.skills.map(({ properties, identity }) => 
+              this.props.skills.map(({ properties, identity }) =>
                 <SkillChip
                   { ...properties }
                   identity={identity}
