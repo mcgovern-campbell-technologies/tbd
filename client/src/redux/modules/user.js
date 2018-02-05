@@ -4,6 +4,8 @@ import { getUserFulfilled, addUser } from './../actions/actionCreators';
 import * as types from '../../utils/types';
 
 const DOMAIN = process.env.DOMAIN || 'localhost'
+console.log("DOMAIN in user.js")
+console.log(DOMAIN);
 
 const getUserEpic = (action$, state) => {
   const { auth } = state.getState();
