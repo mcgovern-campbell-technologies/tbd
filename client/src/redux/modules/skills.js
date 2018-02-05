@@ -9,7 +9,7 @@ import {
   DELETE_SKILL,
 } from '../../utils/types';
 
-const DOMAIN = process.env.DOMAIN || 'localhost'
+const DOMAIN = window.location.host || 'localhost'
 console.log("DOMAIN in skills.js")
 console.log(DOMAIN);
 

@@ -3,7 +3,7 @@ import { ajax } from 'rxjs/observable/dom/ajax';
 import { getUserFulfilled, addUser } from './../actions/actionCreators';
 import * as types from '../../utils/types';
 
-const DOMAIN = process.env.DOMAIN || 'localhost'
+const DOMAIN = window.location.host || 'localhost'
 console.log("DOMAIN in user.js")
 console.log(DOMAIN);
 
