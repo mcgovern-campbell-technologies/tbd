@@ -1,7 +1,6 @@
 import auth0 from 'auth0-js';
 
-// const DOMAIN = process.env.DOMAIN || 'localhost'
-const DOMAIN = process.env.DOMAIN || window.location.host
+const DOMAIN = process.env.DOMAIN || 'localhost'
 
 export default class AuthService {
   constructor() {
