@@ -79,14 +79,12 @@ class ProfileCertificationsCard extends Component {
           childrenShownOnUnexpanded={2}
         >
           {
-            this.props.list ?
             this.props.list.map(node =>
               <ProfileSectionListItem
                 key={node.identity}
                 node={node}
                 openEditBox={this.openEditCertificationBox}
               />)
-            : null
           }
         </ProfileSectionWrapper>
         <EditCertificationBox
