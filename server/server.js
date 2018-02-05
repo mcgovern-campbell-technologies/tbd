@@ -27,8 +27,12 @@ app.use(bodyParser.urlencoded({extended: true}));
 app.use(bodyParser.json());
 
 /****Homebrew Middlewares****/
-//adds neo4j driver to the request object
 app.use('/api', (req, res, next) => {
+  // Temporarily set CORS headers to be open
+  res.header("Access-Control-Allow-Origin", "*");
+  res.header("Access-Control-Allow-Headers", "Origin, X-Requested-With, Content-Type, Accept");
+
+  //adds neo4j driver to the request object
   req.graphApi = graphApi;
   next();
 });
