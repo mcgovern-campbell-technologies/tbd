@@ -42,12 +42,7 @@ const certifications = (state = {
   const { type, payload } = action;
   switch (type) {
     case GET_CERTIFICATIONS_FULFILLED:
-      // Prevent error when payload is falsy
-      const list = payload || [];
-      return {
-        ...state,
-        list
-      };
+      return {...state, list: payload }
     default:
       return state;
   }
