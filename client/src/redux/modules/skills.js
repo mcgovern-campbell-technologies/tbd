@@ -71,9 +71,5 @@ export {
   skills as default,
   getSkillsEpic,
   addSkillEpic,
-<<<<<<< HEAD
   deleteSkillEpic,
 }
-=======
-}
->>>>>>> change POST request URL to the full URL path
