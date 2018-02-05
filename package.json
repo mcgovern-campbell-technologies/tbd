@@ -31,5 +31,6 @@
     "build": "cd client && react-scripts build",
     "test": "cd client react-scripts test --env=jsdom",
     "eject": "cd client && react-scripts eject"
-  }
+  },
+  "proxy": "http://localhost:4000/" 
 }
