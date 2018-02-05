@@ -7,7 +7,7 @@ import { connect } from 'react-redux';
 
 import * as actionCreators from '../redux/actions/actionCreators';
 
-import { 
+import {
   ProfileSectionWrapper,
   ProfileSectionListItem,
   EditCertificationBox,
@@ -38,7 +38,7 @@ class ProfileCertificationsCard extends Component {
   handleEditCertificationFields(name) {
     return (event) => {
       const value = event.target ? event.target.value : event;
-      this.setState({ 
+      this.setState({
         activeCertification: {
           ...this.state.activeCertification,
           properties: { ...this.state.activeCertification.properties, [name]: value}
@@ -79,15 +79,17 @@ class ProfileCertificationsCard extends Component {
           childrenShownOnUnexpanded={2}
         >
           {
-            this.props.list.map(node => 
+            this.props.list ?
+            this.props.list.map(node =>
               <ProfileSectionListItem
                 key={node.identity}
                 node={node}
                 openEditBox={this.openEditCertificationBox}
               />)
+            : null
           }
         </ProfileSectionWrapper>
-        <EditCertificationBox 
+        <EditCertificationBox
           open={ this.state.editCertificationBoxOpen }
           node={ this.state.activeCertification }
           closeEditCertificationBox={ this.closeEditCertificationBox }
