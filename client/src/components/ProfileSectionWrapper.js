@@ -52,11 +52,7 @@ class ProfileSectionWrapper extends Component {
             { this.props.children }
           </CardContent>
           {
-<<<<<<< HEAD
             /*showExpandColapseButton ?
-=======
-            showExpandColapseButton ?
->>>>>>> 56473d7ae03241b5a932178f01d910dd3dcbe2b7
               <CardActions>
                 <Button
                   onClick={this.state.expanded? this.colapse : this.expand }
