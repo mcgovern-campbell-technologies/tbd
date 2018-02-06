@@ -30,6 +30,8 @@ import {
   SkillChip
 } from './componentIndex';
 
+const DOMAIN = window.location.host || 'localhost'
+
 class EditSkillsBox extends Component {
 
   constructor(props) {
@@ -88,7 +90,7 @@ class EditSkillsBox extends Component {
             <Autocomplete
               placeholder={'Whats your skill\'s name?'}
               handleSelection={this.updateNewSkillName}
-              url={'/api/skill'}
+              url={`http://${DOMAIN}:4000/api/skill`}
             />
           </DialogContent>
           <DialogActions>
