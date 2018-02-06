@@ -2,10 +2,14 @@ var express = require('express');
 var bodyParser = require('body-parser');
 var path = require('path');
 var port = process.env.PORT || 4000;
+console.log('=======================================')
+console.log(process.env.neo4jConnectionString)
+console.log(process.env.DOMAIN)
+console.log('=======================================')
 
 var jwtCheck = require('./auth/auth').jwtCheck;
 
-const GraphApi = require('./database/GraphApi')
+const GraphApi = require('./database/graphApi.js')
 const { databaseCredentials } = require('./../secrets.js');
 const { username, password, connection } = databaseCredentials
 
@@ -24,8 +28,12 @@ app.use(bodyParser.urlencoded({extended: true}));
 app.use(bodyParser.json());
 
 /****Homebrew Middlewares****/
-//adds neo4j driver to the request object
 app.use('/api', (req, res, next) => {
+  // Temporarily set CORS headers to be open
+  res.header("Access-Control-Allow-Origin", "*");
+  res.header("Access-Control-Allow-Headers", "Origin, X-Requested-With, Content-Type, Accept");
+
+  //adds neo4j driver to the request object
   req.graphApi = graphApi;
   next();
 });

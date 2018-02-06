@@ -45,14 +45,15 @@ class Profile extends Component {
         </div>
         <div className ="section row">
           {
-            this.props.user.identity? <div>
-              <ProfileSkillCard /> 
+            this.props.user.identity ?
+            <div>
+              <ProfileSkillCard />
               <ProfileCertificationsCard />
               <ProfileExperienceCard />
             </div> : null
-          } 
+          }
           <div className="divider"></div>
-        </div>  
+        </div>
       </div>
 
     )

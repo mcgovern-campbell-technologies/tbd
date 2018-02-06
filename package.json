@@ -24,10 +24,13 @@
     "serve": "node server/server.js",
     "full-install": "yarn && cd client && yarn",
     "start": "concurrently \"npm run serve-watch\" \"npm run client-start\"",
+    "start-production": "concurrently \"npm run serve-production\" \"npm run client-start\"",
     "client-start": "cd client && npm start",
     "serve-watch": "nodemon server/server.js",
+    "serve-production": "node server/server.js",
     "build": "cd client && react-scripts build",
     "test": "cd client react-scripts test --env=jsdom",
     "eject": "cd client && react-scripts eject"
-  }
+  },
+  "proxy": "http://localhost:4000/" 
 }

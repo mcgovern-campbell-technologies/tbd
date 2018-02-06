@@ -1,7 +1,7 @@
 import { ajax } from 'rxjs/observable/dom/ajax';
 import { Observable } from 'rxjs'
 
-import { 
+import {
   getCertificationsFulfilled,
   getCertifications,
 } from './../actions/actionCreators';
@@ -12,22 +12,24 @@ import {
   ADD_CERTIFICATION,
 } from '../../utils/types';
 
-const getCertificationsEpic = (action$, state) => 
+const DOMAIN = window.location.host || 'localhost'
+
+const getCertificationsEpic = (action$, state) =>
   action$
     .ofType(GET_CERTIFICATIONS)
     .mergeMap(action => {
-      return ajax.getJSON(`/api/contractor/certifications?identity=${state.getState().user.identity}`)
+      return ajax.getJSON(`http://${DOMAIN}:4000/api/contractor/certifications?identity=${state.getState().user.identity}`)
           .map(response => {
             return getCertificationsFulfilled(response)
           })
     })
 
-const addCertificationEpic = (action$, state) => 
+const addCertificationEpic = (action$, state) =>
   action$
     .ofType(ADD_CERTIFICATION)
     .mergeMap(
-      action => 
-        ajax.post(`/api/contractor/certifications?identity=${state.getState().user.identity}`, action.payload)
+      action =>
+        ajax.post(`http://${DOMAIN}:4000/api/contractor/certifications?identity=${state.getState().user.identity}`, action.payload)
           .map(response => {
             console.log(response)
             return getCertifications()
@@ -40,8 +42,8 @@ const certifications = (state = {
   const { type, payload } = action;
   switch (type) {
     case GET_CERTIFICATIONS_FULFILLED:
-      return { ...state, list: payload };
-    default: 
+      return {...state, list: payload }
+    default:
       return state;
   }
 }

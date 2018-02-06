@@ -47,6 +47,8 @@ class ProfileSkillCard extends Component {
 
   render() {
 
+    console.log('this.props from ProfileSkillCard')
+    console.log(this.props)
     return (
       <div>
 
@@ -64,7 +66,7 @@ class ProfileSkillCard extends Component {
           expanded={this.state.expanded}
           childrenShownOnUnexpanded={3}
           handleHeaderAction={this.openEditSkillsBox.bind(this)}
-        > 
+        >
           { this.props.skills.list.map((skill) => <SkillListItem key={skill.identity} { ...skill }/>) }
         </ProfileSectionWrapper>
       </div>

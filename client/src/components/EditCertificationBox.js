@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 
-import  
+import
   Dialog, {
   DialogContent,
   DialogContentText,
@@ -13,21 +13,22 @@ import TextField from 'material-ui/TextField';
 import Typography from 'material-ui/Typography';
 
 import { Autocomplete } from './componentIndex';
+const DOMAIN = window.location.host || 'localhost'
 
 class EditCertificationBox extends Component {
 
   render() {
-    const { 
-      open, 
-      closeEditCertificationBox, 
-      node, 
-      edit, 
+    const {
+      open,
+      closeEditCertificationBox,
+      node,
+      edit,
       handleEditCertificationFields,
       handleAddCertification,
     } = this.props;
     const { name, institution, location } = node.properties;
     return (
-      <Dialog 
+      <Dialog
         open={open}
       >
         <DialogTitle>
@@ -46,8 +47,8 @@ class EditCertificationBox extends Component {
                 { name }
               </Typography>
             ) : (
-              <Autocomplete 
-                url={'/api/certification'}
+              <Autocomplete
+                url={`http://${DOMAIN}:4000/api/certification`}
                 handleSelection={handleEditCertificationFields('name')}
                 placeholder={'Certification name'}
               />

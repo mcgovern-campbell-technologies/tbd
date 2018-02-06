@@ -41,7 +41,7 @@ class ProfileSectionWrapper extends Component {
           <CardHeader
             title={this.props.title}
             action={
-              <IconButton 
+              <IconButton
                 onClick={this.props.handleHeaderAction}
               >
                 { this.props.edit? <ModeEdit/> : <Add /> }
@@ -51,7 +51,7 @@ class ProfileSectionWrapper extends Component {
           <CardContent>
             { this.props.children }
           </CardContent>
-          { 
+          {
             /*showExpandColapseButton ?
               <CardActions>
                 <Button
