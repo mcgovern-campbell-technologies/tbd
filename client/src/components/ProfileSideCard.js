@@ -1,10 +1,7 @@
 import React, {Component} from 'react';
 import Card, {CardActions, CardContent, CardHeader, CardMedia, CardTitle, CardText} from 'material-ui/Card';
-import Chip from 'material-ui/Chip';
 import ModeEdit from 'material-ui-icons/ModeEdit';
 import IconButton from 'material-ui/IconButton';
-import fbLogo from '../assets/fbLogo.png';
-import lnLogo from '../assets/lnLogo.png';
 import { EditProfileBox } from './componentIndex';
 
 class ProfileSideCard extends Component {
