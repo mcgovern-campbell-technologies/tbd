@@ -3,6 +3,7 @@ import Card, {CardActions, CardContent, CardHeader, CardMedia, CardTitle, CardTe
 import ModeEdit from 'material-ui-icons/ModeEdit';
 import IconButton from 'material-ui/IconButton';
 import { EditProfileBox } from './componentIndex';
+import { WeekDayPicker } from '../containers/containerIndex';
 
 class ProfileSideCard extends Component {
   constructor(props) {
@@ -27,11 +28,6 @@ class ProfileSideCard extends Component {
     const { name, email, picture, blurb, profession } = this.props.user.properties;
 
     const styles = {
-      wrapper: {
-        // display: 'flex',
-        // flexWrap: 'wrap',
-        // inline: false
-      },
       actionIcon: {
         float: 'right',
       },
@@ -84,6 +80,7 @@ class ProfileSideCard extends Component {
               <div className="divider"></div>
             </div>
           </CardContent>
+          <WeekDayPicker />
 
           <CardActions></CardActions>
         </Card>
