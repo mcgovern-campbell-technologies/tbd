@@ -9,6 +9,7 @@ import ProfileCertificationsCard from './ProfileCertificationsCard';
 import ProfileExperienceCard from './ProfileExperienceCard';
 import SideNavBar from './SideNavBar';
 import TeamManager from './TeamManager';
+import WeekDayPicker from './WeekDayPicker';
 
 export {
   App,
@@ -22,4 +23,5 @@ export {
   ProfileExperienceCard,
   SideNavBar,
   TeamManager,
+  WeekDayPicker,
 }
