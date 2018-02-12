@@ -80,7 +80,6 @@ class ProfileSideCard extends Component {
               <div className="divider"></div>
             </div>
           </CardContent>
-          <WeekDayPicker />
 
           <CardActions></CardActions>
         </Card>
