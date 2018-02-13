@@ -1,4 +1,5 @@
 import Autocomplete from './Autocomplete';
+import AddTeamBox from './AddTeamBox';
 import Callback from './Callback';
 import ContactForm from './ContactForm';
 import EditCertificationBox from './EditCertificationBox';
@@ -17,6 +18,7 @@ import TeamManagerWrapper from './TeamManagerWrapper';
 
 export {
   Autocomplete,
+  AddTeamBox,
   Callback,
   ContactForm,
   EditCertificationBox,
