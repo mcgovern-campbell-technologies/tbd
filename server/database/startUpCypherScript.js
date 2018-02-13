@@ -1,5 +1,5 @@
 const startUpScript = `
-  CREATE 
+  CREATE
   (cont:Contractor {email: "robJohnson@gmail.com", name: "Rob Johnson"}),
   (s1:Skill {name: "Leadership"}),
   (s2:Skill {name: "Teamwork"}),
@@ -9,7 +9,9 @@ const startUpScript = `
   (c1:Certification {name: "Forklift Driver"}),
   (c2:Certification {name: "Welding"}),
   (c3:Certification {name: "Warehouse Safety"}),
-  (c4:Certification {name: "First Aid"})
+  (c4:Certification {name: "First Aid"}),
+  (p:Project {name: "Deathstar"}),
+  (l:Location {name: "Alderaan"})
   RETURN s1
 `
 const massDelete = `
