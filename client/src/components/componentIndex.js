@@ -1,7 +1,5 @@
 import Autocomplete from './Autocomplete';
 import AddTeamBox from './AddTeamBox';
-import AddTeamBoxEssentialInformation from './AddTeamBoxEssentialInformation';
-import AddTeamBoxRoleInformation from './AddTeamBoxRoleInformation';
 import Callback from './Callback';
 import ContactForm from './ContactForm';
 import EditCertificationBox from './EditCertificationBox';
@@ -21,8 +19,6 @@ import TeamManagerWrapper from './TeamManagerWrapper';
 export {
   Autocomplete,
   AddTeamBox,
-  AddTeamBoxEssentialInformation,
-  AddTeamBoxRoleInformation,
   Callback,
   ContactForm,
   EditCertificationBox,
