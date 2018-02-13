@@ -177,7 +177,7 @@ class GraphApi {
       })
   }
 
-  addContractorExpirience(identity, experience) {
+  addContractorExperience(identity, experience) {
     const session = this.driver.session();
     return session
       .run(`
@@ -198,9 +198,9 @@ class GraphApi {
       .catch(err => console.error(err))
   }
 
-  getContractorExpirience(identity) {
+  getContractorExperience(identity) {
     const session = this.driver.session();
-    return session  
+    return session
       .run(`
         MATCH (cont:Contractor) WHERE ID(cont) = ${identity}
         MATCH (cont)-[:HAS_EXPERIENCE]->(exp)
@@ -212,6 +212,30 @@ class GraphApi {
         return extractNodes(records);
       })
       .catch(err => console.error(err));
+  }
+
+  createTeam(reqBody) {
+    const { teamName, locationName, projectName } = reqBody;
+
+    const session = this.driver.session();
+    return session
+      .run(`
+        MATCH (location:Location {name: '${locationName}'})
+        MATCH (project:Project {name: '${projectName}'})
+        CREATE (team:Team {name: '${teamName}', created_at: '${new Date()}'})-[:HAS_LOCATION]->(location),
+        (team)-[:TEAM_FOR]->(project)
+        RETURN team
+      `)
+      .then(result => {
+        const { records } = result;
+        session.close();
+        return records.length
+          ? extractNodes(records)
+          : {"error": "An error occurred. This team was not created."};
+      })
+      .catch(err => {
+        console.error(err)
+      });
   }
 }
 
