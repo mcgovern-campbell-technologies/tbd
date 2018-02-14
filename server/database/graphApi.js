@@ -237,6 +237,46 @@ class GraphApi {
         console.error(err)
       });
   }
+
+  addContractorToTeam(reqBody) {
+    const {contractorId, teamId} = reqBody;
+    const session = this.driver.session();
+    return session
+      .run(`
+        MATCH (team:Team) where id(team) = ${teamId}
+        MATCH (c:Contractor) where id(c) = ${contractorId}
+        CREATE UNIQUE (c)-[:IS_MEMBER_OF]->(team)
+        RETURN c
+      `)
+      .then(result => {
+        const { records } = result;
+        session.close();
+        return result
+      })
+      .catch(err => {
+        console.error(err)
+      });
+  }
+
+  removeContractorFromTeam(reqBody) {
+    const {contractorId, teamId} = reqBody;
+    const session = this.driver.session();
+    return session
+      .run(`
+        MATCH (team:Team) where id(team) = ${teamId}
+        MATCH (c:Contractor) where id(c) = ${contractorId}
+        MATCH (c)-[r:IS_MEMBER_OF]->(team)
+        delete r
+      `)
+      .then(result => {
+        const { records } = result;
+        session.close();
+        return result
+      })
+      .catch(err => {
+        console.error(err)
+      });
+  }
 }
 
 module.exports = GraphApi;
