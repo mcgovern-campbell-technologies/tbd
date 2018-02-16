@@ -177,7 +177,7 @@ class GraphApi {
       })
   }
 
-  addContractorExpirience(identity, experience) {
+  addContractorExperience(identity, experience) {
     const session = this.driver.session();
     return session
       .run(`
@@ -198,9 +198,9 @@ class GraphApi {
       .catch(err => console.error(err))
   }
 
-  getContractorExpirience(identity) {
+  getContractorExperience(identity) {
     const session = this.driver.session();
-    return session  
+    return session
       .run(`
         MATCH (cont:Contractor) WHERE ID(cont) = ${identity}
         MATCH (cont)-[:HAS_EXPERIENCE]->(exp)
@@ -212,6 +212,70 @@ class GraphApi {
         return extractNodes(records);
       })
       .catch(err => console.error(err));
+  }
+
+  createTeam(reqBody) {
+    const { teamName, locationId, projectId } = reqBody;
+
+    const session = this.driver.session();
+    return session
+      .run(`
+        MATCH (location:Location) where id(location) = ${locationId}
+        MATCH (project:Project) where id(project) = ${projectId}
+        CREATE (team:Team {name: '${teamName}', created_at: '${new Date()}'})-[:HAS_LOCATION]->(location),
+        (team)-[:TEAM_FOR]->(project)
+        RETURN team
+      `)
+      .then(result => {
+        const { records } = result;
+        session.close();
+        return records.length
+          ? extractNodes(records)
+          : {"error": "An error occurred. This team was not created."};
+      })
+      .catch(err => {
+        console.error(err)
+      });
+  }
+
+  addContractorToTeam(reqBody) {
+    const {contractorId, teamId} = reqBody;
+    const session = this.driver.session();
+    return session
+      .run(`
+        MATCH (team:Team) where id(team) = ${teamId}
+        MATCH (c:Contractor) where id(c) = ${contractorId}
+        CREATE UNIQUE (c)-[:IS_MEMBER_OF]->(team)
+        RETURN c
+      `)
+      .then(result => {
+        const { records } = result;
+        session.close();
+        return result
+      })
+      .catch(err => {
+        console.error(err)
+      });
+  }
+
+  removeContractorFromTeam(reqBody) {
+    const {contractorId, teamId} = reqBody;
+    const session = this.driver.session();
+    return session
+      .run(`
+        MATCH (team:Team) where id(team) = ${teamId}
+        MATCH (c:Contractor) where id(c) = ${contractorId}
+        MATCH (c)-[r:IS_MEMBER_OF]->(team)
+        delete r
+      `)
+      .then(result => {
+        const { records } = result;
+        session.close();
+        return result
+      })
+      .catch(err => {
+        console.error(err)
+      });
   }
 }
 

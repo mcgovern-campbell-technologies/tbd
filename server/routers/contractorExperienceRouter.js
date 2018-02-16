@@ -5,7 +5,7 @@ const _ = require('lodash');
 router.get('/', (req, res) => {
   const { query, graphApi } = req;
   const { identity } = query;
-  graphApi.getContractorExpirience(identity)
+  graphApi.getContractorExperience(identity)
     .then(result => {
       res.send(result);
     })
