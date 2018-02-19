@@ -221,9 +221,9 @@ class GraphApi {
     return session
       .run(`
         MATCH (project:Project) where id(project) = ${projectId}
-        CREATE (team:Team {name: '${teamName}', created_at: '${new Date()}'})-[:TEAM_FOR]->(project)
+        CREATE (team:Team {name: $teamName, created_at: '${new Date()}'})-[:TEAM_FOR]->(project)
         RETURN team
-      `)
+      `, {teamName})
       .then(result => {
         const { records } = result;
         session.close();
@@ -243,9 +243,9 @@ class GraphApi {
     return session
       .run(`
         MATCH (location:Location) where id(location) = ${locationId}
-        CREATE (project:Project {name: '${projectName}', created_at: '${new Date()}'})-[:PROJECT_AT]->(location)
+        CREATE (project:Project {name: $projectName, created_at: '${new Date()}'})-[:PROJECT_AT]->(location)
         RETURN project
-      `)
+      `, {projectName})
       .then(result => {
         const { records } = result;
         session.close();
