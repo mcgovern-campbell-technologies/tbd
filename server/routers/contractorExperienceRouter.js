@@ -15,7 +15,7 @@ router.post('/', (req, res) => {
   const { body, query, graphApi } = req;
   const { identity } = query;
 
-  graphApi.addContractorExpirience(identity, body)
+  graphApi.addContractorExperience(identity, body)
     .then(result => {
       res.send(result);
     })
