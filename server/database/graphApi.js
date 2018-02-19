@@ -236,6 +236,28 @@ class GraphApi {
       });
   }
 
+  createProject(reqBody) {
+    const { projectName, locationId } = reqBody;
+
+    const session = this.driver.session();
+    return session
+      .run(`
+        MATCH (location:Location) where id(location) = ${locationId}
+        CREATE (project:Project {name: '${projectName}', created_at: '${new Date()}'})-[:PROJECT_AT]->(location)
+        RETURN project
+      `)
+      .then(result => {
+        const { records } = result;
+        session.close();
+        return records.length
+          ? extractNodes(records)
+          : {"error": "An error occurred. This team was not created."};
+      })
+      .catch(err => {
+        console.error(err)
+      });
+  }
+
   addContractorToTeam(reqBody) {
     const {contractorId, teamId} = reqBody;
     const session = this.driver.session();

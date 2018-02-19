@@ -3,6 +3,7 @@ const contractorSkillsRouter = require('./contractorSkillsRouter');
 const contractorTeamRouter = require('./contractorTeamRouter');
 const skillRouter = require('./skillRouter');
 const certificationRouter = require('./certificationRouter');
+const projectRouter = require('./projectRouter');
 const teamRouter = require('./teamRouter');
 
 module.exports = {
@@ -11,5 +12,6 @@ module.exports = {
   contractorTeamRouter,
   skillRouter,
   certificationRouter,
+  projectRouter,
   teamRouter,
 }
