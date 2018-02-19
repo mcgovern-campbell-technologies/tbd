@@ -3,7 +3,7 @@ const router = express.Router();
 
 router.put('/add', (req, res) => {
   const { body } = req;
-  req.graphApi.addContractorToTeam(body)
+  req.graphApi.addExperienceToTeam(body)
   .then(result => {
     res.send(result);
   })
@@ -15,7 +15,7 @@ router.put('/add', (req, res) => {
 
 router.put('/remove', (req, res) => {
   const { body } = req;
-  req.graphApi.removeContractorFromTeam(body)
+  req.graphApi.removeExperienceFromTeam(body)
   .then(result => {
     res.send(result);
   })
