@@ -258,15 +258,15 @@ class GraphApi {
       });
   }
 
-  addContractorToTeam(reqBody) {
-    const {contractorId, teamId} = reqBody;
+  addExperienceToTeam(reqBody) {
+    const {experienceId, teamId} = reqBody;
     const session = this.driver.session();
     return session
       .run(`
         MATCH (team:Team) where id(team) = ${teamId}
-        MATCH (c:Contractor) where id(c) = ${contractorId}
-        CREATE UNIQUE (c)-[:IS_MEMBER_OF]->(team)
-        RETURN c
+        MATCH (exp:Experience) where id(exp) = ${experienceId}
+        CREATE UNIQUE (exp)-[:IS_EXPERIENCE_FOR]->(team)
+        RETURN team
       `)
       .then(result => {
         const { records } = result;
@@ -278,14 +278,14 @@ class GraphApi {
       });
   }
 
-  removeContractorFromTeam(reqBody) {
-    const {contractorId, teamId} = reqBody;
+  removeExperienceFromTeam(reqBody) {
+    const {experienceId, teamId} = reqBody;
     const session = this.driver.session();
     return session
       .run(`
         MATCH (team:Team) where id(team) = ${teamId}
-        MATCH (c:Contractor) where id(c) = ${contractorId}
-        MATCH (c)-[r:IS_MEMBER_OF]->(team)
+        MATCH (exp:Experience) where id(exp) = ${experienceId}
+        MATCH (exp)-[r:IS_EXPERIENCE_FOR]->(team)
         delete r
       `)
       .then(result => {
