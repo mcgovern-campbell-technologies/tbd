@@ -18,6 +18,7 @@ const {
   contractorRouter,
   skillRouter,
   certificationRouter,
+  projectRouter,
   teamRouter,
 } = require('./routers/routersIndex');
 
@@ -55,6 +56,7 @@ app.get('/api/unprotected', function(req, res) {
 app.use('/api/contractor', contractorRouter);
 app.use('/api/skill', skillRouter);
 app.use('/api/certification', certificationRouter);
+app.use('/api/project', projectRouter);
 app.use('/api/team', teamRouter);
 
 app.listen(port);
