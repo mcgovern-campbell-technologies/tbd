@@ -1,10 +1,11 @@
+// /api/contractor
+
 const express = require('express');
 const router = express.Router();
 const _ = require('lodash');
 const contractorSkillsRouter = require('./contractorSkillsRouter');
 const contractorCertificationsRouter = require('./contractorCertificationsRouter');
 const contractorExperienceRouter = require('./contractorExperienceRouter');
-const contractorTeamRouter = require('./contractorTeamRouter');
 const jwtCheck = require('./../auth/auth').jwtCheck;
 
 

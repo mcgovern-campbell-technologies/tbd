@@ -214,6 +214,22 @@ class GraphApi {
       .catch(err => console.error(err));
   }
 
+  getTeam(reqQuery) {
+    const { teamId } = reqQuery;
+    const session = this.driver.session();
+    return session
+      .run(`
+        MATCH (t:Team) WHERE ID(t) = ${teamId}
+        RETURN t
+      `)
+      .then(result => {
+        const { records } = result;
+        session.close();
+        return extractNodes(records);
+      })
+      .catch(err => console.error(err));
+  }
+
   createTeam(reqBody) {
     const { teamName, projectId } = reqBody;
 

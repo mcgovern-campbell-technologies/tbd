@@ -1,8 +1,9 @@
+//  /api/project
+
 const express = require('express');
 const router = express.Router();
 const _ = require('lodash');
 
-// POST /api/project
 router.post('/', (req, res) => {
   const { body, query } = req;
 
