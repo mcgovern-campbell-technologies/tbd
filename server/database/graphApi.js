@@ -24,6 +24,22 @@ class GraphApi {
     this.driver.close();
   }
 
+  createLocation(reqBody) {
+    const {locationName, companyId} = reqBody;
+    const session = this.driver.session();
+    return session
+      .run(`
+        MATCH (c:Company) where id(c) = ${companyId}
+        MERGE (l:Location {name: $locationName})
+        CREATE UNIQUE (c)-[r:HAS_LOCATION]->(l)
+        RETURN l
+      `, {locationName})
+      .then(result => {
+        const { records } = result;
+        return extractNodes(records)[0];
+      })
+  }
+
   createContractor(emplObj) {
     const session = this.driver.session();
     return session
