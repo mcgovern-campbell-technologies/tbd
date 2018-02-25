@@ -22,7 +22,10 @@ services:
       - 7687:7687
     volumes:
       - type: volume
-        source: ${HOME}/neo4j/data
+        source: data-db
         target: /data
     environment:
       NEO4J_AUTH: 'none'
+
+volumes:
+  data-db:

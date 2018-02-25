@@ -1,15 +1,17 @@
+const certificationRouter = require('./certificationRouter');
 const contractorRouter = require('./contractorRouter');
 const contractorSkillsRouter = require('./contractorSkillsRouter');
-const contractorTeamRouter = require('./contractorTeamRouter');
+const locationRouter = require('./locationRouter');
+const projectRouter = require('./projectRouter');
 const skillRouter = require('./skillRouter');
-const certificationRouter = require('./certificationRouter');
 const teamRouter = require('./teamRouter');
 
 module.exports = {
+  certificationRouter,
   contractorRouter,
   contractorSkillsRouter,
-  contractorTeamRouter,
+  locationRouter,
+  projectRouter,
   skillRouter,
-  certificationRouter,
   teamRouter,
 }

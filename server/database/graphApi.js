@@ -24,6 +24,22 @@ class GraphApi {
     this.driver.close();
   }
 
+  createLocation(reqBody) {
+    const {locationName, companyId} = reqBody;
+    const session = this.driver.session();
+    return session
+      .run(`
+        MATCH (c:Company) where id(c) = ${companyId}
+        MERGE (l:Location {name: $locationName})
+        CREATE UNIQUE (c)-[r:HAS_LOCATION]->(l)
+        RETURN l
+      `, {locationName})
+      .then(result => {
+        const { records } = result;
+        return extractNodes(records)[0];
+      })
+  }
+
   createContractor(emplObj) {
     const session = this.driver.session();
     return session
@@ -214,18 +230,32 @@ class GraphApi {
       .catch(err => console.error(err));
   }
 
+  getTeam(reqQuery) {
+    const { teamId } = reqQuery;
+    const session = this.driver.session();
+    return session
+      .run(`
+        MATCH (t:Team) WHERE ID(t) = ${teamId}
+        RETURN t
+      `)
+      .then(result => {
+        const { records } = result;
+        session.close();
+        return extractNodes(records);
+      })
+      .catch(err => console.error(err));
+  }
+
   createTeam(reqBody) {
-    const { teamName, locationId, projectId } = reqBody;
+    const { teamName, projectId } = reqBody;
 
     const session = this.driver.session();
     return session
       .run(`
-        MATCH (location:Location) where id(location) = ${locationId}
         MATCH (project:Project) where id(project) = ${projectId}
-        CREATE (team:Team {name: '${teamName}', created_at: '${new Date()}'})-[:HAS_LOCATION]->(location),
-        (team)-[:TEAM_FOR]->(project)
+        CREATE (team:Team {name: $teamName, created_at: '${new Date()}'})-[:TEAM_FOR]->(project)
         RETURN team
-      `)
+      `, {teamName})
       .then(result => {
         const { records } = result;
         session.close();
@@ -238,15 +268,37 @@ class GraphApi {
       });
   }
 
-  addContractorToTeam(reqBody) {
-    const {contractorId, teamId} = reqBody;
+  createProject(reqBody) {
+    const { projectName, locationId } = reqBody;
+
+    const session = this.driver.session();
+    return session
+      .run(`
+        MATCH (location:Location) where id(location) = ${locationId}
+        CREATE (project:Project {name: $projectName, created_at: '${new Date()}'})-[:PROJECT_AT]->(location)
+        RETURN project
+      `, {projectName})
+      .then(result => {
+        const { records } = result;
+        session.close();
+        return records.length
+          ? extractNodes(records)
+          : {"error": "An error occurred. This team was not created."};
+      })
+      .catch(err => {
+        console.error(err)
+      });
+  }
+
+  addExperienceToTeam(reqBody) {
+    const {experienceId, teamId} = reqBody;
     const session = this.driver.session();
     return session
       .run(`
         MATCH (team:Team) where id(team) = ${teamId}
-        MATCH (c:Contractor) where id(c) = ${contractorId}
-        CREATE UNIQUE (c)-[:IS_MEMBER_OF]->(team)
-        RETURN c
+        MATCH (exp:Experience) where id(exp) = ${experienceId}
+        CREATE UNIQUE (exp)-[:IS_EXPERIENCE_FOR]->(team)
+        RETURN team
       `)
       .then(result => {
         const { records } = result;
@@ -258,14 +310,14 @@ class GraphApi {
       });
   }
 
-  removeContractorFromTeam(reqBody) {
-    const {contractorId, teamId} = reqBody;
+  removeExperienceFromTeam(reqBody) {
+    const {experienceId, teamId} = reqBody;
     const session = this.driver.session();
     return session
       .run(`
         MATCH (team:Team) where id(team) = ${teamId}
-        MATCH (c:Contractor) where id(c) = ${contractorId}
-        MATCH (c)-[r:IS_MEMBER_OF]->(team)
+        MATCH (exp:Experience) where id(exp) = ${experienceId}
+        MATCH (exp)-[r:IS_EXPERIENCE_FOR]->(team)
         delete r
       `)
       .then(result => {

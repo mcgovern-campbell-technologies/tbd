@@ -1,3 +1,6 @@
+//  api/contractor/experience
+
+
 const express = require('express');
 const router = express.Router();
 const _ = require('lodash');
@@ -15,7 +18,7 @@ router.post('/', (req, res) => {
   const { body, query, graphApi } = req;
   const { identity } = query;
 
-  graphApi.addContractorExpirience(identity, body)
+  graphApi.addContractorExperience(identity, body)
     .then(result => {
       res.send(result);
     })
