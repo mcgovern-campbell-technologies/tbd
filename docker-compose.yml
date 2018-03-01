@@ -15,6 +15,7 @@ services:
       #This DB connection string needs to match the name of the neo4j service below
       CHOKIDAR_USEPOLLING: "true"
       neo4jConnectionString: 'bolt://neo4j'
+      CHOKIDAR_USEPOLLING: 'true'
 
   neo4j:
     image: 'neo4j'
