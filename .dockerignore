@@ -1,8 +1,10 @@
 #Note: In this current configuration, secrets will make it in to the docker image
-
 Dockerfile
+docker-compose.yml
+docker-stack.yml
 .dockerignore
 .gitignore
 README.md
 build
 node_modules
+client/node_modules
