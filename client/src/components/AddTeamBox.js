@@ -34,6 +34,10 @@ class AddTeamBox extends Component {
     this.handleAccept = this.handleAccept.bind(this);
   }
 
+  componentDidMount() {
+    this.props.getAllProjects()
+  }
+
   checkProperties() {
     return validateProperties({
       teamName: (value) => value.length > 0,
@@ -90,10 +94,12 @@ class AddTeamBox extends Component {
               }}
             />
           </div>
+
           <div className="db">
             <TextField
-              label="Project Id"
-              type="text"
+              label="Project"
+              select
+              type="select"
               value={this.state.projectId}
               fullWidth
               onChange={this.handleFormUpdates('projectId')}
@@ -101,28 +107,15 @@ class AddTeamBox extends Component {
               InputLabelProps={{
                 shrink: true,
               }}
-            />
-          </div>
-          {/* <div className="db">
-            <TextField
-              label="Location"
-              select
-              type="select"
-              value={this.state.location}
-              fullWidth
-              onChange={this.handleFormUpdates('location')}
-              margin="normal"
-              InputLabelProps={{
-                shrink: true,
-              }}
             >
-              {locations.map(option => (
-                <MenuItem key={option.value} value={option.value}>
-                  {option.label}
+              {this.props.projects.map(project => (
+                <MenuItem key={project.identity} value={project.identity}>
+                  {project.properties.name}
                 </MenuItem>
               ))}
             </TextField>
-          </div> */}
+          </div>
+
           <div className="db">
             <div className="mh1 dib">
               <TextField
