@@ -1,9 +1,16 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
+import { bindActionCreators } from 'redux';
+import { withRouter } from 'react-router'
+
+
+//Actions
+import * as actionCreators from '../redux/actions/actionCreators';
 
 import {
 
 } from './containerIndex';
+
 import {
   TeamManagerWrapper,
   AddTeamBox,
@@ -37,7 +44,7 @@ class TeamManager extends Component {
   }
 
   handleAddTeam(team) {
-    console.log(team)
+    this.props.addTeam(team)
   }
 
   render() {
@@ -46,7 +53,7 @@ class TeamManager extends Component {
       <TeamManagerWrapper
         openAddTeamBox={this.toggleAddTeamBox}
       >
-        <AddTeamBox 
+        <AddTeamBox
           open={this.state.AddTeamBoxOpen}
           closeAddTeamBox={this.toggleAddTeamBox}
           handleAddTeam={this.handleAddTeam}
@@ -65,5 +72,7 @@ function mapStateToProps(state) {
   }
 }
 
-
-export default TeamManager
+function mapDispatchToProps(dispatch) {
+  return bindActionCreators(actionCreators, dispatch)
+}
+export default withRouter(connect(mapStateToProps, mapDispatchToProps)(TeamManager))
