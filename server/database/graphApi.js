@@ -282,15 +282,18 @@ class GraphApi {
   }
 
   createTeam(reqBody) {
-    const { teamName, projectId } = reqBody;
+    const { teamName, projectId, startDate, endDate } = reqBody;
 
     const session = this.driver.session();
     return session
       .run(`
         MATCH (project:Project) where id(project) = ${projectId}
-        CREATE (team:Team {name: $teamName, created_at: '${new Date()}'})-[:TEAM_FOR]->(project)
+        CREATE (team:Team {
+          name: $teamName,
+          startDate: $startDate, endDate: $endDate,
+          created_at: '${new Date()}'})-[:TEAM_FOR]->(project)
         RETURN team
-      `, {teamName})
+      `, {teamName, startDate, endDate})
       .then(result => {
         const { records } = result;
         session.close();
