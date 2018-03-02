@@ -11,22 +11,26 @@ import { reducer as formReducer } from 'redux-form';
 import authReducer, { authEpic } from './auth';
 import onBoardingReducer, { onBoardingEpic } from './onBoarding';
 import userReducer, { getUserEpic, addUserEpic, updateUserEpic } from './user';
-import skills, { 
-  getSkillsEpic, 
+import skills, {
+  getSkillsEpic,
   addSkillEpic,
   deleteSkillEpic,
 } from './skills';
 
-import certifications, { 
+import certifications, {
   getCertificationsEpic,
   addCertificationEpic,
   deleteCertificationEpic,
 } from './certifications';
 
-import experiences, { 
-  getExperiencesEpic, 
+import experiences, {
+  getExperiencesEpic,
   addExperienceEpic,
 }  from './experiences';
+
+import {
+  addTeamEpic,
+}  from './team';
 
 export const rootEpic = combineEpics(
   /* epics */
@@ -42,6 +46,7 @@ export const rootEpic = combineEpics(
   deleteCertificationEpic,
   addExperienceEpic,
   deleteSkillEpic,
+  addTeamEpic,
 );
 
 export const rootReducer = combineReducers({
