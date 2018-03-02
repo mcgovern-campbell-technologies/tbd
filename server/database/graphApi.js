@@ -40,6 +40,41 @@ class GraphApi {
       })
   }
 
+  createPosition(reqBody) {
+    const {positionName, teamId} = reqBody;
+    const session = this.driver.session();
+    return session
+      .run(`
+        MATCH (p:Position {name: $positionName})
+        RETURN p
+      `, {positionName})
+      .then(result => {
+        const { records } = result;
+        if (!records.length) {
+          return session
+            .run(`
+              MATCH (t:Team) WHERE id(t) = ${teamId}
+              CREATE (p:Position {name: $positionName})
+              CREATE (lev1:PositionLevel { value: 2, label: 'one', abreviation: 'I'})
+              CREATE (lev2:PositionLevel { value: 3, label: 'two', abreviation: 'II'})
+              CREATE (lev3:PositionLevel { value: 1, label: 'specialist', abreviation: 'spec'})
+              CREATE UNIQUE (p)-[:HAS_LEVEL]->(lev1)
+              CREATE UNIQUE (p)-[:HAS_LEVEL]->(lev2)
+              CREATE UNIQUE (p)-[:HAS_LEVEL]->(lev3)
+              CREATE UNIQUE (lev1)-[:POSITION_LEVEL_FOR]->(t)
+              CREATE UNIQUE (lev2)-[:POSITION_LEVEL_FOR]->(t)
+              CREATE UNIQUE (lev3)-[:POSITION_LEVEL_FOR]->(t)
+              RETURN p
+            `, {positionName})
+            .then(result => {
+              const { records } = result;
+              return extractNodes(records)[0];
+            })
+        }
+        return extractNodes(records)[0];
+      })
+  }
+
   createContractor(emplObj) {
     const session = this.driver.session();
     return session
