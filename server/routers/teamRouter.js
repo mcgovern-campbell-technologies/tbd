@@ -6,18 +6,30 @@ const router = express.Router();
 const _ = require('lodash');
 
 
-// Get a team by ID: GET /api/team
+// Get a team by ID: GET /api/team?teamId=4
+// Get all teams: GET /api/team
 router.get('/', (req, res) => {
   console.log('GET RECEIVED AT /api/team')
   const { body, query } = req;
 
-  req.graphApi.getTeam(query)
+  if (query.teamId) {
+    req.graphApi.getTeam(query)
     .then(result => {
       res.send(result);
     })
     .catch(err => {
       res.send(err)
     });
+  } else {
+    req.graphApi.getTeams()
+    .then(result => {
+      res.send(result);
+    })
+    .catch(err => {
+      res.send(err)
+    });
+  }
+
 });
 
 // Create a team and add to project: POST /api/team

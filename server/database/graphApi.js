@@ -40,6 +40,41 @@ class GraphApi {
       })
   }
 
+  createPosition(reqBody) {
+    const {positionName, teamId} = reqBody;
+    const session = this.driver.session();
+    return session
+      .run(`
+        MATCH (p:Position {name: $positionName})
+        RETURN p
+      `, {positionName})
+      .then(result => {
+        const { records } = result;
+        if (!records.length) {
+          return session
+            .run(`
+              MATCH (t:Team) WHERE id(t) = ${teamId}
+              CREATE (p:Position {name: $positionName})
+              CREATE (lev1:PositionLevel { value: 2, label: 'one', abreviation: 'I'})
+              CREATE (lev2:PositionLevel { value: 3, label: 'two', abreviation: 'II'})
+              CREATE (lev3:PositionLevel { value: 1, label: 'specialist', abreviation: 'spec'})
+              CREATE UNIQUE (p)-[:HAS_LEVEL]->(lev1)
+              CREATE UNIQUE (p)-[:HAS_LEVEL]->(lev2)
+              CREATE UNIQUE (p)-[:HAS_LEVEL]->(lev3)
+              CREATE UNIQUE (lev1)-[:POSITION_LEVEL_FOR]->(t)
+              CREATE UNIQUE (lev2)-[:POSITION_LEVEL_FOR]->(t)
+              CREATE UNIQUE (lev3)-[:POSITION_LEVEL_FOR]->(t)
+              RETURN p
+            `, {positionName})
+            .then(result => {
+              const { records } = result;
+              return extractNodes(records)[0];
+            })
+        }
+        return extractNodes(records)[0];
+      })
+  }
+
   createContractor(emplObj) {
     const session = this.driver.session();
     return session
@@ -208,7 +243,6 @@ class GraphApi {
       .then(result => {
         const { records } = result;
         session.close();
-        console.log(extractNodes(records))
         return extractNodes(records);
       })
       .catch(err => console.error(err))
@@ -246,16 +280,34 @@ class GraphApi {
       .catch(err => console.error(err));
   }
 
+  getTeams() {
+    const session = this.driver.session();
+    return session
+      .run(`
+        MATCH (t:Team)
+        RETURN t
+      `)
+      .then(result => {
+        const { records } = result;
+        session.close();
+        return extractNodes(records);
+      })
+      .catch(err => console.error(err));
+  }
+
   createTeam(reqBody) {
-    const { teamName, projectId } = reqBody;
+    const { teamName, projectId, startDate, endDate } = reqBody;
 
     const session = this.driver.session();
     return session
       .run(`
         MATCH (project:Project) where id(project) = ${projectId}
-        CREATE (team:Team {name: $teamName, created_at: '${new Date()}'})-[:TEAM_FOR]->(project)
+        CREATE (team:Team {
+          name: $teamName,
+          startDate: $startDate, endDate: $endDate,
+          created_at: '${new Date()}'})-[:TEAM_FOR]->(project)
         RETURN team
-      `, {teamName})
+      `, {teamName, startDate, endDate})
       .then(result => {
         const { records } = result;
         session.close();
@@ -288,6 +340,38 @@ class GraphApi {
       .catch(err => {
         console.error(err)
       });
+  }
+
+  getProject(reqQuery) {
+    const { projectId } = reqQuery;
+    const session = this.driver.session();
+    return session
+      .run(`
+        MATCH (p:Project) WHERE ID(p) = ${projectId}
+        RETURN p
+      `)
+      .then(result => {
+        console.log(result);
+        const { records } = result;
+        session.close();
+        return extractNodes(records);
+      })
+      .catch(err => console.error(err));
+  }
+
+  getProjects() {
+    const session = this.driver.session();
+    return session
+      .run(`
+        MATCH (p:Project)
+        RETURN p
+      `)
+      .then(result => {
+        const { records } = result;
+        session.close();
+        return extractNodes(records);
+      })
+      .catch(err => console.error(err));
   }
 
   addExperienceToTeam(reqBody) {
