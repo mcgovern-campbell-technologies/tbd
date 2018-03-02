@@ -28,9 +28,16 @@ import experiences, {
   addExperienceEpic,
 }  from './experiences';
 
-import {
+import teams, {
   addTeamEpic,
+  getTeamEpic,
+  getAllTeamsEpic,
 }  from './team';
+
+import projects, {
+  getProjectEpic,
+  getAllProjectsEpic,
+}  from './project';
 
 export const rootEpic = combineEpics(
   /* epics */
@@ -47,6 +54,10 @@ export const rootEpic = combineEpics(
   addExperienceEpic,
   deleteSkillEpic,
   addTeamEpic,
+  getTeamEpic,
+  getAllTeamsEpic,
+  getProjectEpic,
+  getAllProjectsEpic,
 );
 
 export const rootReducer = combineReducers({
@@ -59,4 +70,6 @@ export const rootReducer = combineReducers({
   skills,
   certifications,
   experiences,
+  projects,
+  teams,
 })

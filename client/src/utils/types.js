@@ -29,3 +29,11 @@ export const EDIT_EXPERIENCE = 'EDIT_EXPERIENCE';
 
 
 export const ADD_TEAM = 'ADD_TEAM';
+export const GET_TEAM = 'GET_TEAM';
+export const GET_ALL_TEAMS = 'GET_ALL_TEAMS';
+export const GET_TEAM_FULFILLED = 'GET_TEAM_FULFILLED';
+
+
+export const GET_PROJECT = 'GET_PROJECT';
+export const GET_ALL_PROJECTS = 'GET_ALL_PROJECTS';
+export const GET_PROJECT_FULFILLED = 'GET_PROJECT_FULFILLED';

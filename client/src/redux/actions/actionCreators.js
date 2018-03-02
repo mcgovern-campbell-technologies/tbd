@@ -166,3 +166,47 @@ export function addTeam(team) {
     payload: team
   }
 }
+
+export function getTeam(id) {
+  return {
+    type: types.GET_TEAM,
+    payload: id
+  }
+}
+
+export function getAllTeams() {
+  return {
+    type: types.GET_ALL_TEAMS,
+    payload: null
+  }
+}
+
+export function getTeamFulfilled(payload) {
+  return {
+    type: types.GET_TEAM_FULFILLED,
+    payload: payload
+  }
+}
+
+export function getProject(id) {
+  return {
+    type: types.GET_PROJECT,
+    payload: id
+  }
+}
+
+export function getAllProjects() {
+  return {
+    type: types.GET_ALL_PROJECTS,
+    payload: null
+  }
+}
+
+export function getProjectFulfilled(payload) {
+  console.log('payload in getProjectFulfilled')
+  console.log(payload);
+  return {
+    type: types.GET_PROJECT_FULFILLED,
+    payload: payload
+  }
+}
