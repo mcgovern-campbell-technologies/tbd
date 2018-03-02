@@ -10,6 +10,8 @@ import {
   GET_CERTIFICATIONS,
   GET_CERTIFICATIONS_FULFILLED,
   ADD_CERTIFICATION,
+  DELETE_CERTIFICATION,
+  EDIT_CERTIFICATION, 
 } from '../../utils/types';
 
 const DOMAIN = window.location.host || 'localhost'
@@ -24,17 +26,36 @@ const getCertificationsEpic = (action$, state) =>
           })
     })
 
+const deleteCertificationEpic = (action$, state) =>
+  action$
+    .ofType(DELETE_CERTIFICATION)
+    .mergeMap(action => {
+      return ajax({
+        createXHR: () => new XMLHttpRequest(),
+        crossDomain: true,
+        method: 'DELETE',
+        url: `http://${DOMAIN}:4000/api/contractor/certifications?identity=${action.payload}`
+      })
+    })
+    .map(response =>  {
+      if (response.status >= 200 && response.status < 300) {
+        return getCertifications()
+      }
+    })
+    .catch(e => {
+      return {type: 'error'}
+    })
+
 const addCertificationEpic = (action$, state) =>
   action$
     .ofType(ADD_CERTIFICATION)
     .mergeMap(
       action =>
         ajax.post(`http://${DOMAIN}:4000/api/contractor/certifications?identity=${state.getState().user.identity}`, action.payload)
-          .map(response => {
-            console.log(response)
-            return getCertifications()
-          })
     )
+    .map(response => {
+      return getCertifications()
+    })
 
 const certifications = (state = {
   list: [],
@@ -52,4 +73,5 @@ export {
   certifications as default,
   getCertificationsEpic,
   addCertificationEpic,
+  deleteCertificationEpic,
 }
