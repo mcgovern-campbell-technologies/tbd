@@ -29,6 +29,7 @@ class ProfileCertificationsCard extends Component {
       },
     }
 
+    this.deleteCertification = this.deleteCertification.bind(this);
     this.openEditCertificationBox = this.openEditCertificationBox.bind(this);
     this.closeEditCertificationBox = this.closeEditCertificationBox.bind(this);
     this.handleEditCertificationFields = this.handleEditCertificationFields.bind(this);
@@ -48,8 +49,11 @@ class ProfileCertificationsCard extends Component {
   }
 
   addCertification() {
-    console.log('hitting addCertification')
     this.props.addCertification(this.state.activeCertification.properties);
+  }
+
+  deleteCertification(id) {
+    this.props.deleteCertification(id)
   }
 
   openEditCertificationBox(node) {
@@ -74,7 +78,7 @@ class ProfileCertificationsCard extends Component {
     return (
       <div>
         <ProfileSectionWrapper
-          title='Certifications'
+          title='Pert'
           handleHeaderAction={() => this.openEditCertificationBox()}
           childrenShownOnUnexpanded={2}
         >
@@ -94,6 +98,7 @@ class ProfileCertificationsCard extends Component {
           handleAddCertification={this.addCertification}
           edit={ this.state.edit }
           handleEditCertificationFields={this.handleEditCertificationFields}
+          handleDeleteCertification={this.deleteCertification}
         />
       </div>
     )
