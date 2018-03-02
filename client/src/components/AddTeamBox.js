@@ -25,8 +25,7 @@ class AddTeamBox extends Component {
 
     this.state = {
       teamName: '',
-      project: '',
-      location: '',
+      projectId: '',
       startDate: '',
       endDate: '',
       warningBoxOpen: false,
@@ -38,26 +37,24 @@ class AddTeamBox extends Component {
   checkProperties() {
     return validateProperties({
       teamName: (value) => value.length > 0,
-      project: (value) => value.length > 0,
-      location: (value) => value.length > 0,
+      projectId: (value) => value.length > 0,
       startDate: (value, state) => {
         return new Date(value) < new Date(state['endDate']);
       }
     }, this.state)
   }
 
-  handleFormUpDates(stateKey) { 
+  handleFormUpdates(stateKey) {
     return (e) => {
       this.setState({ [stateKey]: e.target.value });
     }
   }
 
   handleAccept() {
-
     if (this.checkProperties()) {
       console.log('passing')
 
-      const team = { 
+      const team = {
         ...this.state
       }
 
@@ -71,7 +68,7 @@ class AddTeamBox extends Component {
   }
 
   render() {
-    const { closeAddTeamBox, locations, projects } = this.props;
+    const { closeAddTeamBox, projects } = this.props;
     return (
       <Dialog
         open={this.props.open}
@@ -86,7 +83,7 @@ class AddTeamBox extends Component {
               type="text"
               value={this.state.teamName}
               fullWidth
-              onChange={this.handleFormUpDates('teamName')}
+              onChange={this.handleFormUpdates('teamName')}
               margin="normal"
               InputLabelProps={{
                 shrink: true,
@@ -95,32 +92,25 @@ class AddTeamBox extends Component {
           </div>
           <div className="db">
             <TextField
-              label="Project"
-              select
-              type="select"
-              value={this.state.project}
+              label="Project Id"
+              type="text"
+              value={this.state.projectId}
               fullWidth
-              onChange={this.handleFormUpDates('project')}
+              onChange={this.handleFormUpdates('projectId')}
               margin="normal"
               InputLabelProps={{
                 shrink: true,
               }}
-            > 
-              {projects.map(option => (
-                <MenuItem key={option.value} value={option.value}>
-                  {option.label}
-                </MenuItem>
-              ))}
-            </TextField>
+            />
           </div>
-          <div className="db">
+          {/* <div className="db">
             <TextField
               label="Location"
               select
               type="select"
               value={this.state.location}
               fullWidth
-              onChange={this.handleFormUpDates('location')}
+              onChange={this.handleFormUpdates('location')}
               margin="normal"
               InputLabelProps={{
                 shrink: true,
@@ -132,7 +122,7 @@ class AddTeamBox extends Component {
                 </MenuItem>
               ))}
             </TextField>
-          </div>
+          </div> */}
           <div className="db">
             <div className="mh1 dib">
               <TextField
@@ -140,7 +130,7 @@ class AddTeamBox extends Component {
                 type="date"
                 defaultValue={''}
                 fullWidth={false}
-                onChange={this.handleFormUpDates('startDate')}
+                onChange={this.handleFormUpdates('startDate')}
                 margin="normal"
                 InputLabelProps={{
                   shrink: true,
@@ -153,7 +143,7 @@ class AddTeamBox extends Component {
                 type="date"
                 defaultValue={''}
                 fullWidth={false}
-                onChange={this.handleFormUpDates('endDate')}
+                onChange={this.handleFormUpdates('endDate')}
                 margin="normal"
                 InputLabelProps={{
                   shrink: true,
@@ -183,7 +173,6 @@ AddTeamBox.propTypes = {
   open: PropTypes.bool.isRequired,
   closeAddTeamBox: PropTypes.func.isRequired,
   handleAddTeam: PropTypes.func.isRequired,
-  locations: PropTypes.array.isRequired,
   projects: PropTypes.array.isRequired,
 }
 
