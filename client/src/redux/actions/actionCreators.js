@@ -112,6 +112,20 @@ export function addCertification(certification) {
   }
 }
 
+export function editCertification(modifiedCert) {
+  return {
+    type: types.EDIT_CERTIFICATION,
+    payload: modifiedCert
+  }
+}
+
+export function deleteCertification(id) {
+  return {
+    type: types.DELETE_CERTIFICATION,
+    payload: id
+  }
+}
+
 export function getExperiences() {
   return {
     type: types.GET_EXPERIENCES
@@ -131,3 +145,20 @@ export function addExperience(exp) {
     payload: exp
   }
 }
+
+export function editExperience(modifiedExperience) {
+  return {
+    type: types.EDIT_EXPERIENCE,
+    payload: modifiedExperience
+  }
+}
+
+export function deleteExperience(id) {
+  return {
+    type: types.DELETE_EXPERIENCE,
+    payload: id
+  }
+}
+
+
+
