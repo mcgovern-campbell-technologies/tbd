@@ -3,7 +3,6 @@ import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
 import { withRouter } from 'react-router'
 
-
 //Actions
 import * as actionCreators from '../redux/actions/actionCreators';
 
@@ -15,16 +14,6 @@ import {
   TeamManagerWrapper,
   AddTeamBox,
 } from './../components/componentIndex';
-
-const dummyLocations = [
-  { label: 'dummy1', value: 'dummy1'},
-  { label: 'dummy2', value: 'dummy2'}
-]
-
-const dummyProjects = [
-  { label: 'dummyLabel1', value: 'dummyValue1'},
-  { label: 'dummyLabel2', value: 'dummyValue2'}
-]
 
 class TeamManager extends Component {
   constructor(props) {
@@ -40,7 +29,6 @@ class TeamManager extends Component {
 
   toggleAddTeamBox() {
     this.setState({AddTeamBoxOpen: !this.state.AddTeamBoxOpen})
-    console.log(this.state)
   }
 
   handleAddTeam(team) {
@@ -48,28 +36,24 @@ class TeamManager extends Component {
   }
 
   render() {
-
     return (
       <TeamManagerWrapper
         openAddTeamBox={this.toggleAddTeamBox}
       >
         <AddTeamBox
+          getAllProjects={this.props.getAllProjects}
           open={this.state.AddTeamBoxOpen}
           closeAddTeamBox={this.toggleAddTeamBox}
           handleAddTeam={this.handleAddTeam}
-          projects={dummyProjects}
-          locations={dummyLocations}
+          projects={this.props.projects.allProjects}
         />
       </TeamManagerWrapper>
     )
   }
 }
 
-function mapStateToProps(state) {
-  console.log(state)
-  return {
-
-  }
+function mapStateToProps({projects, teams}) {
+  return {projects, teams}
 }
 
 function mapDispatchToProps(dispatch) {
