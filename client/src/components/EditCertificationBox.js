@@ -25,6 +25,7 @@ class EditCertificationBox extends Component {
       edit,
       handleEditCertificationFields,
       handleAddCertification,
+      handleDeleteCertification,
     } = this.props;
     const { name, institution, location } = node.properties;
     return (
@@ -79,6 +80,17 @@ class EditCertificationBox extends Component {
           </form>
         </DialogContent>
         <DialogActions>
+          {
+            this.props.edit? 
+              <Button
+                onClick={() => {
+                  handleDeleteCertification(node.identity)
+                  closeEditCertificationBox()
+                }}
+              >
+                Delete
+              </Button> : null
+          }
           <Button
             onClick={closeEditCertificationBox}
           >
@@ -100,6 +112,7 @@ class EditCertificationBox extends Component {
 
 EditCertificationBox.propTypes = {
   closeEditCertificationBox: PropTypes.func.isRequired,
+  handleDeleteCertification: PropTypes.func.isRequired,
   open: PropTypes.bool.isRequired,
   edit: PropTypes.bool,
 }
