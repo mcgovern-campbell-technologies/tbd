@@ -20,6 +20,7 @@ import skills, {
 import certifications, { 
   getCertificationsEpic,
   addCertificationEpic,
+  deleteCertificationEpic,
 } from './certifications';
 
 import experiences, { 
@@ -38,6 +39,7 @@ export const rootEpic = combineEpics(
   getCertificationsEpic,
   addCertificationEpic,
   getExperiencesEpic,
+  deleteCertificationEpic,
   addExperienceEpic,
   deleteSkillEpic,
 );

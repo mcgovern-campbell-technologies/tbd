@@ -30,4 +30,23 @@ router.post('/', (req, res) => {
     })
 })
 
+router.delete('/', (req, res) => {
+  const { identity } =  req.query
+
+  console.log(identity)
+
+    req.graphApi.deleteNode(identity)
+    .then(result => {
+      res.status(202)
+      res.send()
+    })
+    .catch(e => {
+      res.status(406)
+      res.send()
+    })
+
+
+  
+})
+
 module.exports = router;

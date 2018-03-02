@@ -62,7 +62,7 @@ class GraphApi {
         DETACH DELETE n
       `)
       .then(result => {
-        console.log(result)
+        session.close()
         return result
       })
   }

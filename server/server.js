@@ -35,6 +35,7 @@ app.use('/api', (req, res, next) => {
   // Temporarily set CORS headers to be open
   res.header("Access-Control-Allow-Origin", "*");
   res.header("Access-Control-Allow-Headers", "Origin, X-Requested-With, Content-Type, Accept");
+  res.header("Access-Control-Allow-Methods", "GET, POST, DELETE, PUT")
 
   //adds neo4j driver to the request object
   req.graphApi = graphApi;
