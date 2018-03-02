@@ -243,7 +243,6 @@ class GraphApi {
       .then(result => {
         const { records } = result;
         session.close();
-        console.log(extractNodes(records))
         return extractNodes(records);
       })
       .catch(err => console.error(err))
@@ -271,6 +270,21 @@ class GraphApi {
     return session
       .run(`
         MATCH (t:Team) WHERE ID(t) = ${teamId}
+        RETURN t
+      `)
+      .then(result => {
+        const { records } = result;
+        session.close();
+        return extractNodes(records);
+      })
+      .catch(err => console.error(err));
+  }
+
+  getTeams() {
+    const session = this.driver.session();
+    return session
+      .run(`
+        MATCH (t:Team)
         RETURN t
       `)
       .then(result => {
@@ -326,6 +340,38 @@ class GraphApi {
       .catch(err => {
         console.error(err)
       });
+  }
+
+  getProject(reqQuery) {
+    const { projectId } = reqQuery;
+    const session = this.driver.session();
+    return session
+      .run(`
+        MATCH (p:Project) WHERE ID(p) = ${projectId}
+        RETURN p
+      `)
+      .then(result => {
+        console.log(result);
+        const { records } = result;
+        session.close();
+        return extractNodes(records);
+      })
+      .catch(err => console.error(err));
+  }
+
+  getProjects() {
+    const session = this.driver.session();
+    return session
+      .run(`
+        MATCH (p:Project)
+        RETURN p
+      `)
+      .then(result => {
+        const { records } = result;
+        session.close();
+        return extractNodes(records);
+      })
+      .catch(err => console.error(err));
   }
 
   addExperienceToTeam(reqBody) {
