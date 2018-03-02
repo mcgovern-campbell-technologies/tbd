@@ -160,5 +160,9 @@ export function deleteExperience(id) {
   }
 }
 
-
-
+export function addTeam(team) {
+  return {
+    type: types.ADD_TEAM,
+    payload: team
+  }
+}
