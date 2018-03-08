@@ -15,6 +15,8 @@ import SkillListItem from './SkillListItem';
 import ExperienceListItem from './ExperienceListItem';
 import AddExperienceBox from './AddExperienceBox';
 import TeamManagerWrapper from './TeamManagerWrapper';
+import TeamSummaryBox from './TeamSummaryBox';
+
 
 export {
   Autocomplete,
@@ -34,4 +36,5 @@ export {
   ExperienceListItem,
   AddExperienceBox,
   TeamManagerWrapper,
+  TeamSummaryBox,
 }
