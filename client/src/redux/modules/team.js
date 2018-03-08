@@ -1,10 +1,11 @@
 import { ajax } from 'rxjs/observable/dom/ajax';
 import { Observable } from 'rxjs'
-import { getTeamFulfilled } from './../actions/actionCreators';
+import { getTeamFulfilled, getAllTeamsFulfilled } from './../actions/actionCreators';
 import {
   ADD_TEAM,
   GET_TEAM,
   GET_ALL_TEAMS,
+  GET_ALL_TEAMS_FULFILLED,
   GET_TEAM_FULFILLED,
 } from '../../utils/types';
 
@@ -30,11 +31,11 @@ const getAllTeamsEpic = (action$, state) => {
       action => {
         return ajax.getJSON(`http://${DOMAIN}:4000/api/team`)
           .map(response => {
-            return getTeamFulfilled(response);
+            return getAllTeamsFulfilled(response);
           })
       }
     )
-    .concat(action$.mapTo({ type: GET_TEAM_FULFILLED }))
+    .concat(action$.mapTo({ type: GET_ALL_TEAMS_FULFILLED }))
 }
 
 const getTeamEpic = (action$, state) => {
@@ -56,8 +57,14 @@ const teams = (state = {
 }, action) => {
   const { type, payload } = action;
   switch (type) {
-    case GET_TEAM_FULFILLED:
+    case GET_ALL_TEAMS_FULFILLED:
+      console.log('payload from GET_ALL_TEAMS_FULFILLED');
+      console.log(payload);
       return {...state, allTeams: payload || []};
+    case GET_TEAM_FULFILLED:
+      console.log('payload from GET_TEAM_FULFILLED');
+      console.log(payload);
+      return {...state, deleteThisProperty: []}
     default:
       return state;
   }

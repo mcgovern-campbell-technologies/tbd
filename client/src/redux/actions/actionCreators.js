@@ -174,6 +174,13 @@ export function getTeam(id) {
   }
 }
 
+export function getTeamFulfilled(payload) {
+  return {
+    type: types.GET_TEAM_FULFILLED,
+    payload: payload
+  }
+}
+
 export function getAllTeams() {
   return {
     type: types.GET_ALL_TEAMS,
@@ -181,12 +188,13 @@ export function getAllTeams() {
   }
 }
 
-export function getTeamFulfilled(payload) {
+export function getAllTeamsFulfilled(payload) {
   return {
-    type: types.GET_TEAM_FULFILLED,
+    type: types.GET_ALL_TEAMS_FULFILLED,
     payload: payload
   }
 }
+
 
 export function getProject(id) {
   return {
