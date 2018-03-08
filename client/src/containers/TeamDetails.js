@@ -1,12 +1,10 @@
 import React, { Component } from 'react';
-
+import { connect } from 'react-redux';
+import { bindActionCreators } from 'redux';
+import { withRouter } from 'react-router'
 
 //Actions
 import * as actionCreators from '../redux/actions/actionCreators';
-
-// import {
-//
-// } from './containerIndex';
 
 import {
   TeamSummaryBox,
@@ -17,18 +15,32 @@ class TeamDetails extends Component {
     super(props);
 
     this.state = {
-      // AddTeamBoxOpen: false,
+      teamId: this.props.match.params.teamId,
     }
 
+  }
+
+  componentWillMount() {
+    this.props.getTeam(this.state.teamId);
   }
 
   render() {
     return (
       <div>
-        <TeamSummaryBox />
+        <TeamSummaryBox
+          team={this.props.teams.team}
+        />
       </div>
     )
   }
 }
 
-export default TeamDetails
+
+function mapStateToProps({projects, teams}) {
+  return {projects, teams}
+}
+
+function mapDispatchToProps(dispatch) {
+  return bindActionCreators(actionCreators, dispatch)
+}
+export default withRouter(connect(mapStateToProps, mapDispatchToProps)(TeamDetails))
