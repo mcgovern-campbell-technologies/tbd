@@ -54,7 +54,7 @@ class Dashboard extends Component {
             <Route path={`${match.path}/onBoardFlow`} component={OnBoardFlow}/>
             <Route path={`${match.path}/profile`} component={Profile}/>
             <Route exact path={`${match.path}/teamManager`} component={TeamManager} />
-            <Route path={`${match.path}/teamManager/:team`} component={TeamDetails} />
+            <Route path={`${match.path}/teamManager/:teamId`} component={TeamDetails} />
             <Route exact path={`${match.path}`} render={() => (<Redirect to={`${match.path}/profile`}/>)}/>
           </div>
         </div>
