@@ -8,9 +8,9 @@ import PropTypes from 'prop-types'
 function TeamManagerWrapper({ children, openAddTeamBox }) {
   return (
     <div>
-      <Button 
-        fab mini 
-        aria-label="add" 
+      <Button
+        fab mini
+        aria-label="add"
         className='fr'
         onClick={openAddTeamBox}
       >
@@ -25,7 +25,10 @@ function TeamManagerWrapper({ children, openAddTeamBox }) {
 
 TeamManagerWrapper.propTypes = {
   openAddTeamBox: PropTypes.func.isRequired,
-  children: PropTypes.element,
+  children: PropTypes.oneOfType([
+    PropTypes.arrayOf(PropTypes.node),
+    PropTypes.node
+  ]).isRequired
 }
 
 export default TeamManagerWrapper
