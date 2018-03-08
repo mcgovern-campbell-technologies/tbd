@@ -32,6 +32,7 @@ export const ADD_TEAM = 'ADD_TEAM';
 export const GET_TEAM = 'GET_TEAM';
 export const GET_ALL_TEAMS = 'GET_ALL_TEAMS';
 export const GET_TEAM_FULFILLED = 'GET_TEAM_FULFILLED';
+export const GET_ALL_TEAMS_FULFILLED = 'GET_ALL_TEAMS_FULFILLED';
 
 
 export const GET_PROJECT = 'GET_PROJECT';
