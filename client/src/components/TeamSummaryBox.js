@@ -52,13 +52,15 @@ const styles = {
 
 function TeamSummaryBox (props) {
   const testAction = () => console.log('testAction fired');
+  // TODO: Fix all this.
+  const teamName = props.team.properties ? props.team.properties.name : '';
 
   return (
     <div className={props.classes.wrapper}>
       <Paper
         className={props.classes.leftBar}
       >
-        left bar
+        {teamName}
       </Paper>
 
       <Paper
@@ -71,8 +73,8 @@ function TeamSummaryBox (props) {
             value={false}
             action={testAction}
           >
-            <Tab className={props.classes.tab} label="Item One" />
-            <Tab className={props.classes.tab} label="Item Two" />
+            <Tab className={props.classes.tab} label="Roles" />
+            <Tab className={props.classes.tab} label="Members" />
           </Tabs>
         </div>
         <Table>
