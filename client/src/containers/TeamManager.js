@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
 import { withRouter } from 'react-router'
+import { Link } from 'react-router-dom'
 
 //Actions
 import * as actionCreators from '../redux/actions/actionCreators';
@@ -52,7 +53,11 @@ class TeamManager extends Component {
           projects={this.props.projects.allProjects}
         />
         <ul>
-          {this.props.teams.allTeams.map((team, idx) => <li key={idx}>{team.properties.name}</li>)}
+          {/* {this.props.teams.allTeams.map((team, idx) => <li key={idx}>{team.properties.name}</li>)} */}
+          {this.props.teams.allTeams.map((team, idx) => {
+            console.log(team);
+            return (<li><Link to={`/dashboard/teamManager/${team.identity}`} key={idx}>{team.properties.name}</Link></li>)  
+          })}
         </ul>
       </TeamManagerWrapper>
     )
