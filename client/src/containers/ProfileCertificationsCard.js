@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
+import * as _ from 'lodash';
 
 
 import { bindActionCreators } from 'redux';
@@ -20,13 +21,9 @@ class ProfileCertificationsCard extends Component {
     this.state = {
       editCertificationBoxOpen: false,
       edit: false,
-      activeCertification: {
-        properties: {
-          name: '',
-          institution: '',
-          date: '',
-        }
-      },
+      sourceNode: {},
+      activeProperties: {},
+
     }
 
     this.deleteCertification = this.deleteCertification.bind(this);
@@ -34,22 +31,24 @@ class ProfileCertificationsCard extends Component {
     this.closeEditCertificationBox = this.closeEditCertificationBox.bind(this);
     this.handleEditCertificationFields = this.handleEditCertificationFields.bind(this);
     this.addCertification = this.addCertification.bind(this);
+    this.handleUpdateCertification = this.handleUpdateCertification.bind(this)
   }
 
   handleEditCertificationFields(name) {
     return (event) => {
       const value = event.target ? event.target.value : event;
+
       this.setState({
-        activeCertification: {
-          ...this.state.activeCertification,
-          properties: { ...this.state.activeCertification.properties, [name]: value}
+        activeProperties: {
+          ...this.state.activeProperties,
+          [name]: value
         }
       })
     }
   }
 
   addCertification() {
-    this.props.addCertification(this.state.activeCertification.properties);
+    this.props.addCertification(this.state.activeProperties);
   }
 
   deleteCertification(id) {
@@ -57,15 +56,45 @@ class ProfileCertificationsCard extends Component {
   }
 
   openEditCertificationBox(node) {
+
     if (node) {
-      this.setState({ activeCertification: node })
+
+      this.setState({ sourceNode: node })
+      this.setState({ activeProperties: { ...node.properties }})
       this.setState({ edit: true })
+
+    } else {
+
+      this.setState({ activeProperties: { 
+        name: '',
+        institution: '',
+        date: '',
+      }})
+
     }
     this.setState({ editCertificationBoxOpen: true })
   }
 
+  handleUpdateCertification() {
+
+    const payload = { properties: this.state.activeProperties, identity: this.state.sourceNode.identity}
+
+    if (!_.isEqual(payload.properties, this.state.sourceNode.properties)) {
+
+      // console.log(payload.properties)
+      this.props.editCertification(payload)
+    } 
+  }
+
   closeEditCertificationBox() {
-    this.setState({ editCertificationBoxOpen: false })
+
+    this.setState({ 
+      editCertificationBoxOpen: false,
+      sourceNode: {},
+      sourceProperties: {},
+      activeProperties: {},
+      edit: false,
+    })
     //I know this is the dirtiest thing youve ever seen
     setTimeout(() => this.setState({ edit: false }), 100)
   }
@@ -78,9 +107,8 @@ class ProfileCertificationsCard extends Component {
     return (
       <div>
         <ProfileSectionWrapper
-          title='Pert'
+          title='Certifications'
           handleHeaderAction={() => this.openEditCertificationBox()}
-          childrenShownOnUnexpanded={2}
         >
           {
             this.props.list.map(node =>
@@ -94,11 +122,13 @@ class ProfileCertificationsCard extends Component {
         <EditCertificationBox
           open={ this.state.editCertificationBoxOpen }
           node={ this.state.activeCertification }
+          properties={ this.state.activeProperties }
           closeEditCertificationBox={ this.closeEditCertificationBox }
           handleAddCertification={this.addCertification}
           edit={ this.state.edit }
           handleEditCertificationFields={this.handleEditCertificationFields}
           handleDeleteCertification={this.deleteCertification}
+          handleUpdateCertification={this.handleUpdateCertification}
         />
       </div>
     )
