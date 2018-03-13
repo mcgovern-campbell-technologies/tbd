@@ -1,7 +1,12 @@
 const neo4j = require('neo4j-driver').v1;
 const _ = require('lodash');
 const stringifyObject = require('stringify-object');
-const { contractorHasNecessaryProps, extractNodes } = require('./databaseUtilities');
+const { 
+  contractorHasNecessaryProps, 
+  extractNodes, 
+  mapTypeToQuery,
+  createSetChain
+} = require('./databaseUtilities');
 const { startUpScript, massDelete } = require('./startUpCypherScript')
 
 class GraphApi {
@@ -22,6 +27,16 @@ class GraphApi {
 
   closeDriver() {
     this.driver.close();
+  }
+
+  getNodeById(id) {
+    const session = this.driver.session();
+    return session
+      .run(`MATCH (n) where id(n) = ${id} RETURN n`)
+      .then(result => {
+        const { records } = result;
+        return extractNodes(records)[0];
+      })
   }
 
   createLocation(reqBody) {
@@ -77,10 +92,17 @@ class GraphApi {
 
   createContractor(emplObj) {
     const session = this.driver.session();
+
+    const sub = emplObj.sub
+
+
+    const setProperties = createSetChain(emplObj);
+
     return session
       .run(`
-        CREATE (e:Contractor ${stringifyObject(emplObj)})
-        RETURN e
+        MERGE (n:Contractor { sub: "${sub}"})
+        ${setProperties}
+        RETURN n
       `)
       .then(result => {
         const { records } = result;
@@ -129,10 +151,12 @@ class GraphApi {
       .run(`
         MATCH (e:Contractor ${stringifyObject(querySpecs)})
         RETURN e
-      `)
-      .then(({ records }) => {
+      `
+      /*`MATCH (e:Contractor) WHERE ID(e) = 33 RETURN e`*/
+      )
+      .then(({records}) => {
         session.close()
-        if (_.isEmpty(records)) {
+        if (_.isEmpty(records[0])) {
           return null
         } else {
           return extractNodes(records)[0]
@@ -142,7 +166,6 @@ class GraphApi {
 
   getParentNodeList(queryString, label) {
     const session = this.driver.session();
-    console.log({ queryString })
     return session
       .run(`
         MATCH (s:${label})
@@ -155,7 +178,6 @@ class GraphApi {
 
   getContractorSkills(identity) {
     const session = this.driver.session();
-    console.log('contractor skill')
     return session
       .run(`
         MATCH (c:Contractor) WHERE ID(c) = ${identity}
@@ -209,7 +231,6 @@ class GraphApi {
 
   addContractorCertification(identity, certification) {
     const session = this.driver.session();
-    console.log(certification);
     return session
       .run(`
         MATCH (c:Contractor) WHERE ID(c) = ${identity}
@@ -353,7 +374,6 @@ class GraphApi {
         RETURN p
       `)
       .then(result => {
-        console.log(result);
         const { records } = result;
         session.close();
         return extractNodes(records);
@@ -414,6 +434,32 @@ class GraphApi {
       .catch(err => {
         console.error(err)
       });
+  }
+
+  updateNode(id, properties) {
+    const session = this.driver.session();
+
+    // const updatedProperties = Object.keys(properties).map(property => {
+    //   const value = properties[property]
+    //   // console.log(`SET n.${property} = "${value}" `)
+    //   return `SET n.${property} = ${value} `
+    // })
+
+    const updatedProperties = createSetChain(properties)
+
+    return session
+      .run(`
+        MATCH (n) WHERE id(n) = ${id}
+        ${updatedProperties}
+        RETURN n
+      `)
+      .then(result => {
+        session.close();
+        return this.getNodeById(id)
+      })
+      .then(result => {
+        return result
+      })
   }
 }
 
