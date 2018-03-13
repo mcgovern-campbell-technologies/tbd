@@ -44,4 +44,24 @@ router.delete('/', (req, res) => {
     })
 })
 
+router.put('/', (req, res) => {
+  const { query, body, graphApi } = req,
+      { identity } =  query
+
+  graphApi.updateNode(identity, body)
+    .then(result => {
+
+      res.status(202)
+    })
+    .catch(e => {
+      res.status(400)
+      res.send()
+    })
+
+  res.send()
+})
+
+
+
+
 module.exports = router;
