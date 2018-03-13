@@ -21,11 +21,13 @@ import certifications, {
   getCertificationsEpic,
   addCertificationEpic,
   deleteCertificationEpic,
+  editCertificationEpic,
 } from './certifications';
 
 import experiences, {
   getExperiencesEpic,
   addExperienceEpic,
+  deleteExperienceEpic,
 }  from './experiences';
 
 import teams, {
@@ -49,9 +51,11 @@ export const rootEpic = combineEpics(
   updateUserEpic,
   getCertificationsEpic,
   addCertificationEpic,
-  getExperiencesEpic,
   deleteCertificationEpic,
+  editCertificationEpic,
+  getExperiencesEpic,
   addExperienceEpic,
+  deleteExperienceEpic,
   deleteSkillEpic,
   addTeamEpic,
   getTeamEpic,

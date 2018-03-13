@@ -57,6 +57,27 @@ const addCertificationEpic = (action$, state) =>
       return getCertifications()
     })
 
+const editCertificationEpic = (action$, state) => 
+  action$
+    .ofType(EDIT_CERTIFICATION)
+    .mergeMap(
+      action => 
+        ajax.put(
+          `http://${DOMAIN}:4000/api/contractor/certifications?identity=${action.payload.identity}`,
+          action.payload.properties
+        )
+    )
+    //Im the dirties
+    //TODO make this actually a real thing
+    .throttleTime(300)
+    .map(response => {
+      return getCertifications()
+    })
+    .catch(e => {
+      return {type: 'error'}
+    })
+
+
 const certifications = (state = {
   list: [],
 }, action) => {
@@ -74,4 +95,5 @@ export {
   getCertificationsEpic,
   addCertificationEpic,
   deleteCertificationEpic,
+  editCertificationEpic,
 }
