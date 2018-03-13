@@ -17,7 +17,6 @@ router.get('/', (req, res) => {
   }
   req.graphApi.getContractorByEmail(req.query)
     .then(result => {
-      console.log(result);
       res.send(result);
     })
     .catch(result => {
