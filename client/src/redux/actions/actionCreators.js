@@ -211,8 +211,6 @@ export function getAllProjects() {
 }
 
 export function getProjectFulfilled(payload) {
-  console.log('payload in getProjectFulfilled')
-  console.log(payload);
   return {
     type: types.GET_PROJECT_FULFILLED,
     payload: payload
