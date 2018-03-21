@@ -269,7 +269,7 @@ class GraphApi {
     const session = this.driver.session();
     return session
       .run(`
-        MATCH (t:Team) WHERE id(t) = 41
+        MATCH (t:Team) WHERE id(t) = ${teamId}
         OPTIONAL MATCH (p:Project)-[]-(t)
         OPTIONAL MATCH (l:Location)-[]-(p)
         RETURN t,l,p
