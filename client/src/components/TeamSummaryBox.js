@@ -3,6 +3,7 @@ import PropTypes from 'prop-types';
 import Grid from 'material-ui/Grid';
 import Paper from 'material-ui/Paper';
 import Tabs, { Tab } from 'material-ui/Tabs';
+import Typography from 'material-ui/Typography';
 
 import { withStyles } from 'material-ui/styles';
 import Table, { TableBody, TableCell, TableHead, TableRow } from 'material-ui/Table';
@@ -27,12 +28,20 @@ const styles = {
   wrapper: {
     display: 'flex',
     height: '70vh',
+    paddingTop: 16,
+  },
+  infoTitle: {
+    fontWeight: 'bold'
   },
   leftBar: {
+    padding: 16,
     backgroundColor: 'lightgrey',
     height: '100%',
     flex: '1 0 200px',
     margin: '0 10px 0 0',
+  },
+  leftBarSection: {
+    marginTop: '20px',
   },
   main: {
     display: 'flex',
@@ -52,20 +61,44 @@ const styles = {
 
 function TeamSummaryBox (props) {
   const testAction = () => console.log('testAction fired');
+
   // TODO: Fix all this.
   const teamName = props.team.properties ? props.team.properties.name : '';
+  const locationName = props.location.properties ? props.location.properties.name : '';
+  const projectName = props.project.properties ? props.project.properties.name : '';
+  const startDate = props.team.properties ? props.team.properties.startDate : '';
+  const endDate = props.team.properties ? props.team.properties.endDate : '';
 
   return (
     <div className={props.classes.wrapper}>
-      <Paper
-        className={props.classes.leftBar}
-      >
-        {teamName}
+      <Paper className={props.classes.leftBar}>
+        <Typography type='title'>
+          {teamName}
+        </Typography>
+
+        <section className={props.classes.leftBarSection}>
+          <Typography component='p' className={props.classes.infoTitle}>Project:</Typography>
+          <Typography component='p'>{projectName}</Typography>
+        </section>
+
+        <section className={props.classes.leftBarSection}>
+          <Typography component='p' className={props.classes.infoTitle}>Location:</Typography>
+          <Typography component='p'>{locationName}</Typography>
+        </section>
+
+        <section className={props.classes.leftBarSection}>
+          <Typography component='p' className={props.classes.infoTitle}>Start Date:</Typography>
+          <Typography component='p'>{startDate}</Typography>
+        </section>
+
+        <section className={props.classes.leftBarSection}>
+          <Typography component='p' className={props.classes.infoTitle}>End Date:</Typography>
+          <Typography component='p'>{endDate}</Typography>
+        </section>
+
       </Paper>
 
-      <Paper
-        className={props.classes.main}
-      >
+      <Paper className={props.classes.main}>
         <div className={props.classes.buttonSection}>
           <Tabs
             indicatorColor="primary"
@@ -77,6 +110,7 @@ function TeamSummaryBox (props) {
             <Tab className={props.classes.tab} label="Members" />
           </Tabs>
         </div>
+
         <Table>
           <TableHead>
             <TableRow>
