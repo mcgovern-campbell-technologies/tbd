@@ -29,6 +29,8 @@ class TeamDetails extends Component {
       <div>
         <TeamSummaryBox
           team={this.props.teams.team}
+          location={this.props.teams.location}
+          project={this.props.teams.project}
         />
       </div>
     )
