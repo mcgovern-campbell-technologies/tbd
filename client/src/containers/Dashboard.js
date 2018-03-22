@@ -23,6 +23,7 @@ import {
   OnBoardFlow,
   Profile,
   SideNavBar,
+  TeamDetails,
   TeamManager,
 } from './containerIndex'
 
@@ -45,14 +46,15 @@ class Dashboard extends Component {
     return user ? (
         <div>
           <div className='fl w-20 pa2'>
-            <SideNavBar 
+            <SideNavBar
               history={history}
             />
           </div>
           <div className='fl w-80 pa2'>
             <Route path={`${match.path}/onBoardFlow`} component={OnBoardFlow}/>
             <Route path={`${match.path}/profile`} component={Profile}/>
-            <Route path={`${match.path}/teamManager`} component={TeamManager} />
+            <Route exact path={`${match.path}/teamManager`} component={TeamManager} />
+            <Route path={`${match.path}/teamManager/:teamId`} component={TeamDetails} />
             <Route exact path={`${match.path}`} render={() => (<Redirect to={`${match.path}/profile`}/>)}/>
           </div>
         </div>

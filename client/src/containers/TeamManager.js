@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
 import { withRouter } from 'react-router'
+import { Link } from 'react-router-dom'
 
 //Actions
 import * as actionCreators from '../redux/actions/actionCreators';
@@ -27,6 +28,10 @@ class TeamManager extends Component {
     this.handleAddTeam = this.handleAddTeam.bind(this)
   }
 
+  componentWillMount() {
+    this.props.getAllTeams()
+  }
+
   toggleAddTeamBox() {
     this.setState({AddTeamBoxOpen: !this.state.AddTeamBoxOpen})
   }
@@ -47,6 +52,15 @@ class TeamManager extends Component {
           handleAddTeam={this.handleAddTeam}
           projects={this.props.projects.allProjects}
         />
+        <ul>
+          {
+            this.props.teams.allTeams.map((team, idx) =>
+              <li key={idx}>
+                <Link to={`/dashboard/teamManager/${team.identity}`}>{team.properties.name}</Link>
+              </li>
+            )
+          }
+        </ul>
       </TeamManagerWrapper>
     )
   }
