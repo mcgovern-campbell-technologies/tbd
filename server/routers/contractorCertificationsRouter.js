@@ -1,19 +1,13 @@
 //  api/contractor/certifications
-
 const express = require('express');
 const router = express.Router();
 const _ = require('lodash');
 
 router.get('/', (req, res) => {
   const { identity } = req.query;
-
   req.graphApi.getContractorCertifications(identity)
-    .then(result => {
-      res.send(result);
-    })
-    .catch(err => {
-      console.error(err);
-    })
+    .then(result => res.send(result))
+    .catch(err => console.error(err))
 })
 
 router.post('/', (req, res) => {
@@ -21,9 +15,7 @@ router.post('/', (req, res) => {
   const { identity } = query
 
   req.graphApi.addContractorCertification(query.identity, body)
-    .then(result => {
-      res.send(result);
-    })
+    .then(result => res.send(result))
     .catch(err => {
       console.error(err);
       res.send(err);
@@ -42,6 +34,7 @@ router.delete('/', (req, res) => {
       res.status(406)
       res.send()
     })
+<<<<<<< HEAD
 })
 
 router.put('/', (req, res) => {
@@ -59,6 +52,8 @@ router.put('/', (req, res) => {
     })
 
   res.send()
+=======
+>>>>>>> refactor all of our server routers
 })
 
 

@@ -16,16 +16,12 @@ router.get('/', (req, res) => {
     return;
   }
   req.graphApi.getContractorByEmail(req.query)
-    .then(result => {
-      res.send(result);
-    })
-    .catch(result => {
-      res.send({error: "no Contractor found"});
-    })
+    .then(result => res.send(result))
+    .catch(result => res.send({error: "no Contractor found"}))
 });
 
-router.post('/', (req, res) => {
 
+router.post('/', (req, res) => {
   const { body, query } = req;
 
   if (_.keys(body).length === 0) {
@@ -33,26 +29,22 @@ router.post('/', (req, res) => {
   }
 
   req.graphApi.createContractor(body)
-    .then(result => {
-      res.send(result);
-    })
-    .catch(err => {
-      res.send(err)
-    });
+    .then(result => res.send(result))
+    .catch(err => res.send(err));
 });
+
 
 router.post('/update', (req, res) => {
   const { body } = req;
   req.graphApi.updateContractor(body)
-    .then(result => {
-      res.send(result)
-    })
+    .then(result => res.send(result))
     .catch(err => {
       console.log('error when attempting to update contractor')
       console.log(err);
       res.send(err);
     })
 })
+
 
 router.use('/skills', contractorSkillsRouter);
 router.use('/certifications', contractorCertificationsRouter);
