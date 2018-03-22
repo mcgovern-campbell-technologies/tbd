@@ -9,7 +9,6 @@ const _ = require('lodash');
 // Get a team by ID: GET /api/team?teamId=4
 // Get all teams: GET /api/team
 router.get('/', (req, res) => {
-  console.log('GET RECEIVED AT /api/team')
   const { body, query } = req;
 
   if (query.teamId) {
@@ -49,8 +48,6 @@ router.post('/', (req, res) => {
 // add an existing experience to an existing team
 router.post('/experience', (req, res) => {
   const { body, query } = req;
-  console.log('bodybody');
-  console.log(body);
   if (body.remove) {
     req.graphApi.removeExperienceFromTeam(body)
       .then(result => {

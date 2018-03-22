@@ -7,7 +7,6 @@ const _ = require('lodash');
 // Get a project by ID: GET /api/project?projectId=4
 // Get all projects: GET /api/project
 router.get('/', (req, res) => {
-  console.log('GET RECEIVED AT /api/project')
   const { body, query } = req;
 
   if (query.projectId) {
