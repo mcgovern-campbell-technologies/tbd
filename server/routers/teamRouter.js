@@ -46,9 +46,11 @@ router.post('/', (req, res) => {
 });
 
 // POST /api/team/experience
+// add an existing experience to an existing team
 router.post('/experience', (req, res) => {
   const { body, query } = req;
-
+  console.log('bodybody');
+  console.log(body);
   if (body.remove) {
     req.graphApi.removeExperienceFromTeam(body)
       .then(result => {
@@ -57,14 +59,15 @@ router.post('/experience', (req, res) => {
       .catch(err => {
         res.send(err)
       });
-  }
-  req.graphApi.addExperienceToTeam(body)
+  } else {
+    req.graphApi.addExperienceToTeam(body)
     .then(result => {
       res.send(result);
     })
     .catch(err => {
       res.send(err)
     });
+  }
 });
 
 module.exports = router
