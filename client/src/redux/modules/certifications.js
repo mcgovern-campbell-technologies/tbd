@@ -69,7 +69,7 @@ const editCertificationEpic = (action$, state) =>
     )
     //Im the dirties
     //TODO make this actually a real thing
-    .throttleTime(300)
+    .throttleTime(500)
     .map(response => {
       return getCertifications()
     })
