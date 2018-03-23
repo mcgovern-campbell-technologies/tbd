@@ -13,7 +13,6 @@ class GraphApi {
   constructor(username, password, connection) {
     this.driver = neo4j.driver(connection, neo4j.auth.basic(username, password));
 
-    console.log('in constructor')
     // const session = this.driver.session();
     // session
     //   .run(massDelete)
@@ -128,7 +127,6 @@ class GraphApi {
     const properties = JSON.parse(emplObj.properties)
     const updatedProperties = Object.keys(properties).map(property => {
       const value = properties[property]
-      // console.log(`SET n.${property} = "${value}" `)
       return `SET n.${property} = "${value}" `
     })
 
