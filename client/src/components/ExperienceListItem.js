@@ -2,6 +2,12 @@ import React, { Component } from 'react';
 
 import Typography from 'material-ui/Typography';
 import Avatar from 'material-ui/Avatar';
+import IconButton from 'material-ui/IconButton';
+
+
+import ModeEdit from 'material-ui-icons/ModeEdit';
+import Clear from 'material-ui-icons/Clear';
+
 
 // { 
 //     position: 'Electricion',
@@ -13,7 +19,9 @@ import Avatar from 'material-ui/Avatar';
 
 function ExpirienceListItem (props) {
 
-  const { position, company, location, startDate, endDate } = props.properties;
+  const { properties, identity } = props.node;
+
+  const { position, company, location, startDate, endDate } = properties;
 
   return (
     <div className='mb2'>
@@ -38,6 +46,11 @@ function ExpirienceListItem (props) {
         
       </div>
       <div className="dib fr">
+        <IconButton
+            onClick={() => props.handleDeleteExperience(identity)}
+          >
+          <Clear />
+        </IconButton>
         <Typography>
           { `${startDate} ${startDate && endDate? '-': null} ${endDate}` } 
         </Typography>
