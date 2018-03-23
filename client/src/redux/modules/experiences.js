@@ -5,6 +5,8 @@ import {
   GET_EXPERIENCES,
   GET_EXPERIENCES_FULLFILLED,
   ADD_EXPERIENCE,
+  DELETE_EXPERIENCE,
+  EDIT_EXPERIENCE
 } from '../../utils/types';
 
 import {
@@ -35,13 +37,64 @@ const addExperienceEpic = (action$, state) => {
     .ofType(ADD_EXPERIENCE)
     .mergeMap(
       action => {
+        console.log(action)
         return ajax.post(
           `http://${DOMAIN}:4000/api/contractor/experience?identity=${state.getState().user.identity}`,
           action.payload)
-          .map(result => getExperiences())
       }
     )
+    .throttleTime(500)
+    .map(result => {
+      console.log(result)
+      return getExperiences()
+    })
+    .catch(e => {
+      console.log(e)
+      return {type: 'error'}
+    })
 }
+
+const deleteExperienceEpic = (action$, state) => 
+  action$
+    .ofType(DELETE_EXPERIENCE)
+    .mergeMap(action => {
+      return ajax({
+        createXHR: () => new XMLHttpRequest(),
+        crossDomain: true,
+        method: 'DELETE',
+        url: `http://${DOMAIN}:4000/api/contractor/experience?identity=${action.payload}`
+      })
+    })
+    .map(response =>  {
+      if (response.status >= 200 && response.status < 300) {
+        return getExperiences()
+      }
+    })
+    .catch(e => {
+      return {type: 'error'}
+    })
+
+const editExperienceEpic = (action$, state) => 
+  action$
+    .ofType(EDIT_EXPERIENCE)
+    .mergeMap(
+      action => 
+        ajax.put(
+          `http://${DOMAIN}:4000/api/contractor/experience?identity=${action.payload.identity}`,
+          action.payload.properties
+        )
+    )
+    //Im the dirties
+    //TODO make this actually a real thing
+    .throttleTime(500)
+    .map(response => {
+      return getExperiences()
+    })
+    .catch(e => {
+      return {type: 'error'}
+    })
+
+
 
 const experiences =  (state = {
   list: [],
@@ -59,4 +112,5 @@ export {
   experiences as default,
   getExperiencesEpic,
   addExperienceEpic,
+  deleteExperienceEpic,
 }
