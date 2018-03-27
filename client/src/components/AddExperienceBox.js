@@ -1,4 +1,5 @@
 import React, { Component }from 'react';
+import PropTypes from 'prop-types';
 
 import  
   Dialog, {
@@ -11,48 +12,21 @@ import Button from 'material-ui/Button';
 import { withStyles } from 'material-ui/styles';
 import TextField from 'material-ui/TextField';
 
-const locations = [
-  { label: 'west', value: 'west' },
-  { label: 'east', value: 'east' }
-]
-
-const companies = [
-  { label: 'kuka', value: 'kuka' }
-]
-
-const positions = [
-  { 
-    label: 'Electrician II', 
-    value: 'electrician 2'
-  },
-  { 
-    label: 'Electrician I', 
-    value: 'electrician 1'
-  },
-  { 
-    label: 'Electrician Spec', 
-    value: 'electrician spec'
-  },
-
-]
-
-class AddExpirienceBox extends Component {
+class AddExperienceBox extends Component {
 
   constructor(props) {
     super(props)
-    this.state = {
-      position: positions[0].value,
-      company: companies[0].value,
-      location: locations[0].value,
-      startDate: '', 
-      endDate: '',
-    }
+    this.state = {}
     this.handleChange = this.handleChange.bind(this);
     this.handleAddExperience = this.handleAddExperience.bind(this);
   }
 
   handleAddExperience() {
-    this.props.handleAddExperience({ ...this.state })
+    this.props.handleAddExperience({ ...this.props.properties })
+  }
+
+  handleDeleteExperience() {
+    this.props.handleDeleteExperience()
   }
 
   handleChange(name) {
@@ -63,28 +37,30 @@ class AddExpirienceBox extends Component {
     }
   }
 
-  render() {  
+  render() { 
+    const { edit, properties, handleUpdateProperties, locations, companies, positions } = this.props;
+    const { startDate, endDate, position, company, location } = properties;
     return (
       <Dialog
         open={this.props.open}
       >
         <DialogContent>
           <DialogTitle>
-            Add Some Experience
+            { edit? "Edit Your Experience" : "Add Some Experience" }
           </DialogTitle>
           <form>
             <div className='db'>
               <TextField
                 select
                 label="position"
-                value={this.state.position}
+                value={position}
                 InputLabelProps={{
                   shrink: true,
                 }}
                 SelectProps={{
                   native: true,
                 }}
-                onChange={this.handleChange('position')}
+                onChange={handleUpdateProperties('position')}
                 margin="normal"
               >
                 {positions.map(option => (
@@ -98,14 +74,14 @@ class AddExpirienceBox extends Component {
               <TextField
                 select
                 label="company"
-                value={this.state.company}
+                value={company}
                 InputLabelProps={{
                   shrink: true,
                 }}
                 SelectProps={{
                   native: true,
                 }}
-                onChange={this.handleChange('company')}
+                onChange={handleUpdateProperties('company')}
                 margin="normal"
               >
                 {companies.map(option => (
@@ -126,8 +102,9 @@ class AddExpirienceBox extends Component {
                 SelectProps={{
                   native: true,
                 }}
-                onChange={this.handleChange('location')}
+                onChange={handleUpdateProperties('location')}
                 margin="normal"
+                disable={this.props.edit}
               >
                 {locations.map(option => (
                   <option key={option.value} value={option.value}>
@@ -140,7 +117,8 @@ class AddExpirienceBox extends Component {
               <TextField
                 label="start date"
                 type="date"
-                onChange={this.handleChange('startDate')}
+                value={startDate}
+                onChange={handleUpdateProperties('startDate')}
                 InputLabelProps={{
                   shrink: true,
                 }}
@@ -149,7 +127,8 @@ class AddExpirienceBox extends Component {
             <div className='db'>
               <TextField
                 label="end date"
-                onChange={this.handleChange('endDate')}
+                value={endDate}
+                onChange={handleUpdateProperties('endDate')}
                 type="date"
                 InputLabelProps={{
                   shrink: true,
@@ -173,6 +152,13 @@ class AddExpirienceBox extends Component {
       </Dialog>
     )
   }
-  }
+}
 
-export default AddExpirienceBox
+AddExperienceBox.propTypes = {
+  toggleAddExperienceBox: PropTypes.func.isRequired,
+  handleAddExperience: PropTypes.func.isRequired,
+  handleDeleteExperience: PropTypes.func.isRequired,
+  edit: PropTypes.bool.isRequired
+}
+
+export default AddExperienceBox

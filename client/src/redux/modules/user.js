@@ -21,6 +21,10 @@ const getUserEpic = (action$, state) => {
       }
       return getUserFulfilled(profile);
     })
+    .catch(e => {
+      console.log(e)
+      return { type: "ERROR" }
+    })
 }
 
 const addUserEpic = (action$, state) => {

@@ -17,17 +17,25 @@ const DOMAIN = window.location.host || 'localhost'
 
 class EditCertificationBox extends Component {
 
+  constructor(props) {
+
+    super(props);
+
+  }
+
   render() {
     const {
       open,
       closeEditCertificationBox,
       node,
+      properties,
       edit,
       handleEditCertificationFields,
       handleAddCertification,
       handleDeleteCertification,
+      handleUpdateCertification,
     } = this.props;
-    const { name, institution, location } = node.properties;
+    const { name, institution, location, date } = properties;
     return (
       <Dialog
         open={open}
@@ -71,6 +79,7 @@ class EditCertificationBox extends Component {
               <TextField
                 label="date"
                 type="date"
+                value={date}
                 onChange={handleEditCertificationFields('date')}
                 InputLabelProps={{
                   shrink: true,
@@ -98,7 +107,7 @@ class EditCertificationBox extends Component {
           </Button>
           <Button
             onClick={() => {
-              handleAddCertification()
+              this.props.edit? handleUpdateCertification() : handleAddCertification() 
               closeEditCertificationBox()
             }}
           >
@@ -113,6 +122,8 @@ class EditCertificationBox extends Component {
 EditCertificationBox.propTypes = {
   closeEditCertificationBox: PropTypes.func.isRequired,
   handleDeleteCertification: PropTypes.func.isRequired,
+  handleUpdateCertification: PropTypes.func.isRequired,
+  handleAddCertification: PropTypes.func.isRequired,
   open: PropTypes.bool.isRequired,
   edit: PropTypes.bool,
 }
