@@ -19,7 +19,7 @@ router.post('/', (req, res) => {
 })
 
 router.delete('/', (req, res) => {
-  
+
   const { identity } =  req.query
     req.graphApi.deleteNode(identity)
     .then(result => {
@@ -30,7 +30,7 @@ router.delete('/', (req, res) => {
       res.status(406)
       res.send()
     })
-    
+
 })
 
 module.exports = router

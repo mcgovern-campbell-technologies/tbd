@@ -23,7 +23,7 @@ router.post('/', (req, res) => {
 })
 
 router.delete('/', (req, res) => {
-  
+
   const { identity } =  req.query
     req.graphApi.deleteNode(identity)
     .then(result => {
@@ -34,7 +34,6 @@ router.delete('/', (req, res) => {
       res.status(406)
       res.send()
     })
-<<<<<<< HEAD
 })
 
 router.put('/', (req, res) => {
@@ -52,8 +51,6 @@ router.put('/', (req, res) => {
     })
 
   res.send()
-=======
->>>>>>> refactor all of our server routers
 })
 
 
