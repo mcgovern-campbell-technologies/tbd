@@ -8,6 +8,9 @@ import PropTypes from 'prop-types'
 function TeamManagerWrapper({ children, openAddTeamBox }) {
   return (
     <div>
+      {
+        children
+      }
       <Button
         fab mini
         aria-label="add"
@@ -16,9 +19,6 @@ function TeamManagerWrapper({ children, openAddTeamBox }) {
       >
         <AddIcon />
       </Button>
-      {
-        children
-      }
     </div>
   )
 }

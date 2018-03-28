@@ -2,7 +2,12 @@ import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
 import { withRouter } from 'react-router'
-import { Link } from 'react-router-dom'
+import Table, {
+  TableBody,
+  TableCell,
+  TableHead,
+  TableRow
+} from 'material-ui/Table';
 
 //Actions
 import * as actionCreators from '../redux/actions/actionCreators';
@@ -40,11 +45,39 @@ class TeamManager extends Component {
     this.props.addTeam(team)
   }
 
+  handleRowClick(teamId) {
+    this.props.history.push(`/dashboard/teamManager/${teamId}`)
+  }
+
   render() {
     return (
       <TeamManagerWrapper
         openAddTeamBox={this.toggleAddTeamBox}
       >
+        <Table>
+          <TableHead>
+            <TableRow>
+              <TableCell>Name</TableCell>
+              <TableCell>Project</TableCell>
+              <TableCell>Start Date</TableCell>
+              <TableCell>End Date</TableCell>
+              <TableCell>Filled</TableCell>
+            </TableRow>
+          </TableHead>
+          <TableBody>
+            {this.props.teams.allTeams.map(team => {
+              return (
+                <TableRow key={team.id} onClick={()=>{this.handleRowClick(team.identity)}} >
+                  <TableCell>{team.properties.name}</TableCell>
+                  <TableCell>{team.properties.projectName}</TableCell>
+                  <TableCell>{team.properties.startDate}</TableCell>
+                  <TableCell>{team.properties.endDate}</TableCell>
+                  <TableCell>3/34</TableCell>
+                </TableRow>
+              );
+            })}
+          </TableBody>
+        </Table>
         <AddTeamBox
           getAllProjects={this.props.getAllProjects}
           open={this.state.AddTeamBoxOpen}
@@ -52,15 +85,6 @@ class TeamManager extends Component {
           handleAddTeam={this.handleAddTeam}
           projects={this.props.projects.allProjects}
         />
-        <ul>
-          {
-            this.props.teams.allTeams.map((team, idx) =>
-              <li key={idx}>
-                <Link to={`/dashboard/teamManager/${team.identity}`}>{team.properties.name}</Link>
-              </li>
-            )
-          }
-        </ul>
       </TeamManagerWrapper>
     )
   }
@@ -73,4 +97,5 @@ function mapStateToProps({projects, teams}) {
 function mapDispatchToProps(dispatch) {
   return bindActionCreators(actionCreators, dispatch)
 }
+
 export default withRouter(connect(mapStateToProps, mapDispatchToProps)(TeamManager))
