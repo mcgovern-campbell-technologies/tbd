@@ -1,19 +1,13 @@
 //  api/contractor/certifications
-
 const express = require('express');
 const router = express.Router();
 const _ = require('lodash');
 
 router.get('/', (req, res) => {
   const { identity } = req.query;
-
   req.graphApi.getContractorCertifications(identity)
-    .then(result => {
-      res.send(result);
-    })
-    .catch(err => {
-      console.error(err);
-    })
+    .then(result => res.send(result))
+    .catch(err => console.error(err))
 })
 
 router.post('/', (req, res) => {
@@ -21,9 +15,7 @@ router.post('/', (req, res) => {
   const { identity } = query
 
   req.graphApi.addContractorCertification(query.identity, body)
-    .then(result => {
-      res.send(result);
-    })
+    .then(result => res.send(result))
     .catch(err => {
       console.error(err);
       res.send(err);
@@ -31,7 +23,7 @@ router.post('/', (req, res) => {
 })
 
 router.delete('/', (req, res) => {
-  
+
   const { identity } =  req.query
     req.graphApi.deleteNode(identity)
     .then(result => {
