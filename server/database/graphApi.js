@@ -435,13 +435,8 @@ class GraphApi {
   }
 
   updateNode(id, properties) {
-    const session = this.driver.session();
 
-    // const updatedProperties = Object.keys(properties).map(property => {
-    //   const value = properties[property]
-    //   // console.log(`SET n.${property} = "${value}" `)
-    //   return `SET n.${property} = ${value} `
-    // })
+    const session = this.driver.session();
 
     const updatedProperties = createSetChain(properties)
 
@@ -459,6 +454,45 @@ class GraphApi {
         return result
       })
   }
+
+  createRole() {
+
+    // const session = this.driver.session();
+
+  }
+
+  deleteRole() {
+
+    // const session = this.driver.session();
+
+  }
+
+  updateRole() {
+
+    // const session = this.driver.session();
+
+  }
+
+  getTeamRoles(teamId) {
+
+    const session = this.driver.session();
+
+    return session
+      .run(`
+        MATCH (t:Team) WHERE ID(t) = ${teamId}
+        MATCH (t)-[:REQUIRES_ROLE]->(r)
+        RETURN r
+      `)
+      .then(({ records }) => {
+
+        session.close()
+
+        return extractNodes(records)
+
+      })
+
+  }
+
 }
 
 module.exports = GraphApi;
