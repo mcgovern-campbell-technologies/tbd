@@ -3,6 +3,8 @@ const express = require('express');
 const router = express.Router();
 const _ = require('lodash');
 
+const teamRouter = require('./roleRouter');
+
 // Get a team by ID: GET /api/team?teamId=4
 // Get all teams: GET /api/team
 router.get('/', (req, res) => {
@@ -42,5 +44,7 @@ router.post('/experience', (req, res) => {
     .catch(err => res.send(err));
   }
 });
+
+router.use('/role', teamRouter)
 
 module.exports = router
