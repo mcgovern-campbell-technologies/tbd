@@ -455,24 +455,6 @@ class GraphApi {
       })
   }
 
-  createRole() {
-
-    // const session = this.driver.session();
-
-  }
-
-  deleteRole() {
-
-    // const session = this.driver.session();
-
-  }
-
-  updateRole() {
-
-    // const session = this.driver.session();
-
-  }
-
   getTeamRoles(teamId) {
 
     const session = this.driver.session();
