@@ -21,6 +21,7 @@ router.get('/', (req, res) => {
 })
 
 router.post('/', (req, res) => {
+
   const { graphApi, query, body } = req
   const { teamId } = query
 
@@ -29,6 +30,27 @@ router.post('/', (req, res) => {
     .then(result => res.send(result))
     .catch(err => res.send(err))
 
+})
+
+router.delete('/', (req, res) => {
+
+  const { graphApi, query } = req
+  const { roleId } = query
+
+  graphApi
+    .deleteNode(parseInt(roleId))
+    .then(result => res.send(result))
+    .catch(err => res.send(err))
+})
+
+router.put('/', (req, res) => {
+  const { graphApi, query, body } = req
+  const { roleId } = query
+
+  graphApi
+    .updateNode(parseInt(roleId), body)
+    .then(result => res.send(result))
+    .catch(err => res.send(err))
 })
 
 module.exports = router
