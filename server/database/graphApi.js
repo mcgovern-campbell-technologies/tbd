@@ -435,13 +435,8 @@ class GraphApi {
   }
 
   updateNode(id, properties) {
-    const session = this.driver.session();
 
-    // const updatedProperties = Object.keys(properties).map(property => {
-    //   const value = properties[property]
-    //   // console.log(`SET n.${property} = "${value}" `)
-    //   return `SET n.${property} = ${value} `
-    // })
+    const session = this.driver.session();
 
     const updatedProperties = createSetChain(properties)
 
@@ -459,6 +454,60 @@ class GraphApi {
         return result
       })
   }
+
+  getTeamRoles(teamId) {
+
+    const session = this.driver.session();
+
+    return session
+      .run(`
+        MATCH (t:Team) WHERE ID(t) = ${teamId}
+        MATCH (t)-[:REQUIRES_ROLE]->(r)
+        RETURN r
+      `)
+      .then(({ records }) => {
+
+        session.close()
+
+        return extractNodes(records)
+
+      })
+
+  }
+
+  createTeamRole(teamId, role) {
+
+    const { 
+      positionLevelId, 
+      requiredNumber, 
+      description, 
+      position, 
+      positionLevel 
+    } = _.mapValues(role, (value) => !isNaN(value)? parseInt(value) : value);
+
+    const session = this.driver.session();
+
+    return session
+      .run(`
+        MATCH (t:Team) WHERE ID(t) = $teamId
+        MATCH (pl:PositionLevel) WHERE ID(pl) = $positionLevelId
+        CREATE (t)-[:REQUIRES_ROLE]->(r:Role {
+          requiredNumber: $requiredNumber,
+          description: $description,
+          position: $position,
+          positionLevel: $positionLevel
+        })-[:ROLE_AT]->(pl)
+        RETURN r
+      `, { teamId, positionLevelId, requiredNumber, description, position, positionLevel })
+      .then(({ records }) => {
+
+        session.close()
+
+        return extractNodes(records)
+
+      });
+  }
+
 }
 
 module.exports = GraphApi;
