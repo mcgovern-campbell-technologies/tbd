@@ -20,4 +20,15 @@ router.get('/', (req, res) => {
     .catch(err => res.send(err))
 })
 
+router.post('/', (req, res) => {
+  const { graphApi, query, body } = req
+  const { teamId } = query
+
+  graphApi
+    .createTeamRole(parseInt(teamId), body)
+    .then(result => res.send(result))
+    .catch(err => res.send(err))
+
+})
+
 module.exports = router
