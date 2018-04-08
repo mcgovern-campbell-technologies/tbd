@@ -18,6 +18,13 @@ router.post('/', (req, res) => {
     .then(result => res.send(result))
 })
 
+router.post('/position', (req, res) => {
+  const { body, query, graphApi } = req;
+
+  graphApi.connectContractorToPositionViaExperience(body)
+    .then(result => res.send(result))
+})
+
 router.delete('/', (req, res) => {
 
   const { identity } =  req.query

@@ -1,9 +1,9 @@
 const neo4j = require('neo4j-driver').v1;
 const _ = require('lodash');
 const stringifyObject = require('stringify-object');
-const { 
-  contractorHasNecessaryProps, 
-  extractNodes, 
+const {
+  contractorHasNecessaryProps,
+  extractNodes,
   mapTypeToQuery,
   createSetChain
 } = require('./databaseUtilities');
@@ -394,6 +394,30 @@ class GraphApi {
       .catch(err => console.error(err));
   }
 
+  connectContractorToPositionViaExperience(reqBody) {
+    //This creates an experience node, and then connects to both a contractor node and a positionLevel node
+    //Essentially, this is how we are adding a contractor to a team.
+    const {positionLevelId, contractorId} = reqBody;
+    const session = this.driver.session();
+    return session
+      .run(`
+        MATCH (c:Contractor) where id(c) = ${contractorId}
+        MATCH (l:PositionLevel) where id(l) = ${positionLevelId}
+        CREATE (e:Experience)
+        CREATE UNIQUE (c)-[:HAS_EXPERIENCE]->(e)-[:IS_EXPERIENCE_FOR]->(l)
+        RETURN c,e,l
+      `)
+      .then(result => {
+        const { records } = result;
+        session.close();
+        return result
+      })
+      .catch(err => {
+        console.error(err)
+      });
+
+  }
+
   addExperienceToTeam(reqBody) {
     const {experienceId, teamId} = reqBody;
     const session = this.driver.session();
@@ -477,12 +501,12 @@ class GraphApi {
 
   createTeamRole(teamId, role) {
 
-    const { 
-      positionLevelId, 
-      requiredNumber, 
-      description, 
-      position, 
-      positionLevel 
+    const {
+      positionLevelId,
+      requiredNumber,
+      description,
+      position,
+      positionLevel
     } = _.mapValues(role, (value) => !isNaN(value)? parseInt(value) : value);
 
     const session = this.driver.session();
