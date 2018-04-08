@@ -9,16 +9,19 @@ import {
   GET_TEAM_FULFILLED,
 } from '../../utils/types';
 
+import { getAllTeams } from '../../core/services/teams';
+
 const DOMAIN = window.location.host || 'localhost'
+
 
 const addTeamEpic = (action$, state) => {
   return action$
     .ofType(ADD_TEAM)
     .mergeMap(
       action => {
-        return ajax.post(`http://${DOMAIN}:4000/api/team`, action.payload)
+        return getAllTeams()
           .map(({response}) => {
-            return getTeamFulfilled(response)
+            return getTeamFulfilled(response.data)
           })
       }
     )
