@@ -8,16 +8,16 @@ import Table, { TableBody, TableCell, TableHead, TableRow } from 'material-ui/Ta
 
 //DUMMY DATA
 let id = 0;
-function createData(type, skillLevel, weekDays, time, requested, filled) {
+function createData(name, type, skillLevel, rate, status) {
   id += 1;
-  return { id, type, skillLevel, weekDays, time, requested, filled };
+  return { id, name, type, skillLevel, rate, status };
 }
 const data = [
-  createData('Electrician', 1, 'M, Tu, W', '9am - 5pm', '2', '2'),
-  createData('Electrician', 2, 'M, Tu, W', '9am - 5pm', '2', '2'),
-  createData('Welder', 1, 'M, Tu, W, Th, F', '9am - 5pm', '1', '0'),
-  createData('Magician', 1, 'M, Tu, W', '9am - 5pm', '2', '0'),
-  createData('Pipe Fitter', 2, 'W, Th, F', '9am - 5pm', '2', '1'),
+  createData('Joe Schmo', 'Electrician', 1, 22, 1),
+  createData('Derek Zoolander', 'Electrician', 2, 20, 1),
+  createData('Jack Johnson', 'Welder', 1, 18, 0),
+  createData('Stevie Nicks', 'Magician', 1, 24, 0),
+  createData('James Franco', 'Pipe Fitter', 2, 21, 1),
 ];
 //END DUMMY DATA
 
@@ -44,17 +44,23 @@ function TeamSummaryMembers (props) {
       <TableHead>
         <TableRow>
           <TableCell>Name</TableCell>
-          <TableCell>Position</TableCell>
-          <TableCell>Position Level</TableCell>
+          <TableCell>Role</TableCell>
+          <TableCell>Type</TableCell>
+          <TableCell>Skill Level</TableCell>
+          <TableCell>Rate ($)</TableCell>
+          <TableCell>Status</TableCell>
         </TableRow>
       </TableHead>
       <TableBody>
-        {data.map(n => {
+        {data.map((member) => {
           return (
-            <TableRow key={n.id}>
-              <TableCell>John Smith</TableCell>
-              <TableCell>{n.type}</TableCell>
-              <TableCell>{n.skillLevel}</TableCell>
+            <TableRow key={member.id}>
+              <TableCell>{member.name}</TableCell>
+              <TableCell>{member.type} - {member.skillLevel}</TableCell>
+              <TableCell>{member.type}</TableCell>
+              <TableCell>Class {member.skillLevel}</TableCell>
+              <TableCell>${member.rate}/hr</TableCell>
+              <TableCell>{member.status === 1 ? 'Confirmed' : 'Pending'}</TableCell>
             </TableRow>
           );
         })}
