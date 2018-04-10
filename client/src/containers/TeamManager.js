@@ -67,7 +67,7 @@ class TeamManager extends Component {
           <TableBody>
             {this.props.teams.allTeams.map(team => {
               return (
-                <TableRow key={team.id} onClick={()=>{this.handleRowClick(team.identity)}} >
+                <TableRow key={team.identity} onClick={()=>{this.handleRowClick(team.identity)}} >
                   <TableCell>{team.properties.name}</TableCell>
                   <TableCell>{team.properties.projectName}</TableCell>
                   <TableCell>{team.properties.startDate}</TableCell>

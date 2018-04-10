@@ -16,6 +16,10 @@ import ExperienceListItem from './ExperienceListItem';
 import AddExperienceBox from './AddExperienceBox';
 import TeamManagerWrapper from './TeamManagerWrapper';
 import TeamSummaryBox from './TeamSummaryBox';
+import TeamSummaryMembers from './TeamSummaryMembers';
+import TeamSummaryRoles from './TeamSummaryRoles';
+import TeamSummaryTable from './TeamSummaryTable';
+import TeamSummaryWrapper from './TeamSummaryWrapper';
 
 
 export {
@@ -37,4 +41,8 @@ export {
   AddExperienceBox,
   TeamManagerWrapper,
   TeamSummaryBox,
+  TeamSummaryMembers,
+  TeamSummaryRoles,
+  TeamSummaryTable,
+  TeamSummaryWrapper,
 }

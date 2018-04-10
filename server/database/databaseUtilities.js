@@ -4,7 +4,6 @@ const neo4j = require('neo4j-driver').v1;
 function extractNodes(queryResult) {
 
   return _.reduce(queryResult, (acc, value) => {
-    console.log(acc, value)
     const fields = value._fields;
     const nodes =  _.map(fields, ({ properties, labels, identity }) => {
       return {
@@ -71,5 +70,3 @@ module.exports = {
   mapTypeToQuery,
   createSetChain,
 }
-
-

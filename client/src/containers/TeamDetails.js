@@ -8,6 +8,8 @@ import * as actionCreators from '../redux/actions/actionCreators';
 
 import {
   TeamSummaryBox,
+  TeamSummaryTable,
+  TeamSummaryWrapper,
 } from './../components/componentIndex';
 
 class TeamDetails extends Component {
@@ -26,13 +28,11 @@ class TeamDetails extends Component {
 
   render() {
     return (
-      <div>
-        <TeamSummaryBox
-          team={this.props.teams.team}
-          location={this.props.teams.location}
-          project={this.props.teams.project}
-        />
-      </div>
+      <TeamSummaryWrapper
+        team={this.props.teams.team}
+        location={this.props.teams.location}
+        project={this.props.teams.project}
+      />
     )
   }
 }
