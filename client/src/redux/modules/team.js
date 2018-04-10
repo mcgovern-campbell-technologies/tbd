@@ -1,6 +1,5 @@
-import { ajax } from 'rxjs/observable/dom/ajax';
-import { Observable } from 'rxjs'
 import { getTeamFulfilled, getAllTeamsFulfilled } from './../actions/actionCreators';
+import * as api from '../../core/api';
 import {
   ADD_TEAM,
   GET_TEAM,
@@ -9,14 +8,12 @@ import {
   GET_TEAM_FULFILLED,
 } from '../../utils/types';
 
-const DOMAIN = window.location.host || 'localhost'
-
-const addTeamEpic = (action$, state) => {
+const addTeamEpic = (action$) => {
   return action$
     .ofType(ADD_TEAM)
     .mergeMap(
       action => {
-        return ajax.post(`http://${DOMAIN}:4000/api/team`, action.payload)
+        return api.addTeam(action.payload)
           .map(({response}) => {
             return getTeamFulfilled(response)
           })
@@ -24,12 +21,12 @@ const addTeamEpic = (action$, state) => {
     )
 }
 
-const getAllTeamsEpic = (action$, state) => {
+const getAllTeamsEpic = (action$) => {
   return action$
     .ofType(GET_ALL_TEAMS)
     .mergeMap(
       action => {
-        return ajax.getJSON(`http://${DOMAIN}:4000/api/team`)
+        return api.getAllTeams()
           .map(response => {
             return getAllTeamsFulfilled(response);
           })
@@ -38,12 +35,12 @@ const getAllTeamsEpic = (action$, state) => {
     .concat(action$.mapTo({ type: GET_ALL_TEAMS_FULFILLED }))
 }
 
-const getTeamEpic = (action$, state) => {
+const getTeamEpic = (action$) => {
   return action$
     .ofType(GET_TEAM)
     .mergeMap(
       action => {
-        return ajax.getJSON(`http://${DOMAIN}:4000/api/team?teamId=${action.payload}`)
+        return api.getTeamById(action.payload)
           .map(response => {
             return getTeamFulfilled(response);
           })

@@ -1,6 +1,6 @@
 import { createStore, applyMiddleware } from 'redux'
 import { createEpicMiddleware } from 'redux-observable'
-import { rootEpic, rootReducer } from './modules/root'
+import { rootEpic, rootReducer } from './modules/index'
 
 /* create middleware out of your root epic and inject dependencies as needed */
 const epicMiddleware = createEpicMiddleware(

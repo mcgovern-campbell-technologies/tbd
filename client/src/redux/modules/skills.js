@@ -1,6 +1,5 @@
-import { ajax } from 'rxjs/observable/dom/ajax';
-import { Observable } from 'rxjs'
-import { getSkillsFullfilled, skillsWereChecked, getSkills } from './../actions/actionCreators';
+import { getSkillsFullfilled, getSkills } from './../actions/actionCreators';
+import * as api from '../../core/api';
 import {
   GET_SKILLS,
   GET_SKILLS_FULLFILLED,
@@ -9,24 +8,20 @@ import {
   DELETE_SKILL,
 } from '../../utils/types';
 
-const DOMAIN = window.location.host || 'localhost'
-console.log("DOMAIN in skills.js")
-console.log(DOMAIN);
-
 const getSkillsEpic = (action$, state) => {
   return action$
     .ofType(GET_SKILLS)
     .mergeMap(
       action => {
         const { identity } = state.getState().user;
-        return ajax.getJSON(`http://${DOMAIN}:4000/api/contractor/skills?identity=${identity}`)
+        return api.getContractorSkills(identity)
           .map(response => {
             return getSkillsFullfilled(response)
           })
       }
     )
     .concat(action$.mapTo({ type: GET_SKILLS_FULLFILLED }))
-}
+};
 
 const addSkillEpic = (action$, state) => {
   return action$
@@ -34,23 +29,23 @@ const addSkillEpic = (action$, state) => {
     .mergeMap(
       action => {
         const { identity } = state.getState().user;
-        return ajax.post(`http://${DOMAIN}:4000/api/contractor/skills?identity=${identity}`, action.payload)
+        return api.addContractorSkill(identity, action.payload)
           .map(({ response }) => {
             return getSkillsFullfilled(response)
           })
       }
     )
-}
+};
 
-const deleteSkillEpic = (action$, state) => {
+const deleteSkillEpic = (action$) => {
   return action$
     .ofType(DELETE_SKILL)
     .mergeMap(
       action =>
-        ajax.delete(`http://${DOMAIN}:4000/api/contractor/skills?identity=${action.payload}`)
+        api.deleteContractorSkill(action.payload)
           .map(response => getSkills())
     )
-}
+};
 
 const skills = (state = {
   list: [],
@@ -65,7 +60,7 @@ const skills = (state = {
     default:
       return state;
   }
-}
+};
 
 export {
   skills as default,

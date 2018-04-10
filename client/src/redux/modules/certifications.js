@@ -1,11 +1,8 @@
-import { ajax } from 'rxjs/observable/dom/ajax';
-import { Observable } from 'rxjs'
-
 import {
   getCertificationsFulfilled,
   getCertifications,
 } from './../actions/actionCreators';
-
+import * as api from '../../core/api';
 import {
   GET_CERTIFICATIONS,
   GET_CERTIFICATIONS_FULFILLED,
@@ -14,68 +11,50 @@ import {
   EDIT_CERTIFICATION, 
 } from '../../utils/types';
 
-const DOMAIN = window.location.host || 'localhost'
-
 const getCertificationsEpic = (action$, state) =>
   action$
     .ofType(GET_CERTIFICATIONS)
-    .mergeMap(action => {
-      return ajax.getJSON(`http://${DOMAIN}:4000/api/contractor/certifications?identity=${state.getState().user.identity}`)
-          .map(response => {
-            return getCertificationsFulfilled(response)
-          })
-    })
+    .mergeMap(action =>
+      api.getContractorCertifications(state.getState().user.identity)
+        .map(response => getCertificationsFulfilled(response))
+    );
 
 const deleteCertificationEpic = (action$, state) =>
   action$
     .ofType(DELETE_CERTIFICATION)
-    .mergeMap(action => {
-      return ajax({
-        createXHR: () => new XMLHttpRequest(),
-        crossDomain: true,
-        method: 'DELETE',
-        url: `http://${DOMAIN}:4000/api/contractor/certifications?identity=${action.payload}`
-      })
-    })
+    .mergeMap(action => api.deleteContractorCertification(action.payload))
     .map(response =>  {
       if (response.status >= 200 && response.status < 300) {
         return getCertifications()
       }
     })
-    .catch(e => {
-      return {type: 'error'}
-    })
+    .catch(e => ({type: 'error'}));
 
 const addCertificationEpic = (action$, state) =>
   action$
     .ofType(ADD_CERTIFICATION)
     .mergeMap(
-      action =>
-        ajax.post(`http://${DOMAIN}:4000/api/contractor/certifications?identity=${state.getState().user.identity}`, action.payload)
+      action => api.addContractorCertification(
+        state.getState().user.identity,
+        action.payload
+      )
     )
-    .map(response => {
-      return getCertifications()
-    })
+    .map(response => getCertifications());
 
 const editCertificationEpic = (action$, state) => 
   action$
     .ofType(EDIT_CERTIFICATION)
     .mergeMap(
-      action => 
-        ajax.put(
-          `http://${DOMAIN}:4000/api/contractor/certifications?identity=${action.payload.identity}`,
-          action.payload.properties
-        )
+      action => api.editContractorCertification(
+        action.payload.identity,
+        action.payload.properties,
+      )
     )
     //Im the dirties
     //TODO make this actually a real thing
     .throttleTime(500)
-    .map(response => {
-      return getCertifications()
-    })
-    .catch(e => {
-      return {type: 'error'}
-    })
+    .map(response => getCertifications())
+    .catch(e => ({type: 'error'}));
 
 
 const certifications = (state = {
@@ -88,7 +67,7 @@ const certifications = (state = {
     default:
       return state;
   }
-}
+};
 
 export {
   certifications as default,

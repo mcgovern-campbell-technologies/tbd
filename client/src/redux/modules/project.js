@@ -1,41 +1,38 @@
-import { ajax } from 'rxjs/observable/dom/ajax';
-import { Observable } from 'rxjs'
 import { getProjectFulfilled } from './../actions/actionCreators';
+import * as api from '../../core/api';
 import {
   GET_PROJECT,
   GET_ALL_PROJECTS,
   GET_PROJECT_FULFILLED,
 } from '../../utils/types';
 
-const DOMAIN = window.location.host || 'localhost'
-
-const getProjectEpic = (action$, state) => {
+const getProjectEpic = (action$) => {
   return action$
     .ofType(GET_PROJECT)
     .mergeMap(
       action => {
-        return ajax.getJSON(`http://${DOMAIN}:4000/api/project?projectId=${action.payload}`)
+        return api.getProjectById(action.payload)
           .map(response => {
             return getProjectFulfilled(response);
           })
       }
     )
     .concat(action$.mapTo({ type: GET_PROJECT_FULFILLED }))
-}
+};
 
-const getAllProjectsEpic = (action$, state) => {
+const getAllProjectsEpic = (action$) => {
   return action$
     .ofType(GET_ALL_PROJECTS)
     .mergeMap(
       action => {
-        return ajax.getJSON(`http://${DOMAIN}:4000/api/project`)
+        return api.getAllProjects()
           .map(response => {
             return getProjectFulfilled(response);
           })
       }
     )
     .concat(action$.mapTo({ type: GET_PROJECT_FULFILLED }))
-}
+};
 
 const projects = (state = {
   allProjects: [],
