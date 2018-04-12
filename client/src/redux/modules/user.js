@@ -1,40 +1,35 @@
-import { ajax } from 'rxjs/observable/dom/ajax';
-
 import { getUserFulfilled, addUser } from './../actions/actionCreators';
+import * as api from '../../core/api';
 import * as types from '../../utils/types';
-
-const DOMAIN = window.location.host || 'localhost'
 
 const getUserEpic = (action$, state) => {
   const { auth } = state.getState();
-  const currentState = state.getState()
   return action$
     .ofType(types.GET_USER)
     .mergeMap(action => {
-      return ajax.getJSON(`http://${DOMAIN}:4000/api/contractor/?sub=${action.payload}`)
+      return api.getUserById(action.payload)
     })
     .map(profile => {
       //If no profile is returned from server, use locally stored auth.profile to addUser
       if (!profile || profile.error) {
-        profile = auth.profile
+        profile = auth.profile;
         return addUser(profile);
       }
       return getUserFulfilled(profile);
     })
     .catch(e => {
-      console.log(e)
+      console.log(e);
       return { type: "ERROR" }
     })
 }
 
-const addUserEpic = (action$, state) => {
-  const { auth } = state.getState();
+const addUserEpic = (action$) => {
   return action$
     .ofType(types.ADD_USER)
-    .mergeMap(action => {
+    .mergeMap(() => {
       const profileStr = window.localStorage.getItem('profile');
       const profile = JSON.parse(profileStr);
-      return ajax.post(`http://${DOMAIN}:4000/api/contractor`, profile)
+      return api.addContractor(profile)
         .map(({ response }) => response)
     })
     .map(profile => {
@@ -54,18 +49,18 @@ const dummyEmplObj = {
     "nickname":"Grohlsy",
     "picture":"https://i.ytimg.com/vi/mRf3-JkwqfU/hqdefault.jpg"
   }
-}
+};
 
-dummyEmplObj.properties = JSON.stringify(dummyEmplObj.properties)
+dummyEmplObj.properties = JSON.stringify(dummyEmplObj.properties);
 
 const updateUserEpic = (action$, state) => {
-  const { auth, user } = state.getState();
+  const { auth } = state.getState();
   return action$
     .ofType(types.UPDATE_USER)
     .mergeMap(action => {
-      action.payload.properties = JSON.stringify(action.payload.properties)
+      action.payload.properties = JSON.stringify(action.payload.properties);
 
-      return ajax.post(`http://${DOMAIN}:4000/api/contractor/update`, action.payload)
+      return api.updateContractor(action.payload)
         .map(({ response }) => response)
     })
     .map(profile => {
@@ -89,7 +84,7 @@ const userReducer = (state = {
     default:
       return state;
   }
-}
+};
 
 export {
   userReducer as default,
