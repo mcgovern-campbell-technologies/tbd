@@ -216,3 +216,47 @@ export function getProjectFulfilled(payload) {
     payload: payload
   }
 }
+
+export function getTeamRoles(teamId) {
+// export const GET_TEAM_ROLES = 'GET_TEAM_ROLES';
+  return {
+    type: types.GET_TEAM_ROLES,
+    teamId
+  }
+
+}
+
+export function getTeamRolesFulfilled(teamId, roles) {
+// export const GET_TEAM_ROLES_FULFILLED = 'GET_TEAM_ROLES_FULFILLED';
+  return {
+    type: types.GET_TEAM_ROLES_FULFILLED,
+    payload: roles,
+    teamId
+  }
+}
+
+export function addRoleToTeam(teamId, role) {
+// export const ADD_ROLE_TO_TEAM = 'ADD_ROLE_TO_TEAM';
+  return {
+    type: types.ADD_ROLE_TO_TEAM,
+    payload: role,
+    teamId
+  }
+}
+
+export function updateRole(roleId, updateProperties) {
+// export const UPDATE_ROLE = 'UPDATE_ROLE';
+  type: types.UPDATE_ROLE,
+  updateProperties,
+  roleId
+}
+
+export function deleteRole(roleId) {
+// export const DELETE_ROLE = 'DELETE_ROLE';
+  type: types.DELETE_ROLE,
+  roleId
+}
+
+
+
+
