@@ -1,5 +1,5 @@
-import { getTeamFulfilled, getAllTeamsFulfilled } from './../actions/actionCreators';
-import * as api from '../../core/api';
+import { getTeamFulfilled, getAllTeamsFulfilled } from '../actions/actionCreators';
+import * as api from '../api/index';
 import {
   ADD_TEAM,
   GET_TEAM,
@@ -19,7 +19,7 @@ const addTeamEpic = (action$) => {
           })
       }
     )
-}
+};
 
 const getAllTeamsEpic = (action$) => {
   return action$
@@ -33,7 +33,7 @@ const getAllTeamsEpic = (action$) => {
       }
     )
     .concat(action$.mapTo({ type: GET_ALL_TEAMS_FULFILLED }))
-}
+};
 
 const getTeamEpic = (action$) => {
   return action$
@@ -47,32 +47,9 @@ const getTeamEpic = (action$) => {
       }
     )
     .concat(action$.mapTo({ type: GET_TEAM_FULFILLED }))
-}
-
-const teams = (state = {
-  allTeams: [],
-  team: {},
-  location: {},
-  project: {},
-}, action) => {
-  const { type, payload } = action;
-  switch (type) {
-    case GET_ALL_TEAMS_FULFILLED:
-      return { ...state, allTeams: payload || [] };
-    case GET_TEAM_FULFILLED:
-      return {
-        ...state,
-        team: payload[0] || {},
-        location: payload[1] || {},
-        project: payload[2] || {},
-      }
-    default:
-      return state;
-  }
-}
+};
 
 export {
-  teams as default,
   addTeamEpic,
   getTeamEpic,
   getAllTeamsEpic,

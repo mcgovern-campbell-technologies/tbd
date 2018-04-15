@@ -10,7 +10,7 @@ import { connect } from 'react-redux'
 import { withRouter } from 'react-router'
 
 //Actions
-import * as actionCreators from '../redux/actions/actionCreators'
+import * as actionCreators from '../core/actions/actionCreators'
 
 //Components
 import {

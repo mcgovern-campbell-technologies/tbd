@@ -1,11 +1,10 @@
 import {
   getCertificationsFulfilled,
   getCertifications,
-} from './../actions/actionCreators';
-import * as api from '../../core/api';
+} from '../actions/actionCreators';
+import * as api from '../api/index';
 import {
   GET_CERTIFICATIONS,
-  GET_CERTIFICATIONS_FULFILLED,
   ADD_CERTIFICATION,
   DELETE_CERTIFICATION,
   EDIT_CERTIFICATION, 
@@ -56,21 +55,7 @@ const editCertificationEpic = (action$, state) =>
     .map(response => getCertifications())
     .catch(e => ({type: 'error'}));
 
-
-const certifications = (state = {
-  list: [],
-}, action) => {
-  const { type, payload } = action;
-  switch (type) {
-    case GET_CERTIFICATIONS_FULFILLED:
-      return {...state, list: payload }
-    default:
-      return state;
-  }
-};
-
 export {
-  certifications as default,
   getCertificationsEpic,
   addCertificationEpic,
   deleteCertificationEpic,

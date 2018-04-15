@@ -6,7 +6,7 @@ import * as _ from 'lodash';
 import { bindActionCreators } from 'redux';
 import { connect } from 'react-redux';
 
-import * as actionCreators from '../redux/actions/actionCreators';
+import * as actionCreators from '../core/actions/actionCreators';
 
 import {
   ProfileSectionWrapper,

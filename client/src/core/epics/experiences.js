@@ -1,8 +1,8 @@
 import {
   getExperiences,
   getExperiencesFullfilled,
-} from './../actions/actionCreators';
-import * as api from '../../core/api';
+} from '../actions/actionCreators';
+import * as api from '../api/index';
 import {
   GET_EXPERIENCES,
   GET_EXPERIENCES_FULLFILLED,
@@ -65,20 +65,7 @@ const editExperienceEpic = (action$, state) =>
     .map(response => getExperiences())
     .catch(e => ({type: 'error'}));
 
-const experiences =  (state = {
-  list: [],
-}, action) => {
-  const { type, payload } = action;
-  switch(type) {
-    case GET_EXPERIENCES_FULLFILLED:
-      return {...state, list: payload };
-    default:
-      return state
-  }
-};
-
 export {
-  experiences as default,
   getExperiencesEpic,
   addExperienceEpic,
   deleteExperienceEpic,
