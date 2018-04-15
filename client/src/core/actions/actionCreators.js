@@ -252,6 +252,11 @@ export function deleteRole(roleId) {
   roleId
 }
 
+export function deleteRoleFulfilled(roleId) {
+  type: types.DELETE_ROLE_FULFILLED,
+  roleId
+}
+
 
 
 
