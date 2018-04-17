@@ -1,6 +1,7 @@
 import { createStore, applyMiddleware } from 'redux'
 import { createEpicMiddleware } from 'redux-observable'
-import { rootEpic, rootReducer } from './modules/index'
+import { rootEpic } from './epics'
+import { rootReducer } from './reducers';
 
 /* create middleware out of your root epic and inject dependencies as needed */
 const epicMiddleware = createEpicMiddleware(
@@ -9,15 +10,13 @@ const epicMiddleware = createEpicMiddleware(
     /* put epic dependencies here*/
     dependencies: { }
   }
-)
+);
 
 /* creates the store out of the root reducer and applies middleware to it*/
-export default function configureStore(preloadedState) {
-  const store = createStore(
+export default function configureStore() {
+  return createStore(
     rootReducer,
-    preloadedState,
-    applyMiddleware(epicMiddleware)
-  )
-
-  return store
+    window.__REDUX_DEVTOOLS_EXTENSION__ && window.__REDUX_DEVTOOLS_EXTENSION__(),
+    applyMiddleware(epicMiddleware),
+  );
 }

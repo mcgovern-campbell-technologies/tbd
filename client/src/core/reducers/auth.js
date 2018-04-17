@@ -3,24 +3,12 @@ import * as types from '../../utils/types';
 
 const authService = new AuthService();
 
-// const authEpic = (action$, store) => {
-//   console.log('store from authEpic')
-//   console.log(store);
-//   return action$
-//     .ofType('LOGIN_START')
-//     .mergeMap(action => {
-//       authService.login(); // <-- Essentially just redirects to auth0, which will eventually come back to Callback component
-//       // action.type = 'LOGIN_REQUEST'  // ?
-//          // don't know where to go from here
-//     })
-// }
-
-const authReducer = (state = {
+export function authReducer(state = {
   isAuthenticated: authService.isAuthenticated(),
   isFetching: false,
   profile: authService.getProfile(),
   error: null,
-}, action) => {
+}, action) {
   switch (action.type) {
     case types.LOGIN_REQUEST:
       return {
@@ -53,9 +41,4 @@ const authReducer = (state = {
     default:
       return state;
   }
-}
-
-export {
-  authReducer as default,
-  // authEpic
 }

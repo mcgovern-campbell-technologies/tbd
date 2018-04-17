@@ -10,7 +10,7 @@ import Table, {
 } from 'material-ui/Table';
 
 //Actions
-import * as actionCreators from '../redux/actions/actionCreators';
+import * as actionCreators from '../core/actions/actionCreators';
 
 import {
 

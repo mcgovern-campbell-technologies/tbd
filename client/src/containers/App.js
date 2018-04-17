@@ -11,7 +11,7 @@ import PropTypes from 'prop-types';
 /* Import Redux Utilities */
 import { bindActionCreators } from 'redux';
 import { connect } from 'react-redux';
-import * as actionCreators from '../redux/actions/actionCreators';
+import * as actionCreators from '../core/actions/actionCreators';
 
 
 import MuiThemeProvider from 'material-ui/styles/MuiThemeProvider';

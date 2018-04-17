@@ -1,5 +1,5 @@
-import { getUserFulfilled, addUser } from './../actions/actionCreators';
-import * as api from '../../core/api';
+import { getUserFulfilled, addUser } from '../actions/actionCreators';
+import * as api from '../api/index';
 import * as types from '../../utils/types';
 
 const getUserEpic = (action$, state) => {
@@ -21,7 +21,7 @@ const getUserEpic = (action$, state) => {
       console.log(e);
       return { type: "ERROR" }
     })
-}
+};
 
 const addUserEpic = (action$) => {
   return action$
@@ -35,7 +35,7 @@ const addUserEpic = (action$) => {
     .map(profile => {
       return getUserFulfilled(profile)
     })
-}
+};
 
 const dummyEmplObj = {
   "identity":"579",
@@ -70,24 +70,9 @@ const updateUserEpic = (action$, state) => {
       }
       return getUserFulfilled(profile);
     })
-}
-
-const userReducer = (state = {
-  properties: {},
-  identity: undefined,
-  labels: [],
-}, action) => {
-  const { type, payload } = action;
-  switch(type) {
-    case types.GET_USER_FULFILLED:
-      return payload;
-    default:
-      return state;
-  }
 };
 
 export {
-  userReducer as default,
   getUserEpic,
   addUserEpic,
   updateUserEpic

@@ -11,7 +11,7 @@ import { ConnectedRouter, routerReducer } from 'react-router-redux';
 import * as reactRouterRedux from 'react-router-redux';
 
 /* import store configure */
-import configureStore from './redux/configureStore';
+import configureStore from './core/configureStore';
 
 import 'typeface-roboto';
 

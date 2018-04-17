@@ -13,7 +13,7 @@ import {
 
 
 //Actions
-import * as actionCreators from '../redux/actions/actionCreators';
+import * as actionCreators from '../core/actions/actionCreators';
 
 class ProfileSkillCard extends Component {
 
