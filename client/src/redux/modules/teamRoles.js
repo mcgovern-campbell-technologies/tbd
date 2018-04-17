@@ -36,7 +36,7 @@ export const deleteRoleEpic = action$ => {
     .mergeMap(
       action => 
         api
-          .deleteRole(acton.roleId)
+          .deleteRole(action.roleId)
           .map(response => {
             console.log(response)
             return deleteRoleFulfilled(action.roleId)
