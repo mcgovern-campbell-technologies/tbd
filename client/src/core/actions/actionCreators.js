@@ -248,13 +248,17 @@ export function updateRole(roleId, updateProperties) {
 }
 
 export function deleteRole(roleId) {
-  type: types.DELETE_ROLE,
-  roleId
+  return {
+    type: types.DELETE_ROLE,
+    roleId
+  }
 }
 
 export function deleteRoleFulfilled(roleId) {
-  type: types.DELETE_ROLE_FULFILLED,
-  roleId
+  return {
+    type: types.DELETE_ROLE_FULFILLED,
+    roleId
+  }
 }
 
 

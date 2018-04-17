@@ -68,11 +68,15 @@ export default (state = {
 
       var newState = {
         teams: {
+          //maps the current teams to the newState
           ...state.teams,
+          //add/maps over the teamId property with an array of roleIdentities
           [teamId]: _.map(payload, role => role.identity)
         },
         roles: {
+          //maps the states current roles to the new state
           ...state.roles,
+          //maps the new roles to the state by identity
           ..._.reduce(payload, (acc, role) => {
             acc[role.identity] = role
             return acc
@@ -87,16 +91,24 @@ export default (state = {
 
       console.log('hit DELETE_ROLE_FULFILLED')
 
-      // var
-
       var newState = {
-        ...state.roles
+        teams: {
+          //cycles through the state.teams collection
+          ..._.reduce(state.teams, (acc, teamRoleIds, teamId) => {
+            //assigns acc[teamId] to an array where the deleted role's Id is removed
+            acc[teamId] = _.remove(teamRoleIds, value => value === roleId)
+            return acc
+          }, {})
+        },
+        roles: {
+          //filters the role array removing the role whos id matches the deleted roleId
+          ..._.filter(state.roles, (role, key) => key !== roleId)
+        }
       }
 
-      newState.roles[]
+      console.log(newState);
 
-      // return newState;
-      return state;
+      return newState;
     default: 
       return state;
   }
