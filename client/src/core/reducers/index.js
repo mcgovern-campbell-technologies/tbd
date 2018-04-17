@@ -10,6 +10,7 @@ import { certificationsReducer } from './certifications';
 import { experiencesReducer } from './experiences';
 import { projectsReducer } from './projects';
 import { teamsReducer } from './teams';
+import { teamRolesReducer } from './teamRoles';
 
 export const rootReducer = combineReducers({
   auth: authReducer,
@@ -22,4 +23,5 @@ export const rootReducer = combineReducers({
   experiences: experiencesReducer,
   projects: projectsReducer,
   teams: teamsReducer,
+  teamRoles: teamRolesReducer,
 });
