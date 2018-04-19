@@ -241,10 +241,20 @@ export function addRoleToTeam(teamId, role) {
   }
 }
 
-export function updateRole(roleId, updateProperties) {
-  type: types.UPDATE_ROLE,
-  updateProperties,
-  roleId
+export function updateRole(roleId, properties) {
+  return {
+    type: types.UPDATE_ROLE,
+    properties,
+    roleId
+  }
+}
+
+export function updateRoleFulfilled(roleId, payload) {
+  return {
+    type: types.UPDATE_ROLE_FULFILLED,
+    payload,
+    roleId
+  }
 }
 
 export function deleteRole(roleId) {
