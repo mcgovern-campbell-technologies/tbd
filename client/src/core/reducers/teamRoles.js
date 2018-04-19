@@ -1,11 +1,8 @@
 import * as _ from 'lodash';
 
 import { 
-  GET_TEAM_ROLES, 
-  GET_TEAM_ROLES_FULFILLED, 
-  ADD_ROLE_TO_TEAM, 
-  UPDATE_ROLE, 
-  DELETE_ROLE, 
+  GET_TEAM_ROLES_FULFILLED,   
+  UPDATE_ROLE_FULFILLED, 
   DELETE_ROLE_FULFILLED,
 } from '../../utils/types';
 
@@ -29,6 +26,7 @@ export const teamRolesReducer =  (state = {
   const { type, teamId, payload, roleId } = action
 
   switch (type) {
+
     case GET_TEAM_ROLES_FULFILLED:
 
       var newState = {
@@ -54,15 +52,15 @@ export const teamRolesReducer =  (state = {
 
     case DELETE_ROLE_FULFILLED:
 
-      console.log('hit DELETE_ROLE_FULFILLED')
-
       var newState = {
         teams: {
           //cycles through the state.teams collection
           ..._.reduce(state.teams, (acc, teamRoleIds, teamId) => {
             //assigns acc[teamId] to an array where the deleted role's Id is removed
             acc[teamId] = _.remove(teamRoleIds, value => value === roleId)
+
             return acc
+
           }, {})
         },
         roles: {
@@ -71,9 +69,18 @@ export const teamRolesReducer =  (state = {
         }
       }
 
-      console.log(newState);
+      return newState;
+    case UPDATE_ROLE_FULFILLED:
+      var newState = {
+        ...state,
+        roles: {
+          ...state.roles,
+          [roleId]: payload
+        }
+      }
 
       return newState;
+
     default: 
       return state;
   }
