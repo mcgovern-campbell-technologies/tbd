@@ -33,7 +33,9 @@ import {
 
 import {
   getTeamRolesEpic,
-  deleteRoleEpic
+  deleteRoleEpic,
+  addRoleToTeamEpic,
+  updateRoleEpic,
 } from './teamRoles';
 
 import {
@@ -63,5 +65,8 @@ export const rootEpic = combineEpics(
   getAllProjectsEpic,
   ////////////////////
   getTeamRolesEpic,
+  deleteRoleEpic,
+  addRoleToTeamEpic,
+  updateRoleEpic,
 );
 
