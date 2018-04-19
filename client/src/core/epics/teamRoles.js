@@ -5,6 +5,7 @@ import {
   getTeamRolesFulfilled,
   addRoleToTeam,
   updateRole,
+  updateRoleFulfilled,
   deleteRole,
   deleteRoleFulfilled,
 } from  './../actions/actionCreators';
@@ -13,12 +14,20 @@ import * as api from '../api';
 
 import { 
   GET_TEAM_ROLES, 
-  GET_TEAM_ROLES_FULFILLED, 
   ADD_ROLE_TO_TEAM, 
   UPDATE_ROLE, 
   DELETE_ROLE, 
-  DELETE_ROLE_FULFILLED,
 } from '../../utils/types';
+
+export const addRoleToTeamEpic = action$ => 
+  action$
+    .ofType(ADD_ROLE_TO_TEAM)
+    .mergeMap(
+      action => 
+        api
+          .addRoleToTeam(action.teamId, action.payload)
+          .map(response => getTeamRoles(action.teamId))
+    )
 
 export const getTeamRolesEpic = (action$) => 
   action$
@@ -30,7 +39,17 @@ export const getTeamRolesEpic = (action$) =>
           .map(response => getTeamRolesFulfilled(action.teamId ,response))
     );
 
-export const deleteRoleEpic = action$ => {
+export const updateRoleEpic = action$ => 
+  action$
+    .ofType(UPDATE_ROLE)
+    .mergeMap(
+      action => 
+        api
+          .updateRole(action.roleId, action.properties)
+          .map(response => updateRoleFulfilled(action.roleId, response))
+    )
+
+export const deleteRoleEpic = action$ => 
   action$
     .ofType(DELETE_ROLE)
     .mergeMap(
@@ -42,4 +61,3 @@ export const deleteRoleEpic = action$ => {
             return deleteRoleFulfilled(action.roleId)
           })
     )
-}
