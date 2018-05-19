@@ -31,6 +31,7 @@ function TeamSummaryRoles (props) {
           <TableCell>Time</TableCell>
           <TableCell>Requested</TableCell>
           <TableCell>Filled</TableCell>
+          <TableCell></TableCell>
         </TableRow>
       </TableHead>
       <TableBody>
