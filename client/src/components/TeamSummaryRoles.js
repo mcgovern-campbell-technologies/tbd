@@ -37,7 +37,7 @@ function TeamSummaryRoles (props) {
       <TableBody>
         {data.map(n => {
           return (
-            <TeamSummaryRoleRow { ...n }/>
+            <TeamSummaryRoleRow key={n.id} node={n} handleEditButtonClick={() => console.log('editme')}/>
           );
         })}
       </TableBody>
