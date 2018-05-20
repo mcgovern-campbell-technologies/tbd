@@ -20,6 +20,7 @@ router.get('/', (req, res) => {
     .catch(err => res.send(err))
 })
 
+//Add a role to a team
 router.post('/', (req, res) => {
 
   const { graphApi, query, body } = req
