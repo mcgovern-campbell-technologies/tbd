@@ -78,7 +78,7 @@ class AppNavBar extends Component {
         <AppBar position="static">
           <Toolbar>
             
-            <Typography variant="title" color="inherit" className={classes.flex}>
+            <Typography type="title" color="inherit" className={classes.flex}>
               Title
             </Typography>
             <TextField/>
