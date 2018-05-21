@@ -19,6 +19,7 @@ import TeamSummaryBox from './TeamSummaryBox';
 import TeamSummaryMembers from './TeamSummaryMembers';
 import TeamSummaryRoles from './TeamSummaryRoles';
 import TeamSummaryTable from './TeamSummaryTable';
+import TeamSummaryRoleRow from './TeamSummaryRoleRow';
 import TeamSummaryWrapper from './TeamSummaryWrapper';
 
 
@@ -44,5 +45,6 @@ export {
   TeamSummaryMembers,
   TeamSummaryRoles,
   TeamSummaryTable,
+  TeamSummaryRoleRow,
   TeamSummaryWrapper,
 }

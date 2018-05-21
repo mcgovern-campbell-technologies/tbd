@@ -3,6 +3,8 @@ import PropTypes from 'prop-types';
 
 import Table, { TableBody, TableCell, TableHead, TableRow } from 'material-ui/Table';
 
+import { TeamSummaryRoleRow } from './componentIndex'
+
 //DUMMY DATA
 let id = 0;
 function createData(type, skillLevel, weekDays, time, requested, filled) {
@@ -29,19 +31,13 @@ function TeamSummaryRoles (props) {
           <TableCell>Time</TableCell>
           <TableCell>Requested</TableCell>
           <TableCell>Filled</TableCell>
+          <TableCell></TableCell>
         </TableRow>
       </TableHead>
       <TableBody>
         {data.map(n => {
           return (
-            <TableRow key={n.id}>
-              <TableCell>{n.type} - {n.skillLevel}</TableCell>
-              <TableCell>{n.skillLevel}</TableCell>
-              <TableCell>{n.weekDays}</TableCell>
-              <TableCell>{n.time}</TableCell>
-              <TableCell>{n.requested}</TableCell>
-              <TableCell>{n.filled}</TableCell>
-            </TableRow>
+            <TeamSummaryRoleRow key={n.id} node={n} handleEditButtonClick={() => console.log('editme')}/>
           );
         })}
       </TableBody>
