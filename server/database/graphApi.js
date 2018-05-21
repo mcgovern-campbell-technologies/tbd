@@ -397,15 +397,17 @@ class GraphApi {
   connectContractorToPositionViaExperience(reqBody) {
     //This creates an experience node, and then connects to both a contractor node and a positionLevel node
     //Essentially, this is how we are adding a contractor to a team.
-    const {positionLevelId, contractorId} = reqBody;
+    const {positionLevelId, contractorId, teamId} = reqBody;
     const session = this.driver.session();
     return session
       .run(`
         MATCH (c:Contractor) where id(c) = ${contractorId}
         MATCH (l:PositionLevel) where id(l) = ${positionLevelId}
+        MATCH (t:Team) where id(t) = ${teamId}
         CREATE (e:Experience)
         CREATE UNIQUE (c)-[:HAS_EXPERIENCE]->(e)-[:IS_EXPERIENCE_FOR]->(l)
-        RETURN c,e,l
+        CREATE UNIQUE (e)-[:IS_MEMBER_EXPERIENCE_FOR]->(t)
+        RETURN c,e,l,t
       `)
       .then(result => {
         const { records } = result;
