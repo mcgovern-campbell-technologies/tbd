@@ -10,7 +10,7 @@ console.log('=======================================')
 var jwtCheck = require('./auth/auth').jwtCheck;
 
 const GraphApi = require('./database/graphApi.js')
-const { databaseCredentials } = require('./../secrets.js');
+const { databaseCredentials } = require('./secrets.js');
 const { username, password, connection } = databaseCredentials
 
 //routers
