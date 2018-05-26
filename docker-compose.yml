@@ -15,7 +15,7 @@ services:
       neo4jConnectionString: 'bolt://neo4j'
       CHOKIDAR_USEPOLLING: 'true'
 
-  server:
+  api_server:
     build:
       context: ./server
     image: 'tbd_api_server'
