@@ -21,6 +21,7 @@ import TeamSummaryRoles from './TeamSummaryRoles';
 import TeamSummaryTable from './TeamSummaryTable';
 import TeamSummaryRoleRow from './TeamSummaryRoleRow';
 import TeamSummaryWrapper from './TeamSummaryWrapper';
+import DialogRoot from './Dialogs';
 
 
 export {
@@ -47,4 +48,5 @@ export {
   TeamSummaryTable,
   TeamSummaryRoleRow,
   TeamSummaryWrapper,
+  DialogRoot,
 }

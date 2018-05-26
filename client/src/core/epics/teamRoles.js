@@ -1,14 +1,10 @@
-import * as _ from 'lodash';
-
-import { 
+import {
   getTeamRoles,
   getTeamRolesFulfilled,
-  addRoleToTeam,
-  updateRole,
   updateRoleFulfilled,
-  deleteRole,
   deleteRoleFulfilled,
-} from  './../actions/actionCreators';
+} from  '../actions/actionCreators';
+import { closeDialog } from '../actions/dialog';
 
 import * as api from '../api';
 
@@ -19,15 +15,16 @@ import {
   DELETE_ROLE, 
 } from '../../utils/types';
 
-export const addRoleToTeamEpic = action$ => 
+export const addRoleToTeamEpic = (action$, store) =>
   action$
     .ofType(ADD_ROLE_TO_TEAM)
-    .mergeMap(
+    .switchMap(
       action => 
         api
-          .addRoleToTeam(action.teamId, action.payload)
-          .map(response => getTeamRoles(action.teamId))
+          .addRoleToTeam(store.getState().teams.team.identity, store.getState().form.addRole.values)
     )
+    .map(() => getTeamRoles(store.getState().teams.team.identity))
+    .map(closeDialog);
 
 export const getTeamRolesEpic = (action$) => 
   action$

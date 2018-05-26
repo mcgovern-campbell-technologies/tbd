@@ -30,6 +30,7 @@ function TeamSummaryWrapper (props) {
         team={props.team}
         location={props.location}
         project={props.project}
+        roles={props.roles}
       />
     </div>
   )

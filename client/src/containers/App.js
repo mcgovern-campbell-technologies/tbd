@@ -17,7 +17,7 @@ import * as actionCreators from '../core/actions/actionCreators';
 import MuiThemeProvider from 'material-ui/styles/MuiThemeProvider';
 
 /* Import components */
-import { Login, Callback } from '../components/componentIndex';
+import { Login, Callback, DialogRoot } from '../components/componentIndex';
 
 /* Import containers */
 import {
@@ -87,6 +87,7 @@ class App extends React.Component {
             <Route path="/callback" render={(props) => <Callback {...props} {...this.props} /> }/>
           </div>
         </div>
+        <DialogRoot />
       </div>
     )
   }

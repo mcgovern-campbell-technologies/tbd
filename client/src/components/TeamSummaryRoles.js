@@ -1,7 +1,11 @@
 import React from 'react';
-import PropTypes from 'prop-types';
-
+import { connect } from 'react-redux';
+import { withRouter } from 'react-router'
 import Table, { TableBody, TableCell, TableHead, TableRow } from 'material-ui/Table';
+import Button from 'material-ui/Button';
+import AddIcon from 'material-ui-icons/Add';
+
+import * as dialogActions from '../core/actions/dialog';
 
 import { TeamSummaryRoleRow } from './componentIndex'
 
@@ -20,29 +24,45 @@ const data = [
 ];
 //END DUMMY DATA
 
-function TeamSummaryRoles (props) {
+function TeamSummaryRoles ({ onDialogButtonPress, roles }) {
   return (
-    <Table>
-      <TableHead>
-        <TableRow>
-          <TableCell>Type</TableCell>
-          <TableCell>Skill level</TableCell>
-          <TableCell>Week Days</TableCell>
-          <TableCell>Time</TableCell>
-          <TableCell>Requested</TableCell>
-          <TableCell>Filled</TableCell>
-          <TableCell></TableCell>
-        </TableRow>
-      </TableHead>
-      <TableBody>
-        {data.map(n => {
-          return (
-            <TeamSummaryRoleRow key={n.id} node={n} handleEditButtonClick={() => console.log('editme')}/>
-          );
-        })}
-      </TableBody>
-    </Table>
+    <div>
+      <Table>
+        <TableHead>
+          <TableRow>
+            <TableCell>Type</TableCell>
+            <TableCell>Skill level</TableCell>
+            <TableCell>Week Days</TableCell>
+            <TableCell>Time</TableCell>
+            <TableCell>Requested</TableCell>
+            <TableCell>Filled</TableCell>
+            <TableCell></TableCell>
+          </TableRow>
+        </TableHead>
+        <TableBody>
+          {roles.map(n => {
+            return (
+              <TeamSummaryRoleRow key={n.id} node={n} handleEditButtonClick={() => console.log('editme')}/>
+            );
+          })}
+        </TableBody>
+      </Table>
+      <Button
+        fab mini
+        aria-label="add"
+        className='fr'
+        onClick={() => onDialogButtonPress()}
+      >
+        <AddIcon />
+      </Button>
+    </div>
   )
-};
+}
 
-export default TeamSummaryRoles;
+function mapDispatchToProps(dispatch) {
+  return {
+    onDialogButtonPress: () => dispatch(dialogActions.openDialog('ADD_ROLE')),
+  }
+}
+
+export default withRouter(connect(undefined, mapDispatchToProps)(TeamSummaryRoles))

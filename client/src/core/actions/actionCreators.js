@@ -233,11 +233,9 @@ export function getTeamRolesFulfilled(teamId, roles) {
   }
 }
 
-export function addRoleToTeam(teamId, role) {
+export function addRoleToTeam() {
   return {
     type: types.ADD_ROLE_TO_TEAM,
-    payload: role,
-    teamId
   }
 }
 
