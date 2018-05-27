@@ -2,14 +2,28 @@ version: '3.3'
 services:
   webapp:
     build:
-      context: .
+      context: ./client
     image: 'tbd_web'
     ports:
       - 80:3000
+    volumes:
+      - type: bind
+        source: ./client
+        target: /wwwroot
+    environment:
+      #This DB connection string needs to match the name of the neo4j service below
+      neo4jConnectionString: 'bolt://neo4j'
+      CHOKIDAR_USEPOLLING: 'true'
+
+  api_server:
+    build:
+      context: ./server
+    image: 'tbd_api_server'
+    ports:
       - 4000:4000
     volumes:
       - type: bind
-        source: ./
+        source: ./server
         target: /wwwroot
     environment:
       #This DB connection string needs to match the name of the neo4j service below
