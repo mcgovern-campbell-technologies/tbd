@@ -53,7 +53,7 @@ class TeamSummaryTable extends React.Component {
             <Tab className={this.props.classes.tab} label="Members" />
           </Tabs>
         </div>
-        { value === 0 && <TeamSummaryRoles /> }
+        { value === 0 && <TeamSummaryRoles roles={this.props.roles}/> }
         { value === 1 && <TeamSummaryMembers /> }
       </Paper>
     )

@@ -11,9 +11,11 @@ import { experiencesReducer } from './experiences';
 import { projectsReducer } from './projects';
 import { teamsReducer } from './teams';
 import { teamRolesReducer } from './teamRoles';
+import { dialogReducer } from './dialog';
 
 export const rootReducer = combineReducers({
   auth: authReducer,
+  dialog: dialogReducer,
   onBoarding: onBoardingReducer,
   user: userReducer,
   router: routerReducer,
