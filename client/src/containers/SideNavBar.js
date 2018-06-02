@@ -14,7 +14,7 @@ const SideNavBar = ({ history }) => (
           <MenuItem
             key={menuItem.name}
             onClick={() => {
-              history.push(menuItem.path)
+              history.push('/dashboard/' + menuItem.path)
             }}
           >
             {menuItem.name}
