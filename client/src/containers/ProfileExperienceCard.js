@@ -7,7 +7,7 @@ import { connect } from 'react-redux';
 import * as actionCreators from '../core/actions/actionCreators';
 import { isEqual } from 'lodash';
 
-import { 
+import {
   ProfileSectionWrapper,
   ExperienceListItem,
   AddExperienceBox,
@@ -29,22 +29,22 @@ const companies = [
 ]
 
 const positions = [
-  { 
-    label: 'Electrician II', 
+  {
+    label: 'Electrician II',
     value: 'electrician 2'
   },
-  { 
-    label: 'Electrician I', 
+  {
+    label: 'Electrician I',
     value: 'electrician 1'
   },
-  { 
-    label: 'Electrician Spec', 
+  {
+    label: 'Electrician Spec',
     value: 'electrician spec'
   },
 
 ]
 
-class ProfileExpirienceCard extends Component {
+class ProfileExperienceCard extends Component {
 
   constructor(props) {
     super(props);
@@ -79,18 +79,18 @@ class ProfileExpirienceCard extends Component {
         edit: true
       })
     } else {
-      this.setState({ 
-        activeProperties: { 
+      this.setState({
+        activeProperties: {
           startDate: '',
           endDate: '',
           position: positions[0].value,
           company: companies[0].value,
-          locations: locations[0].value 
+          locations: locations[0].value
         }
       })
 
     }
-    
+
     this.setState({ editBoxOpen: true })
   }
 
@@ -109,7 +109,7 @@ class ProfileExpirienceCard extends Component {
 
   handleUpdateProperties(name) {
     return event => {
-      this.setState({ 
+      this.setState({
         activeProperties: {
           ...this.state.activeProperties,
           [name]: event.target.value,
@@ -129,7 +129,7 @@ class ProfileExpirienceCard extends Component {
   render() {
     return (
       <div>
-        <AddExperienceBox 
+        <AddExperienceBox
           open={this.state.editBoxOpen}
           edit={true}
           handleUpdateProperties={this.handleUpdateProperties}
@@ -145,9 +145,9 @@ class ProfileExpirienceCard extends Component {
           title={'Experience'}
           handleHeaderAction={() => this.openEditExperienceBox()}
         >
-          { 
-            this.props.list? this.props.list.map(exp => 
-              <ExperienceListItem 
+          {
+            this.props.list? this.props.list.map(exp =>
+              <ExperienceListItem
                 key={exp.identity}
                 handleDeleteExperience={this.handleDeleteExperience}
                 handleOpenEditBox={this.openEditExperienceBox}
@@ -162,7 +162,7 @@ class ProfileExpirienceCard extends Component {
 }
 
 function mapStateToProps({ experiences, user }) {
-  return { 
+  return {
     ...experiences,
     user,
   }
@@ -172,4 +172,4 @@ function mapDispatchToProps(dispatch) {
   return bindActionCreators(actionCreators, dispatch);
 }
 
-export default connect(mapStateToProps, mapDispatchToProps)(ProfileExpirienceCard)
+export default connect(mapStateToProps, mapDispatchToProps)(ProfileExperienceCard)
