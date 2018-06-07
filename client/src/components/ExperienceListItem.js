@@ -9,7 +9,7 @@ import ModeEdit from 'material-ui-icons/ModeEdit';
 import Clear from 'material-ui-icons/Clear';
 
 
-// { 
+// {
 //     position: 'Electricion',
 //     company: 'Kuka',
 //     location: 'Detroit, Mi',
@@ -17,7 +17,7 @@ import Clear from 'material-ui-icons/Clear';
 //     endDate: 'Oct 2016',
 //   }
 
-function ExpirienceListItem (props) {
+function ExperienceListItem (props) {
 
   const { properties, identity } = props.node;
 
@@ -26,7 +26,7 @@ function ExpirienceListItem (props) {
   return (
     <div className='mb2'>
       <div className='dib mr3'>
-        <Avatar 
+        <Avatar
             style={{ height: 60, width: 60 }}
             sizes='10'
           >
@@ -43,7 +43,7 @@ function ExpirienceListItem (props) {
         <Typography>
           { location }
         </Typography>
-        
+
       </div>
       <div className="dib fr">
         <IconButton
@@ -52,12 +52,12 @@ function ExpirienceListItem (props) {
           <Clear />
         </IconButton>
         <Typography>
-          { `${startDate} ${startDate && endDate? '-': null} ${endDate}` } 
+          { `${startDate} ${startDate && endDate? '-': null} ${endDate}` }
         </Typography>
-        
+
       </div>
     </div>
   )
 }
 
-export default ExpirienceListItem;
+export default ExperienceListItem;

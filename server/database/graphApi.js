@@ -69,12 +69,14 @@ class GraphApi {
             .run(`
               MATCH (t:Team) WHERE id(t) = ${teamId}
               CREATE (p:Position {name: $positionName})
-              CREATE (lev1:PositionLevel { value: 2, label: 'one', abreviation: 'I'})
-              CREATE (lev2:PositionLevel { value: 3, label: 'two', abreviation: 'II'})
-              CREATE (lev3:PositionLevel { value: 1, label: 'specialist', abreviation: 'spec'})
+              CREATE (lev1:PositionLevel { value: 1, label: 'one', abreviation: 'I'})
+              CREATE (lev2:PositionLevel { value: 2, label: 'two', abreviation: 'II'})
+              CREATE (lev3:PositionLevel { value: 3, label: 'specialist', abreviation: 'spec'})
+              CREATE (lev4:PositionLevel { value: 4, label: 'General Labor', abreviation: 'gen'})
               CREATE UNIQUE (p)-[:HAS_LEVEL]->(lev1)
               CREATE UNIQUE (p)-[:HAS_LEVEL]->(lev2)
               CREATE UNIQUE (p)-[:HAS_LEVEL]->(lev3)
+              CREATE UNIQUE (p)-[:HAS_LEVEL]->(lev4)
               CREATE UNIQUE (lev1)-[:POSITION_LEVEL_FOR]->(t)
               CREATE UNIQUE (lev2)-[:POSITION_LEVEL_FOR]->(t)
               CREATE UNIQUE (lev3)-[:POSITION_LEVEL_FOR]->(t)
@@ -462,11 +464,8 @@ class GraphApi {
   }
 
   updateNode(id, properties) {
-
     const session = this.driver.session();
-
     const updatedProperties = createSetChain(properties)
-
     return session
       .run(`
         MATCH (n) WHERE id(n) = ${id}
@@ -483,9 +482,7 @@ class GraphApi {
   }
 
   getTeamRoles(teamId) {
-
     const session = this.driver.session();
-
     return session
       .run(`
         MATCH (t:Team) WHERE ID(t) = ${teamId}
@@ -493,17 +490,12 @@ class GraphApi {
         RETURN r
       `)
       .then(({ records }) => {
-
         session.close()
-
         return extractNodes(records)
-
       })
-
   }
 
   createTeamRole(teamId, role) {
-
     const {
       positionLevelId,
       requiredNumber,
@@ -513,7 +505,6 @@ class GraphApi {
     } = _.mapValues(role, (value) => !isNaN(value)? parseInt(value) : value);
 
     const session = this.driver.session();
-
     return session
       .run(`
         MATCH (t:Team) WHERE ID(t) = $teamId
@@ -526,12 +517,19 @@ class GraphApi {
         })-[:ROLE_AT]->(pl)
         RETURN r
       `, { teamId, positionLevelId, requiredNumber, description, position, positionLevel })
-      .then(({ records }) => {
-
+      .then( ({ records }) => {
         session.close()
-
         return extractNodes(records)
+      });
+  }
 
+  getPositionLevels() {
+    const session = this.driver.session();
+    return session
+      .run(`MATCH (pl:PositionLevel) RETURN pl`)
+      .then( ({records}) => {
+        session.close();
+        return extractNodes(records);
       });
   }
 
