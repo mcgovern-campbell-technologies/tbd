@@ -19,7 +19,7 @@ const {
   skillRouter,
   certificationRouter,
   locationRouter,
-  positionRouter,
+  tradeRouter,
   projectRouter,
   teamRouter,
 } = require('./routers/routersIndex');
@@ -60,7 +60,7 @@ app.use('/api/contractor', contractorRouter);
 app.use('/api/skill', skillRouter);
 app.use('/api/certification', certificationRouter);
 app.use('/api/location', locationRouter);
-app.use('/api/position', positionRouter);
+app.use('/api/trade', tradeRouter);
 app.use('/api/project', projectRouter);
 app.use('/api/team', teamRouter);
 

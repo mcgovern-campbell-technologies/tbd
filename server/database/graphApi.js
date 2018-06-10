@@ -4,8 +4,9 @@ const stringifyObject = require('stringify-object');
 const {
   contractorHasNecessaryProps,
   extractNodes,
+  extractRows,
   mapTypeToQuery,
-  createSetChain
+  createSetChain,
 } = require('./databaseUtilities');
 const { startUpScript, massDelete } = require('./startUpCypherScript')
 
@@ -54,34 +55,45 @@ class GraphApi {
       })
   }
 
-  createPosition(reqBody) {
-    const {positionName, teamId} = reqBody;
+  getAllTrades() {
+    const session = this.driver.session();
+    return session
+      .run(`MATCH (tr:Trade)-[]->(pl:PositionLevel) return tr,pl`)
+      .then(result => {
+        const { records } = result;
+        return extractRows(records);
+      })
+  }
+
+  createTrade(reqBody) {
+    const {tradeName, teamId} = reqBody;
     const session = this.driver.session();
     return session
       .run(`
-        MATCH (p:Position {name: $positionName})
-        RETURN p
-      `, {positionName})
+        MATCH (tr:Trade {name: $tradeName})
+        RETURN tr
+      `, {tradeName})
       .then(result => {
         const { records } = result;
         if (!records.length) {
           return session
             .run(`
               MATCH (t:Team) WHERE id(t) = ${teamId}
-              CREATE (p:Position {name: $positionName})
+              CREATE (tr:Trade {name: $tradeName})
               CREATE (lev1:PositionLevel { value: 1, label: 'one', abreviation: 'I'})
               CREATE (lev2:PositionLevel { value: 2, label: 'two', abreviation: 'II'})
               CREATE (lev3:PositionLevel { value: 3, label: 'specialist', abreviation: 'spec'})
               CREATE (lev4:PositionLevel { value: 4, label: 'General Labor', abreviation: 'gen'})
-              CREATE UNIQUE (p)-[:HAS_LEVEL]->(lev1)
-              CREATE UNIQUE (p)-[:HAS_LEVEL]->(lev2)
-              CREATE UNIQUE (p)-[:HAS_LEVEL]->(lev3)
-              CREATE UNIQUE (p)-[:HAS_LEVEL]->(lev4)
+              CREATE UNIQUE (tr)-[:HAS_LEVEL]->(lev1)
+              CREATE UNIQUE (tr)-[:HAS_LEVEL]->(lev2)
+              CREATE UNIQUE (tr)-[:HAS_LEVEL]->(lev3)
+              CREATE UNIQUE (tr)-[:HAS_LEVEL]->(lev4)
               CREATE UNIQUE (lev1)-[:POSITION_LEVEL_FOR]->(t)
               CREATE UNIQUE (lev2)-[:POSITION_LEVEL_FOR]->(t)
               CREATE UNIQUE (lev3)-[:POSITION_LEVEL_FOR]->(t)
-              RETURN p
-            `, {positionName})
+              CREATE UNIQUE (lev4)-[:POSITION_LEVEL_FOR]->(t)
+              RETURN tr
+            `, {tradeName})
             .then(result => {
               const { records } = result;
               return extractNodes(records)[0];
