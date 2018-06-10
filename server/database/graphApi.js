@@ -4,8 +4,9 @@ const stringifyObject = require('stringify-object');
 const {
   contractorHasNecessaryProps,
   extractNodes,
+  extractRows,
   mapTypeToQuery,
-  createSetChain
+  createSetChain,
 } = require('./databaseUtilities');
 const { startUpScript, massDelete } = require('./startUpCypherScript')
 
@@ -57,10 +58,10 @@ class GraphApi {
   getAllTrades() {
     const session = this.driver.session();
     return session
-      .run(`MATCH (tr:Trade) return tr`)
+      .run(`MATCH (tr:Trade)-[]->(pl:PositionLevel) return tr,pl`)
       .then(result => {
         const { records } = result;
-        return extractNodes(records);
+        return extractRows(records);
       })
   }
 

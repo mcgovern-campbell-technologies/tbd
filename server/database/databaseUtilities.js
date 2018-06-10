@@ -16,6 +16,13 @@ function extractNodes(queryResult) {
   }, []);
 }
 
+function extractRows(queryResult) {
+  return _.reduce(queryResult, (acc, value) => {
+    const fields = value._fields;
+    return [...acc, fields];
+  }, []);
+}
+
 function createHasNecessaryProps(propMap) {
   return function(obj) {
     return _.every(propMap, value => _.has(obj, value));
@@ -67,6 +74,7 @@ module.exports = {
   contractorHasNecessaryProps: createHasNecessaryProps(contractorPropMap),
   skillHasNecessaryProps: createHasNecessaryProps(skillInstancePropMap),
   extractNodes,
+  extractRows,
   mapTypeToQuery,
   createSetChain,
 }
