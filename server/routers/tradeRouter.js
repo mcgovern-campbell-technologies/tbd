@@ -5,8 +5,7 @@ const _ = require('lodash');
 
 // Get all trades: GET /api/trade
 router.get('/', (req, res) => {
-  const { body, query } = req;
-  req.graphApi.getAllTrades(body)
+  req.graphApi.getAllTrades()
     .then(result => res.send(result))
     .catch(err => res.send(err));
 });
