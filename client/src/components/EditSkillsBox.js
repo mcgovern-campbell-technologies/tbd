@@ -1,30 +1,12 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
-
-/* Material Components */
-import
-  Dialog, {
-  DialogContent,
-  DialogContentText,
-  DialogTitle,
-  DialogActions,
-} from 'material-ui/Dialog';
-import Button from 'material-ui/Button';
-import Typography from 'material-ui/Typography';
-import TextField from 'material-ui/TextField';
-import Chip from 'material-ui/Chip';
-import Input from 'material-ui/Input';
-
-/* Rxjs */
-import { ajax } from 'rxjs/observable/dom/ajax';
-import { Subject } from 'rxjs';
-
+import Dialog from '@material-ui/core/Dialog';
+import DialogActions from '@material-ui/core/DialogActions';
+import DialogContent from '@material-ui/core/DialogContent';
+import DialogTitle from '@material-ui/core/DialogTitle';
+import Button from '@material-ui/core/Button';
 import _ from 'lodash'
 
-// import _ from 'lodash';
-import { removeCollectionValues } from '../utils/collectionUtils';
-
-/* Custom components */
 import {
   Autocomplete,
   SkillChip

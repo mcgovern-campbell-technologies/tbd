@@ -7,40 +7,53 @@ import DialogActions from '@material-ui/core/DialogActions';
 import DialogContent from '@material-ui/core/DialogContent';
 import DialogTitle from '@material-ui/core/DialogTitle';
 import Button from '@material-ui/core/Button';
+import MenuItem from '@material-ui/core/MenuItem';
+import TextField from '@material-ui/core/TextField';
 
 import * as dialogActions from '../../core/actions/dialog';
 import * as actionCreators from '../../core/actions/actionCreators';
-import { Text } from '../Forms';
+import { Dropdown, Text } from '../Forms';
 
-function AddRoleDialog({ onDialogButtonClose, onAddRoleDialog }) {
+function AddTeamDialog({ onDialogButtonClose, onAddRoleDialog, projects }) {
   return (
     <Dialog open={true}>
       <DialogTitle>Add Role</DialogTitle>
       <DialogContent>
         <Field
           name="name"
-          label="Name"
+          label="Team Name"
           component={Text}
           type="text"
 
         />
         <Field
-          name="type"
-          label="Type"
-          component={Text}
-          type="text"
+          name="project"
+          label="Project"
+          component={Dropdown}
+        >
+          {projects.allProjects.map(project => (
+            <MenuItem key={project.identity} value={project.identity}>
+              {project.properties.name}
+            </MenuItem>
+          ))}
+        </Field>
+        <Field
+          name="startDate"
+          label="Start Date"
+          component={({ value }) => <TextField
+            label="Start Date"
+            type="date"
+          />}
+          type="date"
         />
         <Field
-          name="skillLevel"
-          label="Skill Level"
-          component={Text}
-          type="text"
-        />
-        <Field
-          name="position"
-          label="# of Positions"
-          component={Text}
-          type="text"
+          name="endDate"
+          label="End Date"
+          component={() => <TextField
+            label="End Date"
+            type="date"
+          />}
+          type="date"
         />
       </DialogContent>
       <DialogActions>
@@ -55,6 +68,10 @@ function AddRoleDialog({ onDialogButtonClose, onAddRoleDialog }) {
   )
 }
 
+function mapStateToProps({ projects }) {
+  return { projects }
+}
+
 function mapDispatchToProps(dispatch) {
   return {
     onDialogButtonClose: () => dispatch(dialogActions.closeDialog()),
@@ -62,8 +79,8 @@ function mapDispatchToProps(dispatch) {
   }
 }
 
-export default withRouter(connect(undefined, mapDispatchToProps)(
+export default withRouter(connect(mapStateToProps, mapDispatchToProps)(
   reduxForm({
-    form: 'addRole',
-  })(AddRoleDialog)
+    form: 'addTeam',
+  })(AddTeamDialog)
 ))

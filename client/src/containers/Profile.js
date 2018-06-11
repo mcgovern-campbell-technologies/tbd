@@ -1,33 +1,17 @@
 import React, { Component } from 'react'
-
-//React Router resources
-import { Link } from 'react-router-dom'
-import { Route } from 'react-router'
-
-//Redux Resources
 import { bindActionCreators } from 'redux'
 import { connect } from 'react-redux'
 import { withRouter } from 'react-router'
 
-//Actions
 import * as actionCreators from '../core/actions/actionCreators'
-
-//Components
 import {
   ProfileSideCard,
-  ProfileSkills,
 } from './../components/componentIndex'
-
-//Containers
 import {
   ProfileSkillCard,
   ProfileCertificationsCard,
   ProfileExperienceCard,
 } from './containerIndex'
-
-//Assets
-import fbLogo from '../assets/fbLogo.png'
-import lnLogo from '../assets/lnLogo.png'
 
 class Profile extends Component {
   constructor(props) {

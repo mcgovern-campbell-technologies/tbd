@@ -1,12 +1,9 @@
-import React, { Component } from 'react';
+import React from 'react';
 
-import Typography from 'material-ui/Typography';
-import Avatar from 'material-ui/Avatar';
-import IconButton from 'material-ui/IconButton';
-
-
-import ModeEdit from 'material-ui-icons/ModeEdit';
-import Clear from 'material-ui-icons/Clear';
+import Typography from '@material-ui/core/Typography';
+import Avatar from '@material-ui/core/Avatar';
+import IconButton from '@material-ui/core/IconButton';
+import Clear from '@material-ui/icons/Clear';
 
 
 // {

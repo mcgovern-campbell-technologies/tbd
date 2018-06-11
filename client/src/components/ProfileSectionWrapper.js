@@ -1,15 +1,12 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 
-import Card, { CardActions, CardHeader, CardMedia, CardTitle, CardText, CardContent } from 'material-ui/Card';
-import Chip from 'material-ui/Chip';
-import IconButton from 'material-ui/IconButton';
-import Button from 'material-ui/Button';
-import Typography from 'material-ui/Typography';
-import ModeEdit from 'material-ui-icons/ModeEdit';
-import Add from 'material-ui-icons/Add';
-import ExpandLess from 'material-ui-icons/ExpandLess';
-import ExpandMore from 'material-ui-icons/ExpandMore';
+import Card from '@material-ui/core/Card';
+import CardHeader from '@material-ui/core/CardHeader';
+import CardContent from '@material-ui/core/CardContent';
+import IconButton from '@material-ui/core/IconButton';
+import ModeEdit from '@material-ui/icons/ModeEdit';
+import Add from '@material-ui/icons/Add';
 
 
 class ProfileSectionWrapper extends Component {

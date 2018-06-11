@@ -1,13 +1,9 @@
 import React, { Component } from 'react';
-import PropTypes from 'prop-types';
 import * as _ from 'lodash';
-
-
 import { bindActionCreators } from 'redux';
 import { connect } from 'react-redux';
 
 import * as actionCreators from '../core/actions/actionCreators';
-
 import {
   ProfileSectionWrapper,
   ProfileSectionListItem,

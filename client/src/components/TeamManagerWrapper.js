@@ -1,8 +1,6 @@
 import React from 'react';
-
-import Button from 'material-ui/Button';
-import AddIcon from 'material-ui-icons/Add';
-
+import Button from '@material-ui/core/Button';
+import AddIcon from '@material-ui/icons/Add';
 import PropTypes from 'prop-types'
 
 function TeamManagerWrapper({ children, openAddTeamBox }) {
@@ -12,7 +10,7 @@ function TeamManagerWrapper({ children, openAddTeamBox }) {
         children
       }
       <Button
-        fab mini
+        variant="fab"
         aria-label="add"
         className='fr'
         onClick={openAddTeamBox}

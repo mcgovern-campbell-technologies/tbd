@@ -1,8 +1,5 @@
 import React, { Component } from 'react';
-
-import Avatar from 'material-ui/Avatar';
-import Paper from 'material-ui/Paper'
-
+import Avatar from '@material-ui/core/Avatar';
 import _ from 'lodash';
 
 import { SkillChip } from './componentIndex';

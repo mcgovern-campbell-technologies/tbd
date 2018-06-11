@@ -1,6 +1,5 @@
 // This component just used for testing.
 import React from 'react';
-import AuthService from '../utils/AuthService'
 
 export default (props) => {
   return (

@@ -1,24 +1,23 @@
 import React from 'react';
-import Drawer from 'material-ui/Drawer';
-import { MenuItem } from 'material-ui/Menu';
-import { Link } from 'react-router-dom';
+import Drawer from '@material-ui/core/Drawer';
+import List from '@material-ui/core/List';
 
 import sideNavMenuItem from '../constants/sideNav.json';
 
 const SideNavBar = ({ history }) => (
   <Drawer
-    type="permanent"
+    variant="permanent"
   >
     {
       sideNavMenuItem.map(menuItem =>
-          <MenuItem
+          <List
             key={menuItem.name}
             onClick={() => {
               history.push('/dashboard/' + menuItem.path)
             }}
           >
             {menuItem.name}
-          </MenuItem>
+          </List>
       )
     }
   </Drawer>

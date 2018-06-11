@@ -3,9 +3,7 @@ import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
 import { withRouter } from 'react-router'
 
-//Actions
 import * as actionCreators from '../core/actions/actionCreators';
-
 import { TeamSummaryWrapper } from './../components/componentIndex';
 
 class TeamDetails extends Component {

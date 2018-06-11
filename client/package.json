@@ -10,13 +10,13 @@
     "client-start": "npm start"
   },
   "dependencies": {
+    "@material-ui/core": "^1.2.0",
+    "@material-ui/icons": "^1.1.0",
     "auth0-lock": "^10.23.1",
     "autosuggest-highlight": "^3.1.1",
     "downshift": "^1.23.2",
     "jwt-decode": "^2.2.0",
     "lodash": "^4.17.5",
-    "material-ui": "beta-1",
-    "material-ui-icons": "^1.0.0-beta.17",
     "prop-types": "^15.6.0",
     "react": "^15.6.1",
     "react-autosuggest": "^9.3.2",

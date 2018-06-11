@@ -1,25 +1,10 @@
 import React, { Component } from 'react';
-
-/* Import Router Dependencies */
-import { Route, Link, Redirect } from 'react-router-dom'
-import { withRouter } from 'react-router'
-
-/* Prop Verification */
-import PropsRoute from '../utils/PropsRoute';
-import PropTypes from 'prop-types';
-
-/* Import Redux Utilities */
+import { Route, Redirect } from 'react-router-dom';
 import { bindActionCreators } from 'redux';
 import { connect } from 'react-redux';
+
 import * as actionCreators from '../core/actions/actionCreators';
-
-/* Import components */
-import { Test } from '../components/componentIndex';
-import { Callback } from '../components/componentIndex';
-
-/* Import containers */
 import {
-  LandingPage,
   OnBoardFlow,
   Profile,
   SideNavBar,

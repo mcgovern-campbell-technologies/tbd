@@ -1,9 +1,11 @@
 import React, {Component} from 'react';
-import Card, {CardActions, CardContent, CardHeader, CardMedia, CardTitle, CardText} from 'material-ui/Card';
-import ModeEdit from 'material-ui-icons/ModeEdit';
-import IconButton from 'material-ui/IconButton';
+import Card from '@material-ui/core/Card';
+import CardHeader from '@material-ui/core/CardHeader';
+import CardContent from '@material-ui/core/CardContent';
+import CardActions from '@material-ui/core/CardActions';
+import ModeEdit from '@material-ui/icons/ModeEdit';
+import IconButton from '@material-ui/core/IconButton';
 import { EditProfileBox } from './componentIndex';
-import { WeekDayPicker } from '../containers/containerIndex';
 
 class ProfileSideCard extends Component {
   constructor(props) {

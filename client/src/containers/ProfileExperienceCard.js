@@ -1,12 +1,9 @@
 import React, { Component } from 'react';
-import PropTypes from 'prop-types';
-
 import { bindActionCreators } from 'redux';
 import { connect } from 'react-redux';
-
-import * as actionCreators from '../core/actions/actionCreators';
 import { isEqual } from 'lodash';
 
+import * as actionCreators from '../core/actions/actionCreators';
 import {
   ProfileSectionWrapper,
   ExperienceListItem,

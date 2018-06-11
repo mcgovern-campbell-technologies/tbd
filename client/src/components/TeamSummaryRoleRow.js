@@ -1,9 +1,9 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
-
-import { TableCell, TableRow } from 'material-ui/Table';
-import ModeEdit from 'material-ui-icons/ModeEdit';
-import IconButton from 'material-ui/IconButton'
+import TableCell from '@material-ui/core/TableCell';
+import TableRow from '@material-ui/core/TableRow';
+import IconButton from '@material-ui/core/IconButton'
+import ModeEdit from '@material-ui/icons/ModeEdit';
 
 export default class TeamSummaryRoleRow extends Component {
 
