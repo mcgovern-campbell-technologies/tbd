@@ -160,10 +160,9 @@ export function deleteExperience(id) {
   }
 }
 
-export function addTeam(team) {
+export function addTeam() {
   return {
     type: types.ADD_TEAM,
-    payload: team
   }
 }
 

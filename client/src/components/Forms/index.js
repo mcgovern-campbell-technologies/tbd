@@ -1,7 +1,9 @@
 import Text from './Text';
-import Dropdown from './Select';
+import Select from './Select';
+import Date from './Date';
 
 export {
-  Dropdown,
+  Select,
   Text,
+  Date,
 }

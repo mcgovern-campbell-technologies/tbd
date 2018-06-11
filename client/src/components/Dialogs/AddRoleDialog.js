@@ -12,7 +12,7 @@ import * as dialogActions from '../../core/actions/dialog';
 import * as actionCreators from '../../core/actions/actionCreators';
 import { Text } from '../Forms';
 
-function AddRoleDialog({ onDialogButtonClose, onAddRoleDialog }) {
+function AddRoleDialog({ onDialogButtonClose, onAddRole }) {
   return (
     <Dialog open={true}>
       <DialogTitle>Add Role</DialogTitle>
@@ -21,33 +21,28 @@ function AddRoleDialog({ onDialogButtonClose, onAddRoleDialog }) {
           name="name"
           label="Name"
           component={Text}
-          type="text"
-
         />
         <Field
-          name="type"
-          label="Type"
+          name="trade"
+          label="Trade"
           component={Text}
-          type="text"
         />
         <Field
           name="skillLevel"
           label="Skill Level"
           component={Text}
-          type="text"
         />
         <Field
           name="position"
           label="# of Positions"
           component={Text}
-          type="text"
         />
       </DialogContent>
       <DialogActions>
         <Button onClick={onDialogButtonClose}>
           CANCEL
         </Button>
-        <Button onClick={onAddRoleDialog}>
+        <Button onClick={onAddRole}>
           ACCEPT
         </Button>
       </DialogActions>
@@ -58,12 +53,12 @@ function AddRoleDialog({ onDialogButtonClose, onAddRoleDialog }) {
 function mapDispatchToProps(dispatch) {
   return {
     onDialogButtonClose: () => dispatch(dialogActions.closeDialog()),
-    onAddRoleDialog: () => dispatch(actionCreators.addRoleToTeam()),
+    onAddRole: () => dispatch(actionCreators.addRoleToTeam()),
   }
 }
 
 export default withRouter(connect(undefined, mapDispatchToProps)(
   reduxForm({
-    form: 'addRole',
+    form: 'role',
   })(AddRoleDialog)
 ))

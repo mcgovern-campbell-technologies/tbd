@@ -7,18 +7,16 @@ import {
   GET_ALL_TEAMS_FULFILLED,
   GET_TEAM_FULFILLED,
 } from '../../utils/types';
+import { closeDialog } from '../actions/dialog';
 
-const addTeamEpic = (action$) => {
+const addTeamEpic = (action$, store) => {
   return action$
     .ofType(ADD_TEAM)
-    .mergeMap(
-      action => {
-        return api.addTeam(action.payload)
-          .map(({response}) => {
-            return getTeamFulfilled(response)
-          })
-      }
-    )
+    .switchMap(action => api.addTeam(store.getState().form.team.values))
+    .map(({response}) => {
+      return getTeamFulfilled(response)
+    })
+    .map(closeDialog);
 };
 
 const getAllTeamsEpic = (action$) => {

@@ -21,7 +21,7 @@ export const addRoleToTeamEpic = (action$, store) =>
     .switchMap(
       action => 
         api
-          .addRoleToTeam(store.getState().teams.team.identity, store.getState().form.addRole.values)
+          .addRoleToTeam(store.getState().teams.team.identity, store.getState().form.role.values)
     )
     .map(() => getTeamRoles(store.getState().teams.team.identity))
     .map(closeDialog);

@@ -8,28 +8,25 @@ import DialogContent from '@material-ui/core/DialogContent';
 import DialogTitle from '@material-ui/core/DialogTitle';
 import Button from '@material-ui/core/Button';
 import MenuItem from '@material-ui/core/MenuItem';
-import TextField from '@material-ui/core/TextField';
 
 import * as dialogActions from '../../core/actions/dialog';
 import * as actionCreators from '../../core/actions/actionCreators';
-import { Dropdown, Text } from '../Forms';
+import { Select, Text, Date } from '../Forms';
 
-function AddTeamDialog({ onDialogButtonClose, onAddRoleDialog, projects }) {
+function AddTeamDialog({ onDialogButtonClose, onAddTeam, projects }) {
   return (
     <Dialog open={true}>
       <DialogTitle>Add Role</DialogTitle>
       <DialogContent>
         <Field
-          name="name"
+          name="teamName"
           label="Team Name"
           component={Text}
-          type="text"
-
         />
         <Field
-          name="project"
+          name="projectId"
           label="Project"
-          component={Dropdown}
+          component={Select}
         >
           {projects.allProjects.map(project => (
             <MenuItem key={project.identity} value={project.identity}>
@@ -40,27 +37,19 @@ function AddTeamDialog({ onDialogButtonClose, onAddRoleDialog, projects }) {
         <Field
           name="startDate"
           label="Start Date"
-          component={({ value }) => <TextField
-            label="Start Date"
-            type="date"
-          />}
-          type="date"
+          component={Date}
         />
         <Field
           name="endDate"
           label="End Date"
-          component={() => <TextField
-            label="End Date"
-            type="date"
-          />}
-          type="date"
+          component={Date}
         />
       </DialogContent>
       <DialogActions>
         <Button onClick={onDialogButtonClose}>
           CANCEL
         </Button>
-        <Button onClick={onAddRoleDialog}>
+        <Button onClick={onAddTeam}>
           ACCEPT
         </Button>
       </DialogActions>
@@ -75,12 +64,12 @@ function mapStateToProps({ projects }) {
 function mapDispatchToProps(dispatch) {
   return {
     onDialogButtonClose: () => dispatch(dialogActions.closeDialog()),
-    onAddRoleDialog: () => dispatch(actionCreators.addRoleToTeam()),
+    onAddTeam: () => dispatch(actionCreators.addTeam()),
   }
 }
 
 export default withRouter(connect(mapStateToProps, mapDispatchToProps)(
   reduxForm({
-    form: 'addTeam',
+    form: 'team',
   })(AddTeamDialog)
 ))
