@@ -23,6 +23,32 @@ function extractRows(queryResult) {
   }, []);
 }
 
+function extractNodesWithRelatedNodes(queryResult) {
+  const rows = extractRows(queryResult);
+  const resultsArray = [];
+  rows.forEach(row => {
+    var index = getIndexOfNode(resultsArray, row[0]);
+    if (index === false) {
+      let newIndex = resultsArray.length;
+      resultsArray[newIndex] = row[0];
+      resultsArray[newIndex].relatedNodes = [row[1]];
+    } else {
+      resultsArray[index].relatedNodes.push(row[1]);
+    }
+  });
+  return resultsArray;
+}
+
+function getIndexOfNode (resultsArray, targetNode) {
+  return resultsArray.reduce((acc, cur, index) => {
+    if (cur.identity.low === targetNode.identity.low) {
+      return acc ? acc : index;
+    } else {
+      return acc;
+    }
+  }, false)
+}
+
 function createHasNecessaryProps(propMap) {
   return function(obj) {
     return _.every(propMap, value => _.has(obj, value));
@@ -75,6 +101,7 @@ module.exports = {
   skillHasNecessaryProps: createHasNecessaryProps(skillInstancePropMap),
   extractNodes,
   extractRows,
+  extractNodesWithRelatedNodes,
   mapTypeToQuery,
   createSetChain,
 }
