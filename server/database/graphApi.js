@@ -62,7 +62,7 @@ class GraphApi {
       .run(`MATCH (tr:Trade)-[]->(pl:PositionLevel) return tr,pl`)
       .then(result => {
         const { records } = result;
-        return extractNodesWithRelatedNodes(records);
+        return extractNodesWithRelatedNodes(records, 'positionLevels');
       })
   }
 
