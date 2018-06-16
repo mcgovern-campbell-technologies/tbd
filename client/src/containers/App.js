@@ -1,35 +1,20 @@
 import React from 'react';
-
-/* Import Router Dependencies */
-import { Route, Link, Redirect } from 'react-router-dom'
+import { Route, Redirect } from 'react-router-dom'
 import { withRouter } from 'react-router'
-
-/* Prop Verification */
-import PropsRoute from '../utils/PropsRoute';
 import PropTypes from 'prop-types';
-
-/* Import Redux Utilities */
 import { bindActionCreators } from 'redux';
+
+import PropsRoute from '../utils/PropsRoute';
 import { connect } from 'react-redux';
 import * as actionCreators from '../core/actions/actionCreators';
-
-
-import MuiThemeProvider from 'material-ui/styles/MuiThemeProvider';
-
-/* Import components */
 import { Login, Callback, DialogRoot } from '../components/componentIndex';
-
-/* Import containers */
 import {
   Dashboard,
   LandingPage,
-  OnBoardFlow,
   AppNavBar,
-  SideNavBar,
 } from './containerIndex'
-
-/* Import Auth utilities*/
 import AuthService from '../utils/AuthService';
+
 const authService = new AuthService();
 
 // /* Create handleAuthentication handler to kick off authService if correct URL hash exists */

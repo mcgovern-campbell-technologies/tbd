@@ -2,9 +2,11 @@ import React from 'react';
 import { connect } from 'react-redux';
 import { withRouter } from 'react-router';
 import AddRoleDialog from './AddRoleDialog';
+import AddTeamDialog from './AddTeamDialog';
 
 const DIALOG_COMPONENTS = {
   'ADD_ROLE': AddRoleDialog,
+  'ADD_TEAM': AddTeamDialog,
 };
 
 const DialogRoot = ({ dialog }) => {

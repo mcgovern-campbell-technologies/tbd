@@ -1,6 +1,4 @@
 import React, { Component } from 'react';
-import _ from 'lodash';
-
 import { bindActionCreators } from 'redux';
 import { connect } from 'react-redux';
 
@@ -9,10 +7,6 @@ import {
   ProfileSectionWrapper,
   EditSkillsBox,
 } from './../components/componentIndex'
-
-
-
-//Actions
 import * as actionCreators from '../core/actions/actionCreators';
 
 class ProfileSkillCard extends Component {

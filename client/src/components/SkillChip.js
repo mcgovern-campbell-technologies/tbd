@@ -1,7 +1,6 @@
-import React, { Component } from 'react';
+import React  from 'react';
 import PropTypes from 'prop-types';
-
-import Chip from 'material-ui/Chip';
+import Chip from '@material-ui/core/Chip';
 
 function SkillChip (props) {
   const { name, handleRequestDelete, identity } = props;

@@ -1,13 +1,9 @@
 import React, { Component } from 'react'
-
 import { bindActionCreators } from 'redux'
 import { connect } from 'react-redux'
-import { withRouter } from 'react-router'
-
-import { Route } from 'react-router'
+import { withRouter, Route } from 'react-router'
 
 import * as actionCreators from '../core/actions/actionCreators'
-
 import { ContactForm, LocationForm } from './../components/componentIndex.js'
 
 class OnBoardFlow extends Component {

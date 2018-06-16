@@ -1,16 +1,12 @@
 import React, { Component }from 'react';
 import PropTypes from 'prop-types';
 
-import  
-  Dialog, {
-  DialogContent,
-  DialogContentText,
-  DialogTitle,
-  DialogActions,
-} from 'material-ui/Dialog';
-import Button from 'material-ui/Button';
-import { withStyles } from 'material-ui/styles';
-import TextField from 'material-ui/TextField';
+import Dialog from '@material-ui/core/Dialog';
+import DialogActions from '@material-ui/core/DialogActions';
+import DialogContent from '@material-ui/core/DialogContent';
+import DialogTitle from '@material-ui/core/DialogTitle';
+import Button from '@material-ui/core/Button';
+import TextField from '@material-ui/core/TextField';
 
 class AddExperienceBox extends Component {
 

@@ -1,5 +1,4 @@
 import Autocomplete from './Autocomplete';
-import AddTeamBox from './AddTeamBox';
 import Callback from './Callback';
 import ContactForm from './ContactForm';
 import EditCertificationBox from './EditCertificationBox';
@@ -26,7 +25,6 @@ import DialogRoot from './Dialogs';
 
 export {
   Autocomplete,
-  AddTeamBox,
   Callback,
   ContactForm,
   EditCertificationBox,

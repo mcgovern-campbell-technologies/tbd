@@ -1,12 +1,10 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 
-import Avatar from 'material-ui/Avatar';
-import IconButton from 'material-ui/IconButton';
-import Typography from 'material-ui/Typography';
-import Paper from 'material-ui/Paper';
-
-import ModeEdit from 'material-ui-icons/ModeEdit';
+import Avatar from '@material-ui/core/Avatar';
+import IconButton from '@material-ui/core/IconButton';
+import Typography from '@material-ui/core/Typography';
+import ModeEdit from '@material-ui/icons/ModeEdit';
 
 class ProfileSectionListItem extends Component {
 

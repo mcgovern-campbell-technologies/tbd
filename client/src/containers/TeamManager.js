@@ -1,48 +1,24 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
-import { bindActionCreators } from 'redux';
 import { withRouter } from 'react-router'
-import Table, {
-  TableBody,
-  TableCell,
-  TableHead,
-  TableRow
-} from 'material-ui/Table';
+import Table from '@material-ui/core/Table';
+import TableBody from '@material-ui/core/TableBody';
+import TableCell from '@material-ui/core/TableCell';
+import TableHead from '@material-ui/core/TableHead';
+import TableRow from '@material-ui/core/TableRow';
 
-//Actions
 import * as actionCreators from '../core/actions/actionCreators';
-
-import {
-
-} from './containerIndex';
-
-import {
-  TeamManagerWrapper,
-  AddTeamBox,
-} from './../components/componentIndex';
+import * as dialogActions from '../core/actions/dialog';
+import { TeamManagerWrapper } from './../components/componentIndex';
 
 class TeamManager extends Component {
   constructor(props) {
     super(props);
-
-    this.state = {
-      AddTeamBoxOpen: false,
-    }
-
-    this.toggleAddTeamBox = this.toggleAddTeamBox.bind(this)
-    this.handleAddTeam = this.handleAddTeam.bind(this)
   }
 
   componentWillMount() {
-    this.props.getAllTeams()
-  }
-
-  toggleAddTeamBox() {
-    this.setState({AddTeamBoxOpen: !this.state.AddTeamBoxOpen})
-  }
-
-  handleAddTeam(team) {
-    this.props.addTeam(team)
+    this.props.getAllTeams();
+    this.props.getAllProjects();
   }
 
   handleRowClick(teamId) {
@@ -52,7 +28,7 @@ class TeamManager extends Component {
   render() {
     return (
       <TeamManagerWrapper
-        openAddTeamBox={this.toggleAddTeamBox}
+        openAddTeamBox={this.props.openAddTeamDialog}
       >
         <Table>
           <TableHead>
@@ -78,13 +54,6 @@ class TeamManager extends Component {
             })}
           </TableBody>
         </Table>
-        <AddTeamBox
-          getAllProjects={this.props.getAllProjects}
-          open={this.state.AddTeamBoxOpen}
-          closeAddTeamBox={this.toggleAddTeamBox}
-          handleAddTeam={this.handleAddTeam}
-          projects={this.props.projects.allProjects}
-        />
       </TeamManagerWrapper>
     )
   }
@@ -95,7 +64,11 @@ function mapStateToProps({projects, teams}) {
 }
 
 function mapDispatchToProps(dispatch) {
-  return bindActionCreators(actionCreators, dispatch)
+  return {
+    openAddTeamDialog: () => dispatch(dialogActions.openDialog('ADD_TEAM')),
+    getAllTeams: () => dispatch(actionCreators.getAllTeams()),
+    getAllProjects: () => dispatch(actionCreators.getAllProjects()),
+  }
 }
 
 export default withRouter(connect(mapStateToProps, mapDispatchToProps)(TeamManager))

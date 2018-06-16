@@ -1,12 +1,15 @@
 import React from 'react';
 import { connect } from 'react-redux';
 import { withRouter } from 'react-router'
-import Table, { TableBody, TableCell, TableHead, TableRow } from 'material-ui/Table';
-import Button from 'material-ui/Button';
-import AddIcon from 'material-ui-icons/Add';
+import Table from '@material-ui/core/Table';
+import TableBody from '@material-ui/core/TableBody';
+import TableCell from '@material-ui/core/TableCell';
+import TableHead from '@material-ui/core/TableHead';
+import TableRow from '@material-ui/core/TableRow';
+import Button from '@material-ui/core/Button';
+import AddIcon from '@material-ui/icons/Add';
 
 import * as dialogActions from '../core/actions/dialog';
-
 import { TeamSummaryRoleRow } from './componentIndex'
 
 //DUMMY DATA
@@ -48,7 +51,7 @@ function TeamSummaryRoles ({ onDialogButtonPress, roles }) {
         </TableBody>
       </Table>
       <Button
-        fab mini
+        variant="fab"
         aria-label="add"
         className='fr'
         onClick={() => onDialogButtonPress()}

@@ -1,20 +1,14 @@
 import React, { Component } from 'react';
 
-import AppBar from 'material-ui/AppBar';
-import Toolbar from 'material-ui/Toolbar';
-import Button from 'material-ui/Button';
-import Menu, { MenuItem }from 'material-ui/Menu';
-import IconButton from 'material-ui/IconButton';
-import ModeEdit from 'material-ui-icons/Menu';
-import Notifications from 'material-ui-icons/Notifications';
-
-import Typography from 'material-ui/Typography';
-import TextField from 'material-ui/TextField';
-
-// import MoreVertIcon from 'material-ui/svg-icons/navigation/more-vert';
-import MoreVertIcon from 'material-ui-icons/MoreVert';
-import { Link } from 'react-router';
-import { withStyles } from 'material-ui/styles';
+import AppBar from '@material-ui/core/AppBar';
+import Toolbar from '@material-ui/core/Toolbar';
+import Button from '@material-ui/core/Button';
+import IconButton from '@material-ui/core/IconButton';
+import ModeEdit from '@material-ui/icons/Menu';
+import Notifications from '@material-ui/icons/Notifications';
+import Typography from '@material-ui/core/Typography';
+import TextField from '@material-ui/core/TextField';
+import { withStyles } from '@material-ui/core/styles';
 
 const Login = (props) =>  {
   return (
