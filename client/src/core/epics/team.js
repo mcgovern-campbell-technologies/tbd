@@ -6,7 +6,7 @@ import {
   GET_ALL_TEAMS,
   GET_ALL_TEAMS_FULFILLED,
   GET_TEAM_FULFILLED,
-} from '../../utils/types';
+} from '../utils/types';
 import { closeDialog } from '../actions/dialog';
 
 const addTeamEpic = (action$, store) => {

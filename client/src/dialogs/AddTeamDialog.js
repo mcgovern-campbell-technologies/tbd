@@ -9,9 +9,9 @@ import DialogTitle from '@material-ui/core/DialogTitle';
 import Button from '@material-ui/core/Button';
 import MenuItem from '@material-ui/core/MenuItem';
 
-import * as dialogActions from '../../core/actions/dialog';
-import * as actionCreators from '../../core/actions/actionCreators';
-import { Select, Text, Date } from '../Forms';
+import * as dialogActions from '../core/actions/dialog';
+import * as actionCreators from '../core/actions/actionCreators';
+import { Select, Text, Date } from '../shared/forms/index';
 
 function AddTeamDialog({ onDialogButtonClose, onAddTeam, projects }) {
   return (

@@ -1,6 +1,6 @@
 import {
   GET_CERTIFICATIONS_FULFILLED,
-} from '../../utils/types';
+} from '../utils/types';
 
 export function certificationsReducer(state = {
   list: [],

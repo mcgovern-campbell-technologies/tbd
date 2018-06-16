@@ -9,13 +9,12 @@ import TableRow from '@material-ui/core/TableRow';
 import Button from '@material-ui/core/Button';
 import AddIcon from '@material-ui/icons/Add';
 
-import * as dialogActions from '../core/actions/dialog';
-import { TeamSummaryRoleRow } from './componentIndex'
+import * as dialogActions from '../../../core/actions/dialog';
 
-function TeamSummaryRoles ({ onDialogButtonPress, roles }) {
+function RoleTab ({ onDialogButtonPress, roles }) {
   return (
     <div>
-      <Table>
+      <Table className="mb5">
         <TableHead>
           <TableRow>
             <TableCell>Name</TableCell>
@@ -26,9 +25,14 @@ function TeamSummaryRoles ({ onDialogButtonPress, roles }) {
           </TableRow>
         </TableHead>
         <TableBody>
-          {roles.map(n => {
+          {roles.map(role => {
             return (
-              <TeamSummaryRoleRow key={n.id} node={n} handleEditButtonClick={() => console.log('editme')}/>
+              <TableRow key={role.id}>
+                <TableCell>{role.type} - {role.skillLevel}</TableCell>
+                <TableCell>{role.skillLevel}</TableCell>
+                <TableCell>{role.requested}</TableCell>
+                <TableCell>{role.filled}</TableCell>
+              </TableRow>
             );
           })}
         </TableBody>
@@ -36,7 +40,7 @@ function TeamSummaryRoles ({ onDialogButtonPress, roles }) {
       <Button
         variant="fab"
         aria-label="add"
-        className='fr'
+        className="absolute bottom-1 right-1"
         onClick={() => onDialogButtonPress()}
       >
         <AddIcon />
@@ -51,4 +55,4 @@ function mapDispatchToProps(dispatch) {
   }
 }
 
-export default withRouter(connect(undefined, mapDispatchToProps)(TeamSummaryRoles))
+export default withRouter(connect(undefined, mapDispatchToProps)(RoleTab))

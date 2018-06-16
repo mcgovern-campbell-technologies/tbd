@@ -1,4 +1,4 @@
-import { UPDATE_USER } from '../../utils/types'
+import { UPDATE_USER } from '../utils/types'
 
 export function onBoardingReducer(state = {
   currentPage: 1,

@@ -3,8 +3,9 @@ import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
 import { withRouter } from 'react-router'
 
-import * as actionCreators from '../core/actions/actionCreators';
-import { TeamSummaryWrapper } from './../components/componentIndex';
+import * as actionCreators from '../../core/actions/actionCreators';
+import TeamSummaryBox from './teamSummaryBox';
+import TeamSummaryTable from './teamSummaryTable';
 
 class TeamDetails extends Component {
   constructor(props) {
@@ -23,12 +24,19 @@ class TeamDetails extends Component {
 
   render() {
     return (
-      <TeamSummaryWrapper
-        team={this.props.teams.team}
-        roles={this.props.teamRoles.teams[this.state.teamId] || []}
-        location={this.props.teams.location}
-        project={this.props.teams.project}
-      />
+      <div className="flex min-vh-60 relative">
+        <TeamSummaryBox
+          team={this.props.teams.team}
+          location={this.props.teams.location}
+          project={this.props.teams.project}
+        />
+        <TeamSummaryTable
+          team={this.props.teams.team}
+          location={this.props.teams.location}
+          project={this.props.teams.project}
+          roles={this.props.teamRoles.teams[this.state.teamId] || []}
+        />
+      </div>
     )
   }
 }

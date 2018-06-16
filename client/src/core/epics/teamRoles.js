@@ -13,7 +13,7 @@ import {
   ADD_ROLE_TO_TEAM, 
   UPDATE_ROLE, 
   DELETE_ROLE, 
-} from '../../utils/types';
+} from '../utils/types';
 
 export const addRoleToTeamEpic = (action$, store) =>
   action$

@@ -1,7 +1,7 @@
 import {
   GET_ALL_TEAMS_FULFILLED,
   GET_TEAM_FULFILLED,
-} from '../../utils/types';
+} from '../utils/types';
 
 export function teamsReducer(state = {
   allTeams: [],

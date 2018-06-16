@@ -8,7 +8,7 @@ import {
   ADD_CERTIFICATION,
   DELETE_CERTIFICATION,
   EDIT_CERTIFICATION, 
-} from '../../utils/types';
+} from '../utils/types';
 
 const getCertificationsEpic = (action$, state) =>
   action$

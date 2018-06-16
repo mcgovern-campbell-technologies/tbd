@@ -8,9 +8,9 @@ import DialogContent from '@material-ui/core/DialogContent';
 import DialogTitle from '@material-ui/core/DialogTitle';
 import Button from '@material-ui/core/Button';
 
-import * as dialogActions from '../../core/actions/dialog';
-import * as actionCreators from '../../core/actions/actionCreators';
-import { Text } from '../Forms';
+import * as dialogActions from '../core/actions/dialog';
+import * as actionCreators from '../core/actions/actionCreators';
+import { Text } from '../shared/forms/index';
 
 function AddRoleDialog({ onDialogButtonClose, onAddRole }) {
   return (

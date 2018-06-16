@@ -22,24 +22,7 @@ const data = [
 ];
 //END DUMMY DATA
 
-const styles = {
-  main: {
-    display: 'flex',
-    flexDirection: 'column',
-    height: '100%',
-    flex: '2 0 auto',
-    margin: '0 0 0 10px',
-  },
-  buttonSection: {
-    flexBasis: '50px',
-    marginBottom: '10px',
-  },
-  tab: {
-    minWidth: '120px',
-  },
-};
-
-function TeamSummaryMembers (props) {
+function MemberTab (props) {
   return (
     <Table>
       <TableHead>
@@ -70,11 +53,11 @@ function TeamSummaryMembers (props) {
   )
 };
 
-TeamSummaryMembers.propTypes = {
+MemberTab.propTypes = {
   classes: PropTypes.object.isRequired,
 //   name: PropTypes.string.isRequired,
 //   handleRequestDelete: PropTypes.func,
 //   identity: PropTypes.string,
 }
 
-export default withStyles(styles)(TeamSummaryMembers);
+export default MemberTab;

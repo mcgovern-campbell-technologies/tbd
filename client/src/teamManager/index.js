@@ -6,11 +6,12 @@ import TableBody from '@material-ui/core/TableBody';
 import TableCell from '@material-ui/core/TableCell';
 import TableHead from '@material-ui/core/TableHead';
 import TableRow from '@material-ui/core/TableRow';
+import Button from '@material-ui/core/Button';
+import AddIcon from '@material-ui/icons/Add';
 
 import * as actionCreators from '../core/actions/actionCreators';
 import * as dialogActions from '../core/actions/dialog';
 import * as tradeActions from '../core/actions/trade';
-import { TeamManagerWrapper } from './../components/componentIndex';
 
 class TeamManager extends Component {
   constructor(props) {
@@ -29,9 +30,7 @@ class TeamManager extends Component {
 
   render() {
     return (
-      <TeamManagerWrapper
-        openAddTeamBox={this.props.openAddTeamDialog}
-      >
+      <div>
         <Table>
           <TableHead>
             <TableRow>
@@ -56,7 +55,15 @@ class TeamManager extends Component {
             })}
           </TableBody>
         </Table>
-      </TeamManagerWrapper>
+        <Button
+          variant="fab"
+          aria-label="add"
+          className="absolute bottom-2 right-2"
+          onClick={this.props.openAddTeamDialog}
+        >
+          <AddIcon />
+        </Button>
+      </div>
     )
   }
 }

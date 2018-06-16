@@ -5,24 +5,8 @@ import Tabs from '@material-ui/core/Tabs';
 import Tab from '@material-ui/core/Tab';
 import { withStyles } from '@material-ui/core/styles';
 
-import {TeamSummaryRoles, TeamSummaryMembers} from './componentIndex';
-
-const styles = {
-  main: {
-    display: 'flex',
-    flexDirection: 'column',
-    height: '100%',
-    flex: '2 0 66%',
-    margin: '0 0 0 10px',
-  },
-  buttonSection: {
-    flexBasis: '50px',
-    marginBottom: '10px',
-  },
-  tab: {
-    minWidth: '120px',
-  },
-};
+import TeamSummaryRoles from '../roleTab';
+import TeamSummaryMembers from '../memberTab';
 
 class TeamSummaryTable extends React.Component {
   constructor() {
@@ -41,16 +25,16 @@ class TeamSummaryTable extends React.Component {
   render() {
     const { value } = this.state;
     return (
-      <Paper className={this.props.classes.main}>
-        <div className={this.props.classes.buttonSection}>
+      <Paper className="flex-grow-1">
+        <div>
           <Tabs
             indicatorColor="primary"
             textColor="primary"
             value={this.state.value}
             onChange={this.handleChange}
           >
-            <Tab className={this.props.classes.tab} label="Roles" />
-            <Tab className={this.props.classes.tab} label="Members" />
+            <Tab label="Roles" />
+            <Tab label="Members" />
           </Tabs>
         </div>
         { value === 0 && <TeamSummaryRoles roles={this.props.roles}/> }
@@ -60,11 +44,4 @@ class TeamSummaryTable extends React.Component {
   }
 };
 
-TeamSummaryTable.propTypes = {
-  classes: PropTypes.object.isRequired,
-//   name: PropTypes.string.isRequired,
-//   handleRequestDelete: PropTypes.func,
-//   identity: PropTypes.string,
-}
-
-export default withStyles(styles)(TeamSummaryTable);
+export default TeamSummaryTable;

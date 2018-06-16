@@ -1,0 +1,24 @@
+[
+  {
+    "name": "Dashboard",
+    "icon": "dashboard"
+  },
+  {
+    "name": "Profile",
+    "path": "profile",
+    "icon": "person"
+  },
+  {
+    "name": "Schedule",
+    "icon": "schedule"
+  },
+  {
+    "name": "Settings",
+    "icon": "settings"
+  },
+  {
+    "name": "Team Manager",
+    "path": "teamManager",
+    "icon": "group"
+  }
+]

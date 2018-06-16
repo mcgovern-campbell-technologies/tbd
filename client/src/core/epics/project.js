@@ -4,7 +4,7 @@ import {
   GET_PROJECT,
   GET_ALL_PROJECTS,
   GET_PROJECT_FULFILLED,
-} from '../../utils/types';
+} from '../utils/types';
 
 const getProjectEpic = (action$) => {
   return action$
