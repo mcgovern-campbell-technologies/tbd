@@ -42,6 +42,9 @@ import {
   getProjectEpic,
   getAllProjectsEpic,
 }  from './project';
+import {
+  getTradeEpic
+} from './trade';
 
 export const rootEpic = combineEpics(
   /* epics */
@@ -63,10 +66,10 @@ export const rootEpic = combineEpics(
   getAllTeamsEpic,
   getProjectEpic,
   getAllProjectsEpic,
-  ////////////////////
   getTeamRolesEpic,
   deleteRoleEpic,
   addRoleToTeamEpic,
   updateRoleEpic,
+  getTradeEpic,
 );
 

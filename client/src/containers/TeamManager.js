@@ -9,6 +9,7 @@ import TableRow from '@material-ui/core/TableRow';
 
 import * as actionCreators from '../core/actions/actionCreators';
 import * as dialogActions from '../core/actions/dialog';
+import * as tradeActions from '../core/actions/trade';
 import { TeamManagerWrapper } from './../components/componentIndex';
 
 class TeamManager extends Component {
@@ -19,6 +20,7 @@ class TeamManager extends Component {
   componentWillMount() {
     this.props.getAllTeams();
     this.props.getAllProjects();
+    this.props.getTrades();
   }
 
   handleRowClick(teamId) {
@@ -68,6 +70,7 @@ function mapDispatchToProps(dispatch) {
     openAddTeamDialog: () => dispatch(dialogActions.openDialog('ADD_TEAM')),
     getAllTeams: () => dispatch(actionCreators.getAllTeams()),
     getAllProjects: () => dispatch(actionCreators.getAllProjects()),
+    getTrades: () => dispatch(tradeActions.getTrades())
   }
 }
 

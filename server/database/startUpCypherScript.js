@@ -45,8 +45,8 @@ module.exports = {
 // MERGE (lev2:PositionLevel { value: 2, label: 'two', abreviation: 'II'})
 // MERGE (lev3:PositionLevel { value: 3, label: 'specialist', abreviation: 'spec'})
 // MERGE (lev4:PositionLevel { value: 4, label: 'general labor', abreviation: 'gen'})
-// CREATE UNIQUE (tr)-[:HAS_LEVEL]-(lev1)
-// CREATE UNIQUE (tr)-[:HAS_LEVEL]-(lev2)
-// CREATE UNIQUE (tr)-[:HAS_LEVEL]-(lev3)
-// CREATE UNIQUE (tr)-[:HAS_LEVEL]-(lev4)
+// CREATE UNIQUE (tr)-[:HAS_LEVEL]->(lev1)
+// CREATE UNIQUE (tr)-[:HAS_LEVEL]->(lev2)
+// CREATE UNIQUE (tr)-[:HAS_LEVEL]->(lev3)
+// CREATE UNIQUE (tr)-[:HAS_LEVEL]->(lev4)
 // RETURN c

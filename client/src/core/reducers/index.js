@@ -12,6 +12,7 @@ import { projectsReducer } from './projects';
 import { teamsReducer } from './teams';
 import { teamRolesReducer } from './teamRoles';
 import { dialogReducer } from './dialog';
+import { optionsReducer } from './options';
 
 export const rootReducer = combineReducers({
   auth: authReducer,
@@ -26,4 +27,5 @@ export const rootReducer = combineReducers({
   projects: projectsReducer,
   teams: teamsReducer,
   teamRoles: teamRolesReducer,
+  options: optionsReducer,
 });
