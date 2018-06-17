@@ -1,11 +1,12 @@
 import React from 'react';
-import PropTypes from 'prop-types';
-import { withStyles } from '@material-ui/core/styles';
+import { withRouter } from 'react-router'
 import Table from '@material-ui/core/Table';
 import TableBody from '@material-ui/core/TableBody';
 import TableCell from '@material-ui/core/TableCell';
 import TableHead from '@material-ui/core/TableHead';
 import TableRow from '@material-ui/core/TableRow';
+import Button from '@material-ui/core/Button';
+import AddIcon from '@material-ui/icons/Add';
 
 //DUMMY DATA
 let id = 0;
@@ -22,9 +23,9 @@ const data = [
 ];
 //END DUMMY DATA
 
-function MemberTab (props) {
-  return (
-    <Table>
+const MemberTab = ({ history, location }) => (
+  <div>
+    <Table className="mb6">
       <TableHead>
         <TableRow>
           <TableCell>Name</TableCell>
@@ -50,14 +51,15 @@ function MemberTab (props) {
         })}
       </TableBody>
     </Table>
-  )
-};
+    <Button
+      variant="fab"
+      aria-label="add"
+      className="absolute bottom-1 right-1"
+      onClick={() => history.push(`${location.pathname}/addmember`)}
+    >
+      <AddIcon />
+    </Button>
+  </div>
+)
 
-MemberTab.propTypes = {
-  classes: PropTypes.object.isRequired,
-//   name: PropTypes.string.isRequired,
-//   handleRequestDelete: PropTypes.func,
-//   identity: PropTypes.string,
-}
-
-export default MemberTab;
+export default withRouter(MemberTab);

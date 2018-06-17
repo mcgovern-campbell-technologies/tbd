@@ -14,7 +14,7 @@ import * as dialogActions from '../../../core/actions/dialog';
 function RoleTab ({ onDialogButtonPress, roles }) {
   return (
     <div>
-      <Table className="mb5">
+      <Table className="mb6">
         <TableHead>
           <TableRow>
             <TableCell>Name</TableCell>

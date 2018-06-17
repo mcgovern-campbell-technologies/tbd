@@ -13,7 +13,7 @@ const Date = ({
     {...input}
     {...custom}
     fullWidth={true}
-    margin="normal"
+    margin="dense"
     InputLabelProps={{
       shrink: true,
     }}

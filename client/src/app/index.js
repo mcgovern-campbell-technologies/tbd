@@ -1,21 +1,22 @@
 import React from 'react';
-import { Route, Redirect } from 'react-router-dom'
 import { withRouter } from 'react-router'
 import PropTypes from 'prop-types';
 import { bindActionCreators } from 'redux';
+import JssProvider from 'react-jss/lib/JssProvider';
+import { create } from 'jss';
+import { createGenerateClassName, jssPreset } from '@material-ui/core/styles';
 
-import PropsRoute from '../core/utils/PropsRoute';
 import { connect } from 'react-redux';
 import * as actionCreators from '../core/actions/actionCreators';
 import { Login, Callback, DialogRoot } from '../components/componentIndex';
-import {
-  Dashboard,
-  LandingPage,
-} from '../containers/index'
 import TopNav from './topNav';
 import SideNav from './sideNav';
 import AuthService from '../core/utils/AuthService';
 import { routes } from '../routes';
+
+const generateClassName = createGenerateClassName();
+const jss = create(jssPreset());
+jss.options.insertionPoint = document.getElementById('jss-insertion-point');
 
 const authService = new AuthService();
 
@@ -28,19 +29,21 @@ class App extends React.Component {
 
   render() {
     return (
-      <div>
-        <TopNav
-          isAuthenticated={this.props.isAuthenticated}
-          {...this.authService}
-          logoutSuccess={this.props.logoutSuccess}
-          location={this.props.location}
-        />
-        <SideNav />
-        <div className='pt6 pl7 pr4'>
-          { routes }
+      <JssProvider jss={jss} generateClassName={generateClassName}>
+        <div>
+          <TopNav
+            isAuthenticated={this.props.isAuthenticated}
+            {...this.authService}
+            logoutSuccess={this.props.logoutSuccess}
+            location={this.props.location}
+          />
+          <SideNav />
+          <div className='pt6 pl6 pr5'>
+            { routes }
+          </div>
+          <DialogRoot />
         </div>
-        <DialogRoot />
-      </div>
+      </JssProvider>
     )
   }
 }

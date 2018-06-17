@@ -22,6 +22,55 @@
   min-height: 60vh;
 }
 
+.flex-1 {
+  flex: 1;
+}
+
+.flex-2 {
+  flex: 2;
+}
+
+.flex-3 {
+  flex: 3;
+}
+
+.text-right {
+  text-align: right;
+}
+
+.top-3 {
+  top: 3rem;
+}
+
+.border-l {
+  border-left: 1px lightgrey solid;
+}
+
+.border-r {
+  border-right: 1px lightgrey solid;
+}
+
+.border-a {
+  border: 1px lightgrey solid;
+}
+
+.pr8 {
+  padding-right: 32rem;
+}
+
+.fs-xs {
+  font-size: 0.8rem;
+}
+
+.fs-s {
+font-size: 1rem;
+}
+
+.w6 {
+  width: 32rem;
+}
+
+
 @keyframes App-logo-spin {
   from { transform: rotate(0deg); }
   to { transform: rotate(360deg); }

@@ -115,3 +115,11 @@ a {
   text-decoration: none;
   color: black;
 }
+
+h5 {
+  margin: 0.7rem 0;
+}
+
+p {
+  margin: 0.2rem 0;
+}

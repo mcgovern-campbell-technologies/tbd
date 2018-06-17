@@ -17,10 +17,8 @@ const SideNav = () => (
           <List key={menuItem.name} component="nav">
             <NavLink to={'/dashboard/' + menuItem.path}>
               <ListItem button>
-                <ListItemIcon>
-                  <Icon>{menuItem.icon}</Icon>
-                </ListItemIcon>
-                <ListItemText primary={menuItem.name} />
+                <Icon>{menuItem.icon}</Icon>
+                {/*<ListItemText primary={menuItem.name} />*/}
               </ListItem>
             </NavLink>
           </List>
