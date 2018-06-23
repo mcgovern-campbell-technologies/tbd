@@ -5,6 +5,7 @@ const {
   contractorHasNecessaryProps,
   extractNodes,
   extractRows,
+  extractNodesWithRelatedNodes,
   mapTypeToQuery,
   createSetChain,
 } = require('./databaseUtilities');
@@ -61,7 +62,7 @@ class GraphApi {
       .run(`MATCH (tr:Trade)-[]->(pl:PositionLevel) return tr,pl`)
       .then(result => {
         const { records } = result;
-        return extractRows(records);
+        return extractNodesWithRelatedNodes(records, 'positionLevels');
       })
   }
 

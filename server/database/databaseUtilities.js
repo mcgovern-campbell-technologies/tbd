@@ -23,6 +23,41 @@ function extractRows(queryResult) {
   }, []);
 }
 
+function extractNodesWithRelatedNodes(queryResult, relatedNodePropName) {
+  relatedNodePropName = relatedNodePropName || 'relatedNodes';
+  const rows = extractRows(queryResult);
+  const resultsArray = [];
+  rows.forEach(row => {
+    let targetIndex = getIndexOfNode(resultsArray, row[0]);
+    if (targetIndex === false) {
+      let newIndex = resultsArray.length;
+      resultsArray[newIndex] = row[0];
+      resultsArray[newIndex][relatedNodePropName] = [makeMinimalObject(row[1])];
+    } else {
+      resultsArray[targetIndex][relatedNodePropName].push(makeMinimalObject(row[1]));
+    }
+  });
+  return resultsArray;
+}
+
+function getIndexOfNode (resultsArray, targetNode) {
+  return resultsArray.reduce((acc, cur, index) => {
+    if (cur.identity.low === targetNode.identity.low) {
+      return acc ? acc : index;
+    } else {
+      return acc;
+    }
+  }, false);
+}
+
+// just returns an object with node id and label property.
+function makeMinimalObject (node) {
+  const minimalNode = {};
+  minimalNode.id = node.identity.low;
+  minimalNode.label = node.properties.label;
+  return minimalNode;
+}
+
 function createHasNecessaryProps(propMap) {
   return function(obj) {
     return _.every(propMap, value => _.has(obj, value));
@@ -75,6 +110,7 @@ module.exports = {
   skillHasNecessaryProps: createHasNecessaryProps(skillInstancePropMap),
   extractNodes,
   extractRows,
+  extractNodesWithRelatedNodes,
   mapTypeToQuery,
   createSetChain,
 }
