@@ -1,6 +1,6 @@
 import {
   GET_PROJECT_FULFILLED,
-} from '../../utils/types';
+} from '../utils/types';
 
 export function projectsReducer(state = {
   allProjects: [],

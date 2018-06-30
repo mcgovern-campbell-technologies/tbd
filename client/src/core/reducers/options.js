@@ -1,6 +1,6 @@
 import {
   GET_TRADES_SUCCESS,
-} from '../../utils/types';
+} from '../utils/types';
 
 export function optionsReducer(state = {
   trades: [],

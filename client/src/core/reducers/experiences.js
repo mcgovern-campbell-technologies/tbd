@@ -1,6 +1,6 @@
 import {
   GET_EXPERIENCES_FULLFILLED,
-} from '../../utils/types';
+} from '../utils/types';
 
 export function experiencesReducer(state = {
   list: [],

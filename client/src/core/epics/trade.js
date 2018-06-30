@@ -2,7 +2,7 @@ import { getTradesSuccess } from '../actions/trade';
 import * as api from '../api/index';
 import {
   GET_TRADES,
-} from '../../utils/types';
+} from '../utils/types';
 
 const getTradeEpic = (action$) => {
   return action$

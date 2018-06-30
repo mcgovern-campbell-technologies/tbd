@@ -1,5 +1,5 @@
 // actions.js
-import * as types from '../../utils/types';
+import * as types from '../utils/types';
 
 export function loginRequest() {
   return {

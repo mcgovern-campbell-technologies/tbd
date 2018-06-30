@@ -13,14 +13,9 @@ import ProfileSectionListItem from './ProfileSectionListItem';
 import SkillListItem from './SkillListItem';
 import ExperienceListItem from './ExperienceListItem';
 import AddExperienceBox from './AddExperienceBox';
-import TeamManagerWrapper from './TeamManagerWrapper';
-import TeamSummaryBox from './TeamSummaryBox';
-import TeamSummaryMembers from './TeamSummaryMembers';
-import TeamSummaryRoles from './TeamSummaryRoles';
-import TeamSummaryTable from './TeamSummaryTable';
-import TeamSummaryRoleRow from './TeamSummaryRoleRow';
-import TeamSummaryWrapper from './TeamSummaryWrapper';
-import DialogRoot from './Dialogs';
+import TeamSummaryMembers from '../teamManager/detail/memberTab/index';
+import TeamSummaryRoles from '../teamManager/detail/roleTab/index';
+import DialogRoot from '../dialogs';
 
 
 export {
@@ -39,12 +34,7 @@ export {
   SkillListItem,
   ExperienceListItem,
   AddExperienceBox,
-  TeamManagerWrapper,
-  TeamSummaryBox,
   TeamSummaryMembers,
   TeamSummaryRoles,
-  TeamSummaryTable,
-  TeamSummaryRoleRow,
-  TeamSummaryWrapper,
   DialogRoot,
 }

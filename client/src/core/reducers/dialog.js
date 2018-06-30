@@ -1,7 +1,7 @@
 import {
   OPEN_DIALOG,
   CLOSE_DIALOG,
-} from '../../utils/types';
+} from '../utils/types';
 
 const initialState = {
   type: null,

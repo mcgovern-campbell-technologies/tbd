@@ -11,7 +11,7 @@ import {
   ProfileSkillCard,
   ProfileCertificationsCard,
   ProfileExperienceCard,
-} from './containerIndex'
+} from './index'
 
 class Profile extends Component {
   constructor(props) {

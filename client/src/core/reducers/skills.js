@@ -1,7 +1,7 @@
 import {
   GET_SKILLS_FULLFILLED,
   SKILLS_WERE_CHECKED,
-} from '../../utils/types';
+} from '../utils/types';
 
 export function skillsReducer(state = {
   list: [],

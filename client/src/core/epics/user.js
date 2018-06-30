@@ -1,6 +1,6 @@
 import { getUserFulfilled, addUser } from '../actions/actionCreators';
 import * as api from '../api/index';
-import * as types from '../../utils/types';
+import * as types from '../utils/types';
 
 const getUserEpic = (action$, state) => {
   const { auth } = state.getState();

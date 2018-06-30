@@ -4,7 +4,7 @@ import {
   GET_TEAM_ROLES_FULFILLED,   
   UPDATE_ROLE_FULFILLED, 
   DELETE_ROLE_FULFILLED,
-} from '../../utils/types';
+} from '../utils/types';
 
 export const teamRolesReducer =  (state = {
   /*

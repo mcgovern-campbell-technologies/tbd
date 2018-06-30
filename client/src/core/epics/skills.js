@@ -5,7 +5,7 @@ import {
   GET_SKILLS_FULLFILLED,
   ADD_SKILL,
   DELETE_SKILL,
-} from '../../utils/types';
+} from '../utils/types';
 
 const getSkillsEpic = (action$, state) => {
   return action$

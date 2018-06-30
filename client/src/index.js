@@ -1,12 +1,26 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
-import 'rxjs'
+import { Provider } from 'react-redux';
+
 import './styles/index.css';
-import Root from './Root';
+import './styles/App.css';
+import configureStore from './core/configureStore';
 import registerServiceWorker from './registerServiceWorker';
+import App from './app/index';
+import AuthService from './core/utils/AuthService';
+import { createBrowserHistory } from 'history';
+import { ConnectedRouter } from 'react-router-redux';
 
-// console.log(process.env.neo4jConnectionString)
-// console.log(process.env.DOMAIN)
+const store = configureStore();
+const history = createBrowserHistory();
+const authService = new AuthService();
 
-ReactDOM.render(<Root />, document.getElementById('root'));
+ReactDOM.render(
+  <Provider store={store}>
+    <ConnectedRouter history={history}>
+      <App authService={authService}/>
+    </ConnectedRouter>
+  </Provider>,
+  document.getElementById('root')
+);
 registerServiceWorker();

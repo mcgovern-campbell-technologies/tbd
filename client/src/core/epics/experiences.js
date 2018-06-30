@@ -9,7 +9,7 @@ import {
   ADD_EXPERIENCE,
   DELETE_EXPERIENCE,
   EDIT_EXPERIENCE
-} from '../../utils/types';
+} from '../utils/types';
 
 const getExperiencesEpic = (action$, state) => {
   return action$

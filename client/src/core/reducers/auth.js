@@ -1,5 +1,5 @@
-import AuthService from '../../utils/AuthService'
-import * as types from '../../utils/types';
+import AuthService from '../utils/AuthService'
+import * as types from '../utils/types';
 
 const authService = new AuthService();
 
