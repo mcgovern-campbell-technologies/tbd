@@ -24,6 +24,7 @@ class GraphApi {
     //       .run(startUpScript)
     //   })
     //   .then(result => {
+    //     console.log('==== DATABASE WAS DELETED AND RESET ====')
     //   })
   }
 
@@ -329,7 +330,7 @@ class GraphApi {
       .then(result => {
         const { records } = result;
         session.close();
-        return extractNodes(records);
+        return newExtractNodes(records);
       })
       .catch(err => console.error(err));
   }
@@ -343,8 +344,10 @@ class GraphApi {
         MATCH (project:Project) where id(project) = ${projectId}
         CREATE (team:Team {
           name: $teamName,
-          startDate: $startDate, endDate: $endDate,
-          created_at: '${new Date()}'})-[:TEAM_FOR]->(project)
+          startDate: $startDate,
+          endDate: $endDate,
+          created_at: '${new Date()}'
+        })-[:TEAM_FOR]->(project)
         RETURN team
       `, {teamName, startDate, endDate})
       .then(result => {
