@@ -123,9 +123,9 @@ class GraphApi {
     const session = this.driver.session();
     return session
       .run(`
-        MATCH (c:Contractor {email: $email })
+        MATCH (c:Contractor ${stringifyObject({email})})
         RETURN c
-      `, {email})
+      `)
       .then(({records}) => {
         session.close()
         if (_.isEmpty(records[0])) {
