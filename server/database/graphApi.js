@@ -92,7 +92,7 @@ class GraphApi {
   }
 
   updateContractor(emplObj) {
-    // TODO: update this method to match new schema
+    // updated 7/8
     const properties = JSON.parse(emplObj.properties)
     const updatedProperties = Object.keys(properties).map(property => {
       const value = properties[property]
@@ -108,7 +108,7 @@ class GraphApi {
       `)
       .then(result => {
         const { records } = result;
-        return extractNodes(records)[0]
+        return newExtractNodes(records);
       })
   }
 
