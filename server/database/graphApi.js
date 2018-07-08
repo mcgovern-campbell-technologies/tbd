@@ -68,44 +68,6 @@ class GraphApi {
       })
   }
 
-  createTrade(reqBody) {
-    const {tradeName, teamId} = reqBody;
-    const session = this.driver.session();
-    return session
-      .run(`
-        MATCH (tr:Trade {name: $tradeName})
-        RETURN tr
-      `, {tradeName})
-      .then(result => {
-        const { records } = result;
-        if (!records.length) {
-          return session
-            .run(`
-              MATCH (t:Team) WHERE id(t) = ${teamId}
-              CREATE (tr:Trade {name: $tradeName})
-              CREATE (lev1:PositionLevel { value: 1, label: 'one', abreviation: 'I'})
-              CREATE (lev2:PositionLevel { value: 2, label: 'two', abreviation: 'II'})
-              CREATE (lev3:PositionLevel { value: 3, label: 'specialist', abreviation: 'spec'})
-              CREATE (lev4:PositionLevel { value: 4, label: 'General Labor', abreviation: 'gen'})
-              CREATE UNIQUE (tr)-[:HAS_LEVEL]->(lev1)
-              CREATE UNIQUE (tr)-[:HAS_LEVEL]->(lev2)
-              CREATE UNIQUE (tr)-[:HAS_LEVEL]->(lev3)
-              CREATE UNIQUE (tr)-[:HAS_LEVEL]->(lev4)
-              CREATE UNIQUE (lev1)-[:POSITION_LEVEL_FOR]->(t)
-              CREATE UNIQUE (lev2)-[:POSITION_LEVEL_FOR]->(t)
-              CREATE UNIQUE (lev3)-[:POSITION_LEVEL_FOR]->(t)
-              CREATE UNIQUE (lev4)-[:POSITION_LEVEL_FOR]->(t)
-              RETURN tr
-            `, {tradeName})
-            .then(result => {
-              const { records } = result;
-              return extractNodes(records)[0];
-            })
-        }
-        return extractNodes(records)[0];
-      })
-  }
-
   createContractor(emplObj) {
     const session = this.driver.session();
 
@@ -409,7 +371,7 @@ class GraphApi {
       .catch(err => console.error(err));
   }
 
-  
+
 
   updateNode(id, properties) {
     const session = this.driver.session();
