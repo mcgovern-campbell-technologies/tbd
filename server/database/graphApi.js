@@ -336,7 +336,7 @@ class GraphApi {
   }
 
   getProject(reqQuery) {
-    // TODO: update this method to match new schema
+    // updated 7/7
     const { projectId } = reqQuery;
     const session = this.driver.session();
     return session
