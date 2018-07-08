@@ -6,8 +6,8 @@ function extractNodes(queryResult) {
     const fields = value._fields;
     const nodes =  _.map(fields, ({ properties, labels, identity }) => {
       return {
-        properties,
-        labels,
+        ...properties,
+        // labels,
         identity: identity.toString()
       }
     });
