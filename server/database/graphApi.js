@@ -285,7 +285,7 @@ class GraphApi {
   }
 
   createTeam(reqBody) {
-    // TODO: update this method to match new schema
+    // up to date 7/7
     const { teamName, projectId, startDate, endDate } = reqBody;
 
     const session = this.driver.session();
@@ -313,7 +313,7 @@ class GraphApi {
   }
 
   createProject(reqBody) {
-    // TODO: update this method to match new schema
+    // up to date 7/7
     const { projectName, locationId } = reqBody;
 
     const session = this.driver.session();
