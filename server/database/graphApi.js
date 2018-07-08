@@ -409,45 +409,7 @@ class GraphApi {
       .catch(err => console.error(err));
   }
 
-  addExperienceToTeam(reqBody) {
-    const {experienceId, teamId} = reqBody;
-    const session = this.driver.session();
-    return session
-      .run(`
-        MATCH (team:Team) where id(team) = ${teamId}
-        MATCH (exp:Experience) where id(exp) = ${experienceId}
-        CREATE UNIQUE (exp)-[:IS_EXPERIENCE_FOR]->(team)
-        RETURN team
-      `)
-      .then(result => {
-        const { records } = result;
-        session.close();
-        return result
-      })
-      .catch(err => {
-        console.error(err)
-      });
-  }
-
-  removeExperienceFromTeam(reqBody) {
-    const {experienceId, teamId} = reqBody;
-    const session = this.driver.session();
-    return session
-      .run(`
-        MATCH (team:Team) where id(team) = ${teamId}
-        MATCH (exp:Experience) where id(exp) = ${experienceId}
-        MATCH (exp)-[r:IS_EXPERIENCE_FOR]->(team)
-        delete r
-      `)
-      .then(result => {
-        const { records } = result;
-        session.close();
-        return result
-      })
-      .catch(err => {
-        console.error(err)
-      });
-  }
+  
 
   updateNode(id, properties) {
     const session = this.driver.session();
