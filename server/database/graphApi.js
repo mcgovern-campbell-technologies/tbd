@@ -118,22 +118,20 @@ class GraphApi {
       })
   }
 
-  getContractorByEmail(querySpecs) {
-    // TODO: update this method to match new schema
+  getContractorByEmail(email) {
+    //updated 7/7
     const session = this.driver.session();
     return session
       .run(`
-        MATCH (e:Contractor ${stringifyObject(querySpecs)})
-        RETURN e
-      `
-      /*`MATCH (e:Contractor) WHERE ID(e) = 33 RETURN e`*/
-      )
+        MATCH (c:Contractor {email: $email })
+        RETURN c
+      `, {email})
       .then(({records}) => {
         session.close()
         if (_.isEmpty(records[0])) {
           return null
         } else {
-          return extractNodes(records)[0]
+          return newExtractNodes(records);
         }
       });
   }
@@ -389,6 +387,7 @@ class GraphApi {
   }
 
   getTeamRoles(teamId) {
+    // TODO: update this method to match new schema
     const session = this.driver.session();
     return session
       .run(`
