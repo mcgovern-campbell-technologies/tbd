@@ -2,18 +2,52 @@ const _ = require('lodash');
 const neo4j = require('neo4j-driver').v1;
 
 function extractNodes(queryResult) {
-
   return _.reduce(queryResult, (acc, value) => {
     const fields = value._fields;
     const nodes =  _.map(fields, ({ properties, labels, identity }) => {
       return {
-        properties,
-        labels,
+        ...properties,
+        // labels,
         identity: identity.toString()
       }
     });
     return acc.concat(nodes);
   }, []);
+}
+
+function buildNodeShape(obj) {
+  const newObj = {};
+  // newObj.labels = obj.labels;
+  newObj.id = obj.identity.low;
+  Object.assign(newObj, obj.properties);
+  return newObj;
+}
+
+function newExtractNodes(queryResult, targetLabel) {
+  const response = {};
+  let relatedNode;
+
+  _.forEach(queryResult, ele => {
+    _.forEach(ele._fields, field => {
+      if (field) {
+        targetLabel = targetLabel || field.labels[0];
+        if (field.labels[0] === targetLabel) {
+          Object.assign(response, buildNodeShape(field));
+        } else {
+          if (!Array.isArray(response[field.labels[0] + "s"])) {
+            response[field.labels[0] + "s"] = [];
+          }
+          relatedNode = buildNodeShape(field);
+
+          if (response[field.labels[0] + "s"].findIndex(ele => ele.id === relatedNode.id) < 0) {
+            response[field.labels[0] + "s"].push(relatedNode);
+          }
+        }
+      }
+    })
+  })
+
+  return response;
 }
 
 function extractRows(queryResult) {
@@ -109,6 +143,7 @@ module.exports = {
   contractorHasNecessaryProps: createHasNecessaryProps(contractorPropMap),
   skillHasNecessaryProps: createHasNecessaryProps(skillInstancePropMap),
   extractNodes,
+  newExtractNodes,
   extractRows,
   extractNodesWithRelatedNodes,
   mapTypeToQuery,

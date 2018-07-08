@@ -4,6 +4,7 @@ const stringifyObject = require('stringify-object');
 const {
   contractorHasNecessaryProps,
   extractNodes,
+  newExtractNodes,
   extractRows,
   extractNodesWithRelatedNodes,
   mapTypeToQuery,
@@ -23,6 +24,7 @@ class GraphApi {
     //       .run(startUpScript)
     //   })
     //   .then(result => {
+    //     console.log('==== DATABASE WAS DELETED AND RESET ====')
     //   })
   }
 
@@ -31,16 +33,18 @@ class GraphApi {
   }
 
   getNodeById(id) {
+    // updated 7/7 but not verified
     const session = this.driver.session();
     return session
       .run(`MATCH (n) where id(n) = ${id} RETURN n`)
       .then(result => {
         const { records } = result;
-        return extractNodes(records)[0];
+        return newExtractNodes(records);
       })
   }
 
   createLocation(reqBody) {
+    // updated 7/7
     const {locationName, companyId} = reqBody;
     const session = this.driver.session();
     return session
@@ -48,70 +52,19 @@ class GraphApi {
         MATCH (c:Company) where id(c) = ${companyId}
         MERGE (l:Location {name: $locationName})
         CREATE UNIQUE (c)-[r:HAS_LOCATION]->(l)
-        RETURN l
+        RETURN l,c
       `, {locationName})
       .then(result => {
         const { records } = result;
-        return extractNodes(records)[0];
-      })
-  }
-
-  getAllTrades() {
-    const session = this.driver.session();
-    return session
-      .run(`MATCH (tr:Trade)-[]->(pl:PositionLevel) return tr,pl`)
-      .then(result => {
-        const { records } = result;
-        return extractNodesWithRelatedNodes(records, 'positionLevels');
-      })
-  }
-
-  createTrade(reqBody) {
-    const {tradeName, teamId} = reqBody;
-    const session = this.driver.session();
-    return session
-      .run(`
-        MATCH (tr:Trade {name: $tradeName})
-        RETURN tr
-      `, {tradeName})
-      .then(result => {
-        const { records } = result;
-        if (!records.length) {
-          return session
-            .run(`
-              MATCH (t:Team) WHERE id(t) = ${teamId}
-              CREATE (tr:Trade {name: $tradeName})
-              CREATE (lev1:PositionLevel { value: 1, label: 'one', abreviation: 'I'})
-              CREATE (lev2:PositionLevel { value: 2, label: 'two', abreviation: 'II'})
-              CREATE (lev3:PositionLevel { value: 3, label: 'specialist', abreviation: 'spec'})
-              CREATE (lev4:PositionLevel { value: 4, label: 'General Labor', abreviation: 'gen'})
-              CREATE UNIQUE (tr)-[:HAS_LEVEL]->(lev1)
-              CREATE UNIQUE (tr)-[:HAS_LEVEL]->(lev2)
-              CREATE UNIQUE (tr)-[:HAS_LEVEL]->(lev3)
-              CREATE UNIQUE (tr)-[:HAS_LEVEL]->(lev4)
-              CREATE UNIQUE (lev1)-[:POSITION_LEVEL_FOR]->(t)
-              CREATE UNIQUE (lev2)-[:POSITION_LEVEL_FOR]->(t)
-              CREATE UNIQUE (lev3)-[:POSITION_LEVEL_FOR]->(t)
-              CREATE UNIQUE (lev4)-[:POSITION_LEVEL_FOR]->(t)
-              RETURN tr
-            `, {tradeName})
-            .then(result => {
-              const { records } = result;
-              return extractNodes(records)[0];
-            })
-        }
-        return extractNodes(records)[0];
+        return newExtractNodes(records);
       })
   }
 
   createContractor(emplObj) {
+    // updated 7/7
     const session = this.driver.session();
-
     const sub = emplObj.sub
-
-
     const setProperties = createSetChain(emplObj);
-
     return session
       .run(`
         MERGE (n:Contractor { sub: "${sub}"})
@@ -120,7 +73,7 @@ class GraphApi {
       `)
       .then(result => {
         const { records } = result;
-        return extractNodes(records)[0];
+        return newExtractNodes(records);
       })
   }
 
@@ -139,6 +92,7 @@ class GraphApi {
   }
 
   updateContractor(emplObj) {
+    // updated 7/8
     const properties = JSON.parse(emplObj.properties)
     const updatedProperties = Object.keys(properties).map(property => {
       const value = properties[property]
@@ -154,30 +108,30 @@ class GraphApi {
       `)
       .then(result => {
         const { records } = result;
-        return extractNodes(records)[0]
+        return newExtractNodes(records);
       })
   }
 
-  getContractorByEmail(querySpecs) {
+  getContractorByEmail(email) {
+    //updated 7/7
     const session = this.driver.session();
     return session
       .run(`
-        MATCH (e:Contractor ${stringifyObject(querySpecs)})
-        RETURN e
-      `
-      /*`MATCH (e:Contractor) WHERE ID(e) = 33 RETURN e`*/
-      )
+        MATCH (c:Contractor ${stringifyObject({email})})
+        RETURN c
+      `)
       .then(({records}) => {
         session.close()
         if (_.isEmpty(records[0])) {
           return null
         } else {
-          return extractNodes(records)[0]
+          return newExtractNodes(records);
         }
       });
   }
 
   getParentNodeList(queryString, label) {
+    // TODO: update this method to match new schema
     const session = this.driver.session();
     return session
       .run(`
@@ -190,12 +144,13 @@ class GraphApi {
   }
 
   getContractorSkills(identity) {
+    // updated 7/7
     const session = this.driver.session();
     return session
       .run(`
         MATCH (c:Contractor) WHERE ID(c) = ${identity}
-        MATCH (c)-[:HAS_SKILL_INSTANCE]->(skillInstance)
-        RETURN skillInstance
+        MATCH (c)-[:HAS_SKILL]->(skill)
+        RETURN skill
       `)
       .then(({records}) => {
         return extractNodes(records);
@@ -206,19 +161,20 @@ class GraphApi {
   }
 
   addSkillToContractor(identity, skill) {
+    // updated 7/8, but for some reason not returning c in response.
+    // TODO: Debug this issue.
     const session = this.driver.session();
 
     return session
       .run(`
         MATCH (c:Contractor) WHERE ID(c) = ${identity}
-        MATCH (parentSkill:Skill { name: "${skill.name}" })
-        CREATE (skill:SkillInstance ${stringifyObject(skill)})-[:INSTANCE_OF]->(parentSkill),
-        (c)-[:HAS_SKILL_INSTANCE]->(skill)
-        RETURN skill
+        MATCH (skill:Skill { name: "${skill.name}" })
+        CREATE UNIQUE (c)-[:HAS_SKILL]->(skill)
+        RETURN c,skill
       `)
       .then(({ records }) => {
         session.close();
-        return extractNodes(records);
+        return newExtractNodes(records);
       })
       .catch(err => {
         console.error(err)
@@ -226,12 +182,13 @@ class GraphApi {
   }
 
   getContractorCertifications(identity) {
+    //updated - 7/7
     const session = this.driver.session();
     return session
       .run(`
         MATCH (c:Contractor) WHERE ID(c) = ${identity}
-        MATCH (c)-[:HAS_CERTIFICATION_INSTANCE]->(certInstance)
-        RETURN certInstance
+        MATCH (c)-[:HAS_CERTIFICATION]->(cert)
+        RETURN cert
       `)
       .then(({records}) => {
         session.close();
@@ -243,6 +200,7 @@ class GraphApi {
   }
 
   addContractorCertification(identity, certification) {
+    // TODO: update this method to match new schema
     const session = this.driver.session();
     return session
       .run(`
@@ -262,61 +220,28 @@ class GraphApi {
       })
   }
 
-  addContractorExperience(identity, experience) {
-    const session = this.driver.session();
-    return session
-      .run(`
-        MATCH (cont:Contractor) WHERE ID(cont) = ${identity}
-        MATCH (local:Location { name: "${experience.location}"}),
-        (company:Company { name: "${experience.company}"})
-        WHERE (company)-[:HAS_LOCATION]->(local)
-        CREATE (cont)-[:HAS_EXPERIENCE]->(e:Experience ${stringifyObject(experience)}),
-        (e)-[:AT]->(local)
-        RETURN e
-      `)
-      .then(result => {
-        const { records } = result;
-        session.close();
-        return extractNodes(records);
-      })
-      .catch(err => console.error(err))
-  }
-
-  getContractorExperience(identity) {
-    const session = this.driver.session();
-    return session
-      .run(`
-        MATCH (cont:Contractor) WHERE ID(cont) = ${identity}
-        MATCH (cont)-[:HAS_EXPERIENCE]->(exp)
-        RETURN exp
-      `)
-      .then(result => {
-        const { records } = result;
-        session.close();
-        return extractNodes(records);
-      })
-      .catch(err => console.error(err));
-  }
-
   getTeam(reqQuery) {
+    // updated 7/7
     const { teamId } = reqQuery;
     const session = this.driver.session();
     return session
       .run(`
         MATCH (t:Team) WHERE id(t) = ${teamId}
-        OPTIONAL MATCH (p:Project)-[]-(t)
-        OPTIONAL MATCH (l:Location)-[]-(p)
-        RETURN t,l,p
+        OPTIONAL MATCH (proj:Project)-[]-(t)
+        OPTIONAL MATCH (l:Location)-[]-(proj)
+        OPTIONAL MATCH (r:Role)-[]-(t)
+        RETURN t,l,proj,r
       `)
       .then(result => {
         const { records } = result;
         session.close();
-        return extractNodes(records);
+        return newExtractNodes(records);
       })
       .catch(err => console.error(err));
   }
 
   getTeams() {
+    // updated 7/7
     const session = this.driver.session();
     return session
       .run(`
@@ -332,6 +257,7 @@ class GraphApi {
   }
 
   createTeam(reqBody) {
+    // up to date 7/7
     const { teamName, projectId, startDate, endDate } = reqBody;
 
     const session = this.driver.session();
@@ -340,8 +266,10 @@ class GraphApi {
         MATCH (project:Project) where id(project) = ${projectId}
         CREATE (team:Team {
           name: $teamName,
-          startDate: $startDate, endDate: $endDate,
-          created_at: '${new Date()}'})-[:TEAM_FOR]->(project)
+          startDate: $startDate,
+          endDate: $endDate,
+          created_at: '${new Date()}'
+        })-[:TEAM_FOR]->(project)
         RETURN team
       `, {teamName, startDate, endDate})
       .then(result => {
@@ -357,6 +285,7 @@ class GraphApi {
   }
 
   createProject(reqBody) {
+    // up to date 7/7
     const { projectName, locationId } = reqBody;
 
     const session = this.driver.session();
@@ -379,22 +308,26 @@ class GraphApi {
   }
 
   getProject(reqQuery) {
+    // updated 7/7
     const { projectId } = reqQuery;
     const session = this.driver.session();
     return session
       .run(`
-        MATCH (p:Project) WHERE ID(p) = ${projectId}
-        RETURN p
+        MATCH (proj:Project) WHERE ID(proj) = ${projectId}
+        OPTIONAL MATCH (t:Team)-[]-(proj)
+        OPTIONAL MATCH (l:Location)-[]-(proj)
+        RETURN proj,l,t
       `)
       .then(result => {
         const { records } = result;
         session.close();
-        return extractNodes(records);
+        return newExtractNodes(records);
       })
       .catch(err => console.error(err));
   }
 
   getProjects() {
+    // up to date 7/7
     const session = this.driver.session();
     return session
       .run(`
@@ -407,73 +340,6 @@ class GraphApi {
         return extractNodes(records);
       })
       .catch(err => console.error(err));
-  }
-
-  connectContractorToPositionViaExperience(reqBody) {
-    //This creates an experience node, and then connects to both a contractor node and a positionLevel node
-    //Essentially, this is how we are adding a contractor to a team.
-    const {positionLevelId, contractorId, teamId, roleId} = reqBody;
-    const session = this.driver.session();
-    return session
-      .run(`
-        MATCH (c:Contractor) where id(c) = ${contractorId}
-        MATCH (l:PositionLevel) where id(l) = ${positionLevelId}
-        MATCH (r:Role) where id(r) = ${roleId}
-        MATCH (t:Team) where id(t) = ${teamId}
-        CREATE (e:Experience)
-        CREATE UNIQUE (c)-[:HAS_EXPERIENCE]->(e)-[:IS_EXPERIENCE_FOR]->(l)
-        CREATE UNIQUE (e)-[:IS_MEMBER_EXPERIENCE_FOR]->(r)-[:IS_ROLE_FOR]->(t)
-        RETURN c,e,l,t,r
-      `)
-      .then(result => {
-        const { records } = result;
-        session.close();
-        return result
-      })
-      .catch(err => {
-        console.error(err)
-      });
-
-  }
-
-  addExperienceToTeam(reqBody) {
-    const {experienceId, teamId} = reqBody;
-    const session = this.driver.session();
-    return session
-      .run(`
-        MATCH (team:Team) where id(team) = ${teamId}
-        MATCH (exp:Experience) where id(exp) = ${experienceId}
-        CREATE UNIQUE (exp)-[:IS_EXPERIENCE_FOR]->(team)
-        RETURN team
-      `)
-      .then(result => {
-        const { records } = result;
-        session.close();
-        return result
-      })
-      .catch(err => {
-        console.error(err)
-      });
-  }
-
-  removeExperienceFromTeam(reqBody) {
-    const {experienceId, teamId} = reqBody;
-    const session = this.driver.session();
-    return session
-      .run(`
-        MATCH (team:Team) where id(team) = ${teamId}
-        MATCH (exp:Experience) where id(exp) = ${experienceId}
-        MATCH (exp)-[r:IS_EXPERIENCE_FOR]->(team)
-        delete r
-      `)
-      .then(result => {
-        const { records } = result;
-        session.close();
-        return result
-      })
-      .catch(err => {
-        console.error(err)
-      });
   }
 
   updateNode(id, properties) {
@@ -495,16 +361,17 @@ class GraphApi {
   }
 
   getTeamRoles(teamId) {
+    // updated 7/7
     const session = this.driver.session();
     return session
       .run(`
         MATCH (t:Team) WHERE ID(t) = ${teamId}
-        MATCH (t)-[:REQUIRES_ROLE]->(r)
-        RETURN r
+        MATCH (t)-[:HAS_ROLE]->(r)
+        RETURN t,r
       `)
       .then(({ records }) => {
         session.close()
-        return extractNodes(records)
+        return newExtractNodes(records)
       })
   }
 
@@ -533,16 +400,6 @@ class GraphApi {
       .then( ({ records }) => {
         session.close()
         return extractNodes(records)
-      });
-  }
-
-  getPositionLevels() {
-    const session = this.driver.session();
-    return session
-      .run(`MATCH (pl:PositionLevel) RETURN pl`)
-      .then( ({records}) => {
-        session.close();
-        return extractNodes(records);
       });
   }
 
