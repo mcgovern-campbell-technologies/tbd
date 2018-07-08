@@ -29,17 +29,19 @@ function newExtractNodes(queryResult, targetLabel) {
 
   _.forEach(queryResult, ele => {
     _.forEach(ele._fields, field => {
-      targetLabel = targetLabel || field.labels[0];
-      if (field.labels[0] === targetLabel) {
-        Object.assign(response, buildNodeShape(field));
-      } else {
-        if (!Array.isArray(response[field.labels[0] + "s"])) {
-          response[field.labels[0] + "s"] = [];
-        }
-        relatedNode = buildNodeShape(field);
+      if (field) {
+        targetLabel = targetLabel || field.labels[0];
+        if (field.labels[0] === targetLabel) {
+          Object.assign(response, buildNodeShape(field));
+        } else {
+          if (!Array.isArray(response[field.labels[0] + "s"])) {
+            response[field.labels[0] + "s"] = [];
+          }
+          relatedNode = buildNodeShape(field);
 
-        if (response[field.labels[0] + "s"].findIndex(ele => ele.id === relatedNode.id) < 0) {
-          response[field.labels[0] + "s"].push(relatedNode);
+          if (response[field.labels[0] + "s"].findIndex(ele => ele.id === relatedNode.id) < 0) {
+            response[field.labels[0] + "s"].push(relatedNode);
+          }
         }
       }
     })
