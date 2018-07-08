@@ -341,13 +341,15 @@ class GraphApi {
     const session = this.driver.session();
     return session
       .run(`
-        MATCH (p:Project) WHERE ID(p) = ${projectId}
-        RETURN p
+        MATCH (proj:Project) WHERE ID(proj) = ${projectId}
+        OPTIONAL MATCH (t:Team)-[]-(proj)
+        OPTIONAL MATCH (l:Location)-[]-(proj)
+        RETURN proj,l,t
       `)
       .then(result => {
         const { records } = result;
         session.close();
-        return extractNodes(records);
+        return newExtractNodes(records);
       })
       .catch(err => console.error(err));
   }
