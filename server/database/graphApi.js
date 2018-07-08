@@ -33,20 +33,18 @@ class GraphApi {
   }
 
   getNodeById(id) {
-    // TODO: update this method to match new schema
-
+    // updated 7/7 but not verified
     const session = this.driver.session();
     return session
       .run(`MATCH (n) where id(n) = ${id} RETURN n`)
       .then(result => {
         const { records } = result;
-        return extractNodes(records)[0];
+        return newExtractNodes(records);
       })
   }
 
   createLocation(reqBody) {
-    // TODO: update this method to match new schema
-
+    // updated 7/7
     const {locationName, companyId} = reqBody;
     const session = this.driver.session();
     return session
@@ -54,11 +52,11 @@ class GraphApi {
         MATCH (c:Company) where id(c) = ${companyId}
         MERGE (l:Location {name: $locationName})
         CREATE UNIQUE (c)-[r:HAS_LOCATION]->(l)
-        RETURN l
+        RETURN l,c
       `, {locationName})
       .then(result => {
         const { records } = result;
-        return extractNodes(records)[0];
+        return newExtractNodes(records);
       })
   }
 
