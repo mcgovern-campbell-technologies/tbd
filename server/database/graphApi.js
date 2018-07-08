@@ -33,6 +33,8 @@ class GraphApi {
   }
 
   getNodeById(id) {
+    // TODO: update this method to match new schema
+
     const session = this.driver.session();
     return session
       .run(`MATCH (n) where id(n) = ${id} RETURN n`)
@@ -43,6 +45,8 @@ class GraphApi {
   }
 
   createLocation(reqBody) {
+    // TODO: update this method to match new schema
+
     const {locationName, companyId} = reqBody;
     const session = this.driver.session();
     return session
@@ -58,21 +62,12 @@ class GraphApi {
       })
   }
 
-  getAllTrades() {
-    const session = this.driver.session();
-    return session
-      .run(`MATCH (tr:Trade)-[]->(pl:PositionLevel) return tr,pl`)
-      .then(result => {
-        const { records } = result;
-        return extractNodesWithRelatedNodes(records, 'positionLevels');
-      })
-  }
 
   createContractor(emplObj) {
+    // TODO: update this method to match new schema
     const session = this.driver.session();
 
     const sub = emplObj.sub
-
 
     const setProperties = createSetChain(emplObj);
 
