@@ -251,7 +251,7 @@ class GraphApi {
       .then(result => {
         const { records } = result;
         session.close();
-        return newExtractNodes(records);
+        return extractNodes(records);
       })
       .catch(err => console.error(err));
   }
