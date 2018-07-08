@@ -228,6 +228,7 @@ class GraphApi {
   }
 
   getContractorCertifications(identity) {
+    //updated - 7/7
     const session = this.driver.session();
     return session
       .run(`
@@ -282,22 +283,6 @@ class GraphApi {
         return extractNodes(records);
       })
       .catch(err => console.error(err))
-  }
-
-  getContractorExperience(identity) {
-    const session = this.driver.session();
-    return session
-      .run(`
-        MATCH (cont:Contractor) WHERE ID(cont) = ${identity}
-        MATCH (cont)-[:HAS_EXPERIENCE]->(exp)
-        RETURN exp
-      `)
-      .then(result => {
-        const { records } = result;
-        session.close();
-        return extractNodes(records);
-      })
-      .catch(err => console.error(err));
   }
 
   getTeam(reqQuery) {
