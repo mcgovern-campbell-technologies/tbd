@@ -257,8 +257,7 @@ class GraphApi {
         OPTIONAL MATCH (proj:Project)-[]-(t)
         OPTIONAL MATCH (l:Location)-[]-(proj)
         OPTIONAL MATCH (r:Role)-[]-(t)
-        OPTIONAL MATCH (pos:Position)-[]-(r)
-        RETURN t,l,proj,pos
+        RETURN t,l,proj,r
       `)
       .then(result => {
         const { records } = result;
@@ -355,7 +354,7 @@ class GraphApi {
   }
 
   getProjects() {
-    // TODO: update this method to match new schema
+    // up to date 7/7
     const session = this.driver.session();
     return session
       .run(`
@@ -389,17 +388,17 @@ class GraphApi {
   }
 
   getTeamRoles(teamId) {
-    // TODO: update this method to match new schema
+    // updated 7/7
     const session = this.driver.session();
     return session
       .run(`
         MATCH (t:Team) WHERE ID(t) = ${teamId}
-        MATCH (t)-[:REQUIRES_ROLE]->(r)
-        RETURN r
+        MATCH (t)-[:HAS_ROLE]->(r)
+        RETURN t,r
       `)
       .then(({ records }) => {
         session.close()
-        return extractNodes(records)
+        return newExtractNodes(records)
       })
   }
 
