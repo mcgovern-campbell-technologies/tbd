@@ -167,14 +167,14 @@ class GraphApi {
     return session
       .run(`
         MATCH (c:Contractor) WHERE ID(c) = ${identity}
-        MATCH (parentSkill:Skill { name: "${skill.name}" })
-        CREATE (skill:SkillInstance ${stringifyObject(skill)})-[:INSTANCE_OF]->(parentSkill),
-        (c)-[:HAS_SKILL_INSTANCE]->(skill)
-        RETURN skill
+        MATCH (skill:Skill { name: "${skill.name}" })
+        CREATE UNIQUE (c)-[:HAS_SKILL]->(skill)
+        RETURN c,skill
       `)
       .then(({ records }) => {
         session.close();
-        return extractNodes(records);
+        console.log(records)
+        return newExtractNodes(records);
       })
       .catch(err => {
         console.error(err)
