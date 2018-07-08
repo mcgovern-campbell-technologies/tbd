@@ -4,6 +4,7 @@ const stringifyObject = require('stringify-object');
 const {
   contractorHasNecessaryProps,
   extractNodes,
+  newExtractNodes,
   extractRows,
   extractNodesWithRelatedNodes,
   mapTypeToQuery,
@@ -304,14 +305,16 @@ class GraphApi {
     return session
       .run(`
         MATCH (t:Team) WHERE id(t) = ${teamId}
-        OPTIONAL MATCH (p:Project)-[]-(t)
-        OPTIONAL MATCH (l:Location)-[]-(p)
-        RETURN t,l,p
+        OPTIONAL MATCH (proj:Project)-[]-(t)
+        OPTIONAL MATCH (l:Location)-[]-(proj)
+        OPTIONAL MATCH (r:Role)-[]-(t)
+        OPTIONAL MATCH (pos:Position)-[]-(r)
+        RETURN t,l,proj,pos
       `)
       .then(result => {
         const { records } = result;
         session.close();
-        return extractNodes(records);
+        return newExtractNodes(records);
       })
       .catch(err => console.error(err));
   }
