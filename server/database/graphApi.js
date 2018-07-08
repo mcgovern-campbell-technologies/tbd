@@ -232,8 +232,8 @@ class GraphApi {
     return session
       .run(`
         MATCH (c:Contractor) WHERE ID(c) = ${identity}
-        MATCH (c)-[:HAS_CERTIFICATION_INSTANCE]->(certInstance)
-        RETURN certInstance
+        MATCH (c)-[:HAS_CERTIFICATION]->(cert)
+        RETURN cert
       `)
       .then(({records}) => {
         session.close();
