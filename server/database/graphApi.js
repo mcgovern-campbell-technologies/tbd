@@ -98,6 +98,7 @@ class GraphApi {
   }
 
   updateContractor(emplObj) {
+    // TODO: update this method to match new schema
     const properties = JSON.parse(emplObj.properties)
     const updatedProperties = Object.keys(properties).map(property => {
       const value = properties[property]
@@ -118,6 +119,7 @@ class GraphApi {
   }
 
   getContractorByEmail(querySpecs) {
+    // TODO: update this method to match new schema
     const session = this.driver.session();
     return session
       .run(`
@@ -137,6 +139,7 @@ class GraphApi {
   }
 
   getParentNodeList(queryString, label) {
+    // TODO: update this method to match new schema
     const session = this.driver.session();
     return session
       .run(`
@@ -149,12 +152,13 @@ class GraphApi {
   }
 
   getContractorSkills(identity) {
+    // updated 7/7
     const session = this.driver.session();
     return session
       .run(`
         MATCH (c:Contractor) WHERE ID(c) = ${identity}
-        MATCH (c)-[:HAS_SKILL_INSTANCE]->(skillInstance)
-        RETURN skillInstance
+        MATCH (c)-[:HAS_SKILL]->(skill)
+        RETURN skill
       `)
       .then(({records}) => {
         return extractNodes(records);
@@ -165,6 +169,7 @@ class GraphApi {
   }
 
   addSkillToContractor(identity, skill) {
+    // TODO: update this method to match new schema
     const session = this.driver.session();
 
     return session
@@ -283,7 +288,6 @@ class GraphApi {
 
   createTeam(reqBody) {
     // TODO: update this method to match new schema
-
     const { teamName, projectId, startDate, endDate } = reqBody;
 
     const session = this.driver.session();
@@ -366,8 +370,6 @@ class GraphApi {
       .catch(err => console.error(err));
   }
 
-
-
   updateNode(id, properties) {
     const session = this.driver.session();
     const updatedProperties = createSetChain(properties)
@@ -425,16 +427,6 @@ class GraphApi {
       .then( ({ records }) => {
         session.close()
         return extractNodes(records)
-      });
-  }
-
-  getPositionLevels() {
-    const session = this.driver.session();
-    return session
-      .run(`MATCH (pl:PositionLevel) RETURN pl`)
-      .then( ({records}) => {
-        session.close();
-        return extractNodes(records);
       });
   }
 
