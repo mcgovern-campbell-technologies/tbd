@@ -34,12 +34,12 @@ function newExtractNodes(queryResult, targetLabel) {
         Object.assign(response, buildNodeShape(field));
       } else {
         if (!Array.isArray(response[field.labels[0]])) {
-          response[field.labels[0]] = [];
+          response[field.labels[0] + "s"] = [];
         }
         relatedNode = buildNodeShape(field);
 
-        if (response[field.labels[0]].findIndex(ele => ele.id === relatedNode.id) < 0) {
-          response[field.labels[0]].push(relatedNode);
+        if (response[field.labels[0] + "s"].findIndex(ele => ele.id === relatedNode.id) < 0) {
+          response[field.labels[0] + "s"].push(relatedNode);
         }
       }
     })
