@@ -161,7 +161,8 @@ class GraphApi {
   }
 
   addSkillToContractor(identity, skill) {
-    // TODO: update this method to match new schema
+    // updated 7/8, but for some reason not returning c in response.
+    // TODO: Debug this issue.
     const session = this.driver.session();
 
     return session
@@ -173,7 +174,6 @@ class GraphApi {
       `)
       .then(({ records }) => {
         session.close();
-        console.log(records)
         return newExtractNodes(records);
       })
       .catch(err => {
@@ -218,27 +218,6 @@ class GraphApi {
       .catch(err => {
         console.error(err)
       })
-  }
-
-  addContractorExperience(identity, experience) {
-    // TODO: update this method to match new schema
-    const session = this.driver.session();
-    return session
-      .run(`
-        MATCH (cont:Contractor) WHERE ID(cont) = ${identity}
-        MATCH (local:Location { name: "${experience.location}"}),
-        (company:Company { name: "${experience.company}"})
-        WHERE (company)-[:HAS_LOCATION]->(local)
-        CREATE (cont)-[:HAS_EXPERIENCE]->(e:Experience ${stringifyObject(experience)}),
-        (e)-[:AT]->(local)
-        RETURN e
-      `)
-      .then(result => {
-        const { records } = result;
-        session.close();
-        return extractNodes(records);
-      })
-      .catch(err => console.error(err))
   }
 
   getTeam(reqQuery) {

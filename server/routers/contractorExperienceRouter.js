@@ -10,13 +10,13 @@ const _ = require('lodash');
 //     .then(result => res.send(result))
 // })
 
-router.post('/', (req, res) => {
-  const { body, query, graphApi } = req;
-  const { identity } = query;
-
-  graphApi.addContractorExperience(identity, body)
-    .then(result => res.send(result))
-})
+// router.post('/', (req, res) => {
+//   const { body, query, graphApi } = req;
+//   const { identity } = query;
+//
+//   graphApi.addContractorExperience(identity, body)
+//     .then(result => res.send(result))
+// })
 
 // router.post('/position', (req, res) => {
 //   const { body, query, graphApi } = req;
