@@ -32,18 +32,18 @@ router.post('/', (req, res) => {
 
 // POST /api/team/experience
 // add an existing experience to an existing team
-router.post('/experience', (req, res) => {
-  const { body, query } = req;
-  if (body.remove) {
-    req.graphApi.removeExperienceFromTeam(body)
-    .then(result => res.send(result))
-    .catch(err => res.send(err));
-  } else {
-    req.graphApi.addExperienceToTeam(body)
-    .then(result => res.send(result))
-    .catch(err => res.send(err));
-  }
-});
+// router.post('/experience', (req, res) => {
+//   const { body, query } = req;
+//   if (body.remove) {
+//     req.graphApi.removeExperienceFromTeam(body)
+//     .then(result => res.send(result))
+//     .catch(err => res.send(err));
+//   } else {
+//     req.graphApi.addExperienceToTeam(body)
+//     .then(result => res.send(result))
+//     .catch(err => res.send(err));
+//   }
+// });
 
 router.use('/role', teamRouter)
 

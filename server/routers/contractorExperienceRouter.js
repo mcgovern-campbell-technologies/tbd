@@ -3,12 +3,12 @@ const express = require('express');
 const router = express.Router();
 const _ = require('lodash');
 
-router.get('/', (req, res) => {
-  const { query, graphApi } = req;
-  const { identity } = query;
-  graphApi.getContractorExperience(identity)
-    .then(result => res.send(result))
-})
+// router.get('/', (req, res) => {
+//   const { query, graphApi } = req;
+//   const { identity } = query;
+//   graphApi.getContractorExperience(identity)
+//     .then(result => res.send(result))
+// })
 
 router.post('/', (req, res) => {
   const { body, query, graphApi } = req;
@@ -18,12 +18,12 @@ router.post('/', (req, res) => {
     .then(result => res.send(result))
 })
 
-router.post('/position', (req, res) => {
-  const { body, query, graphApi } = req;
-
-  graphApi.connectContractorToPositionViaExperience(body)
-    .then(result => res.send(result))
-})
+// router.post('/position', (req, res) => {
+//   const { body, query, graphApi } = req;
+//
+//   graphApi.connectContractorToPositionViaExperience(body)
+//     .then(result => res.send(result))
+// })
 
 router.delete('/', (req, res) => {
 
