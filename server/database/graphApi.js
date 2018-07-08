@@ -246,6 +246,7 @@ class GraphApi {
   }
 
   addContractorCertification(identity, certification) {
+    // TODO: update this method to match new schema
     const session = this.driver.session();
     return session
       .run(`
@@ -266,6 +267,7 @@ class GraphApi {
   }
 
   addContractorExperience(identity, experience) {
+    // TODO: update this method to match new schema
     const session = this.driver.session();
     return session
       .run(`
@@ -286,6 +288,7 @@ class GraphApi {
   }
 
   getTeam(reqQuery) {
+    // updated 7/7
     const { teamId } = reqQuery;
     const session = this.driver.session();
     return session
@@ -306,6 +309,7 @@ class GraphApi {
   }
 
   getTeams() {
+    // updated 7/7
     const session = this.driver.session();
     return session
       .run(`
@@ -321,6 +325,8 @@ class GraphApi {
   }
 
   createTeam(reqBody) {
+    // TODO: update this method to match new schema
+
     const { teamName, projectId, startDate, endDate } = reqBody;
 
     const session = this.driver.session();
@@ -348,6 +354,7 @@ class GraphApi {
   }
 
   createProject(reqBody) {
+    // TODO: update this method to match new schema
     const { projectName, locationId } = reqBody;
 
     const session = this.driver.session();
@@ -370,6 +377,7 @@ class GraphApi {
   }
 
   getProject(reqQuery) {
+    // TODO: update this method to match new schema
     const { projectId } = reqQuery;
     const session = this.driver.session();
     return session
@@ -386,6 +394,7 @@ class GraphApi {
   }
 
   getProjects() {
+    // TODO: update this method to match new schema
     const session = this.driver.session();
     return session
       .run(`
@@ -398,33 +407,6 @@ class GraphApi {
         return extractNodes(records);
       })
       .catch(err => console.error(err));
-  }
-
-  connectContractorToPositionViaExperience(reqBody) {
-    //This creates an experience node, and then connects to both a contractor node and a positionLevel node
-    //Essentially, this is how we are adding a contractor to a team.
-    const {positionLevelId, contractorId, teamId, roleId} = reqBody;
-    const session = this.driver.session();
-    return session
-      .run(`
-        MATCH (c:Contractor) where id(c) = ${contractorId}
-        MATCH (l:PositionLevel) where id(l) = ${positionLevelId}
-        MATCH (r:Role) where id(r) = ${roleId}
-        MATCH (t:Team) where id(t) = ${teamId}
-        CREATE (e:Experience)
-        CREATE UNIQUE (c)-[:HAS_EXPERIENCE]->(e)-[:IS_EXPERIENCE_FOR]->(l)
-        CREATE UNIQUE (e)-[:IS_MEMBER_EXPERIENCE_FOR]->(r)-[:IS_ROLE_FOR]->(t)
-        RETURN c,e,l,t,r
-      `)
-      .then(result => {
-        const { records } = result;
-        session.close();
-        return result
-      })
-      .catch(err => {
-        console.error(err)
-      });
-
   }
 
   addExperienceToTeam(reqBody) {
