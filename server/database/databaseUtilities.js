@@ -33,7 +33,7 @@ function newExtractNodes(queryResult, targetLabel) {
       if (field.labels[0] === targetLabel) {
         Object.assign(response, buildNodeShape(field));
       } else {
-        if (!Array.isArray(response[field.labels[0]])) {
+        if (!Array.isArray(response[field.labels[0] + "s"])) {
           response[field.labels[0] + "s"] = [];
         }
         relatedNode = buildNodeShape(field);
