@@ -60,15 +60,11 @@ class GraphApi {
       })
   }
 
-
   createContractor(emplObj) {
-    // TODO: update this method to match new schema
+    // updated 7/7
     const session = this.driver.session();
-
     const sub = emplObj.sub
-
     const setProperties = createSetChain(emplObj);
-
     return session
       .run(`
         MERGE (n:Contractor { sub: "${sub}"})
@@ -77,7 +73,7 @@ class GraphApi {
       `)
       .then(result => {
         const { records } = result;
-        return extractNodes(records)[0];
+        return newExtractNodes(records);
       })
   }
 
