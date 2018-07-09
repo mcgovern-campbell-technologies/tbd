@@ -5,7 +5,7 @@ const router = express.Router();
 const _ = require('lodash');
 const contractorSkillsRouter = require('./contractorSkillsRouter');
 const contractorCertificationsRouter = require('./contractorCertificationsRouter');
-const contractorExperienceRouter = require('./contractorExperienceRouter');
+const contractorPositionRouter = require('./contractorPositionRouter');
 const jwtCheck = require('./../auth/auth').jwtCheck;
 
 
@@ -49,6 +49,6 @@ router.post('/update', (req, res) => {
 
 router.use('/skills', contractorSkillsRouter);
 router.use('/certifications', contractorCertificationsRouter);
-router.use('/experience', contractorExperienceRouter);
+router.use('/position', contractorPositionRouter);
 
 module.exports = router
