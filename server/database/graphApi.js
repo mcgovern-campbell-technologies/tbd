@@ -411,8 +411,42 @@ class GraphApi {
       `, { name, totalPositions, description, rate, skillLevel })
       .then( ({ records }) => {
         session.close()
+        return newExtractNodes(records);
+      });
+  }
+
+  addContractorToPosition(contractorId, positionId) {
+    const session = this.driver.session();
+    return session
+      .run(`
+        MATCH (p:Position) WHERE ID(p) = ${positionId}
+        MATCH (c:Contractor) WHERE ID(c) = ${contractorId}
+        SET p.status = 'filled'
+        CREATE UNIQUE (p)<-[:HAS_POSITION]-(c)
+        RETURN p,c
+      `)
+      .then( ({ records }) => {
+        session.close()
+        return newExtractNodes(records)
+      });
+  }
+
+  removeContractorFromPosition(contractorId, positionId) {
+    const session = this.driver.session();
+    return session
+      .run(`
+        MATCH (p:Position) WHERE ID(p) = ${positionId}
+        MATCH (c:Contractor) WHERE ID(c) = ${contractorId}
+        OPTIONAL MATCH (p)<-[rel:HAS_POSITION]-(c)
+        SET p.status = 'unfilled'
+        DELETE rel
+        RETURN p
+      `)
+      .then( ({ records }) => {
+        session.close()
         return extractNodes(records)
       });
+
   }
 
 }
