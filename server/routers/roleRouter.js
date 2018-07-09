@@ -1,6 +1,6 @@
 /*
 
- /api/team/roles
+ /api/team/role
 
 */
 
@@ -22,12 +22,10 @@ router.get('/', (req, res) => {
 
 //Add a role to a team
 router.post('/', (req, res) => {
-
   const { graphApi, query, body } = req
-  const { teamId } = query
 
   graphApi
-    .createTeamRole(parseInt(teamId), body)
+    .createRole(body)
     .then(result => res.send(result))
     .catch(err => res.send(err))
 
