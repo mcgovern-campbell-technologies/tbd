@@ -378,6 +378,7 @@ class GraphApi {
   }
 
   createRole(role) {
+    //updated 7/8
     const {
       teamId,
       name,
@@ -413,12 +414,6 @@ class GraphApi {
         return extractNodes(records)
       });
   }
-
-  deleteRole() {
-
-  }
-
-
 
 }
 
