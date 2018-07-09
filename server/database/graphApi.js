@@ -446,7 +446,20 @@ class GraphApi {
         session.close()
         return extractNodes(records)
       });
+  }
 
+  getContractorsByRole(roleId) {
+    const session = this.driver.session();
+    return session
+      .run(`
+        MATCH (r:Role) WHERE ID(r) = ${roleId}
+        OPTIONAL MATCH (r)<-[:IS_POSITION_FOR]-(p:Position)<-[:HAS_POSITION]-(c:Contractor)
+        RETURN c
+      `)
+      .then( ({ records }) => {
+        session.close()
+        return extractNodes(records)
+      });
   }
 
 }
