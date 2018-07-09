@@ -3,7 +3,7 @@ const express = require('express');
 const router = express.Router();
 const _ = require('lodash');
 
-const teamRouter = require('./roleRouter');
+const roleRouter = require('./roleRouter');
 
 // Get a team by ID: GET /api/team?teamId=4
 // Get all teams: GET /api/team
@@ -30,21 +30,6 @@ router.post('/', (req, res) => {
     .catch(err => res.send(err));
 });
 
-// POST /api/team/experience
-// add an existing experience to an existing team
-// router.post('/experience', (req, res) => {
-//   const { body, query } = req;
-//   if (body.remove) {
-//     req.graphApi.removeExperienceFromTeam(body)
-//     .then(result => res.send(result))
-//     .catch(err => res.send(err));
-//   } else {
-//     req.graphApi.addExperienceToTeam(body)
-//     .then(result => res.send(result))
-//     .catch(err => res.send(err));
-//   }
-// });
-
-router.use('/role', teamRouter)
+router.use('/role', roleRouter)
 
 module.exports = router
