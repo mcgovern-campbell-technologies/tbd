@@ -230,7 +230,9 @@ class GraphApi {
         OPTIONAL MATCH (proj:Project)-[]-(t)
         OPTIONAL MATCH (l:Location)-[]-(proj)
         OPTIONAL MATCH (r:Role)-[]-(t)
-        RETURN t,l,proj,r
+        OPTIONAL MATCH (pos:Position)-[]-(r)
+        OPTIONAL MATCH (cont:Contractor)-[]-(pos)
+        RETURN t,l,proj,r,pos,cont
       `)
       .then(result => {
         const { records } = result;
@@ -375,33 +377,48 @@ class GraphApi {
       })
   }
 
-  createTeamRole(teamId, role) {
+  createRole(role) {
     const {
-      positionLevelId,
-      requiredNumber,
+      teamId,
+      name,
+      totalPositions,
       description,
-      position,
-      positionLevel
-    } = _.mapValues(role, (value) => !isNaN(value)? parseInt(value) : value);
+      rate,
+      skillLevel,
+    } = _.mapValues(role, (value) => !isNaN(value) ? parseInt(value) : value);
 
     const session = this.driver.session();
+    let createPositionNodesSegment = "";
+    for (let i = 0; i < totalPositions; i++) {
+      createPositionNodesSegment += `CREATE (pos${i}:Position {status: 'unfilled', name: '${name} position'})-[:IS_POSITION_FOR]->(r)\n `
+    }
+
     return session
       .run(`
-        MATCH (t:Team) WHERE ID(t) = $teamId
-        MATCH (pl:PositionLevel) WHERE ID(pl) = $positionLevelId
-        CREATE (t)-[:REQUIRES_ROLE]->(r:Role {
-          requiredNumber: $requiredNumber,
+        MATCH (t:Team) WHERE ID(t) = ${teamId}
+        CREATE (r:Role {
+          created_at: '${new Date()}',
+          name: $name,
+          totalPositions: $totalPositions,
           description: $description,
-          position: $position,
-          positionLevel: $positionLevel
-        })-[:ROLE_AT]->(pl)
-        RETURN r
-      `, { teamId, positionLevelId, requiredNumber, description, position, positionLevel })
+          rate: $rate,
+          skillLevel: $skillLevel
+        })
+        CREATE UNIQUE (t)-[:HAS_ROLE]->(r)
+        ${createPositionNodesSegment}
+        RETURN r,t
+      `, { name, totalPositions, description, rate, skillLevel })
       .then( ({ records }) => {
         session.close()
         return extractNodes(records)
       });
   }
+
+  deleteRole() {
+
+  }
+
+
 
 }
 
