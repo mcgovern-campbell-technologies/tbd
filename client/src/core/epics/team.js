@@ -4,7 +4,6 @@ import {
   ADD_TEAM,
   GET_TEAM,
   GET_ALL_TEAMS,
-  GET_ALL_TEAMS_FULFILLED,
   GET_TEAM_FULFILLED,
 } from '../utils/types';
 import { closeDialog } from '../actions/dialog';
@@ -22,15 +21,8 @@ const addTeamEpic = (action$, store) => {
 const getAllTeamsEpic = (action$) => {
   return action$
     .ofType(GET_ALL_TEAMS)
-    .mergeMap(
-      action => {
-        return api.getAllTeams()
-          .map(response => {
-            return getAllTeamsFulfilled(response);
-          })
-      }
-    )
-    .concat(action$.mapTo({ type: GET_ALL_TEAMS_FULFILLED }))
+    .switchMap(action => api.getAllTeams())
+    .map((response) => getAllTeamsFulfilled(response))
 };
 
 const getTeamEpic = (action$) => {

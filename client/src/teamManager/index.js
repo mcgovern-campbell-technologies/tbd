@@ -21,7 +21,7 @@ class TeamManager extends Component {
   componentWillMount() {
     this.props.getAllTeams();
     this.props.getAllProjects();
-    this.props.getTrades();
+    // this.props.getTrades();
   }
 
   handleRowClick(teamId) {
@@ -45,10 +45,10 @@ class TeamManager extends Component {
             {this.props.teams.allTeams.map(team => {
               return (
                 <TableRow key={team.identity} onClick={()=>{this.handleRowClick(team.identity)}} >
-                  <TableCell>{team.properties.name}</TableCell>
-                  <TableCell>{team.properties.projectName}</TableCell>
-                  <TableCell>{team.properties.startDate}</TableCell>
-                  <TableCell>{team.properties.endDate}</TableCell>
+                  <TableCell>{team.name}</TableCell>
+                  <TableCell>{team.projectName}</TableCell>
+                  <TableCell>{team.startDate}</TableCell>
+                  <TableCell>{team.endDate}</TableCell>
                   <TableCell>3/34</TableCell>
                 </TableRow>
               );

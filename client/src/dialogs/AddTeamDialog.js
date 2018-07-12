@@ -30,7 +30,7 @@ function AddTeamDialog({ onDialogButtonClose, onAddTeam, projects }) {
         >
           {projects.allProjects.map(project => (
             <MenuItem key={project.identity} value={project.identity}>
-              {project.properties.name}
+              {project.name}
             </MenuItem>
           ))}
         </Field>
