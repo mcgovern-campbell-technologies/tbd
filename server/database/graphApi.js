@@ -230,7 +230,9 @@ class GraphApi {
         OPTIONAL MATCH (proj:Project)-[]-(t)
         OPTIONAL MATCH (l:Location)-[]-(proj)
         OPTIONAL MATCH (r:Role)-[]-(t)
-        RETURN t,l,proj,r
+        OPTIONAL MATCH (pos:Position)-[]-(r)
+        OPTIONAL MATCH (cont:Contractor)-[]-(pos)
+        RETURN t,l,proj,r,pos,cont
       `)
       .then(result => {
         const { records } = result;
@@ -375,28 +377,85 @@ class GraphApi {
       })
   }
 
-  createTeamRole(teamId, role) {
+  createRole(role) {
+    //updated 7/8
     const {
-      positionLevelId,
-      requiredNumber,
+      teamId,
+      name,
+      totalPositions,
       description,
-      position,
-      positionLevel
-    } = _.mapValues(role, (value) => !isNaN(value)? parseInt(value) : value);
+      rate,
+      skillLevel,
+    } = _.mapValues(role, (value) => !isNaN(value) ? parseInt(value) : value);
 
+    const session = this.driver.session();
+    let createPositionNodesSegment = "";
+    for (let i = 0; i < totalPositions; i++) {
+      createPositionNodesSegment += `CREATE (pos${i}:Position {status: 'unfilled', name: '${name} position'})-[:IS_POSITION_FOR]->(r)\n `
+    }
+
+    return session
+      .run(`
+        MATCH (t:Team) WHERE ID(t) = ${teamId}
+        CREATE (r:Role {
+          created_at: '${new Date()}',
+          name: $name,
+          totalPositions: $totalPositions,
+          description: $description,
+          rate: $rate,
+          skillLevel: $skillLevel
+        })
+        CREATE UNIQUE (t)-[:HAS_ROLE]->(r)
+        ${createPositionNodesSegment}
+        RETURN r,t
+      `, { name, totalPositions, description, rate, skillLevel })
+      .then( ({ records }) => {
+        session.close()
+        return newExtractNodes(records);
+      });
+  }
+
+  addContractorToPosition(contractorId, positionId) {
     const session = this.driver.session();
     return session
       .run(`
-        MATCH (t:Team) WHERE ID(t) = $teamId
-        MATCH (pl:PositionLevel) WHERE ID(pl) = $positionLevelId
-        CREATE (t)-[:REQUIRES_ROLE]->(r:Role {
-          requiredNumber: $requiredNumber,
-          description: $description,
-          position: $position,
-          positionLevel: $positionLevel
-        })-[:ROLE_AT]->(pl)
-        RETURN r
-      `, { teamId, positionLevelId, requiredNumber, description, position, positionLevel })
+        MATCH (p:Position) WHERE ID(p) = ${positionId}
+        MATCH (c:Contractor) WHERE ID(c) = ${contractorId}
+        SET p.status = 'filled'
+        CREATE UNIQUE (p)<-[:HAS_POSITION]-(c)
+        RETURN p,c
+      `)
+      .then( ({ records }) => {
+        session.close()
+        return newExtractNodes(records)
+      });
+  }
+
+  removeContractorFromPosition(contractorId, positionId) {
+    const session = this.driver.session();
+    return session
+      .run(`
+        MATCH (p:Position) WHERE ID(p) = ${positionId}
+        MATCH (c:Contractor) WHERE ID(c) = ${contractorId}
+        OPTIONAL MATCH (p)<-[rel:HAS_POSITION]-(c)
+        SET p.status = 'unfilled'
+        DELETE rel
+        RETURN p
+      `)
+      .then( ({ records }) => {
+        session.close()
+        return extractNodes(records)
+      });
+  }
+
+  getContractorsByRole(roleId) {
+    const session = this.driver.session();
+    return session
+      .run(`
+        MATCH (r:Role) WHERE ID(r) = ${roleId}
+        OPTIONAL MATCH (r)<-[:IS_POSITION_FOR]-(p:Position)<-[:HAS_POSITION]-(c:Contractor)
+        RETURN c
+      `)
       .then( ({ records }) => {
         session.close()
         return extractNodes(records)

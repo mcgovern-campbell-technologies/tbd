@@ -5,7 +5,7 @@ const router = express.Router();
 const _ = require('lodash');
 const contractorSkillsRouter = require('./contractorSkillsRouter');
 const contractorCertificationsRouter = require('./contractorCertificationsRouter');
-const contractorExperienceRouter = require('./contractorExperienceRouter');
+const contractorPositionRouter = require('./contractorPositionRouter');
 const jwtCheck = require('./../auth/auth').jwtCheck;
 
 
@@ -34,7 +34,7 @@ router.post('/', (req, res) => {
     .catch(err => res.send(err));
 });
 
-
+// /api/contractor/update
 router.post('/update', (req, res) => {
   const { body } = req;
   req.graphApi.updateContractor(body)
@@ -43,12 +43,26 @@ router.post('/update', (req, res) => {
       console.log('error when attempting to update contractor')
       console.log(err);
       res.send(err);
-    })
-})
+    });
+});
+
+// Get all contractors by roleId.
+// /api/contractor/role
+router.get('/role', (req, res) => {
+  const { roleId } = _.mapValues(req.query, (value) => !isNaN(value) ? parseInt(value) : value);
+
+  req.graphApi.getContractorsByRole(roleId)
+    .then(result => res.send(result))
+    .catch(err => {
+      console.log('error when attempting to update contractor')
+      console.log(err);
+      res.send(err);
+    });
+});
 
 
 router.use('/skills', contractorSkillsRouter);
 router.use('/certifications', contractorCertificationsRouter);
-router.use('/experience', contractorExperienceRouter);
+router.use('/position', contractorPositionRouter);
 
 module.exports = router
