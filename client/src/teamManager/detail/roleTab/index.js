@@ -28,10 +28,11 @@ function RoleTab ({ onDialogButtonPress, roles }) {
           {roles.map(role => {
             return (
               <TableRow key={role.id}>
-                <TableCell>{role.type} - {role.skillLevel}</TableCell>
+                <TableCell>{role.name}</TableCell>
+                <TableCell>{role.trade}</TableCell>
                 <TableCell>{role.skillLevel}</TableCell>
-                <TableCell>{role.requested}</TableCell>
-                <TableCell>{role.filled}</TableCell>
+                <TableCell>0/{role.totalPositions}</TableCell>
+                <TableCell>0/{role.totalPositions}</TableCell>
               </TableRow>
             );
           })}

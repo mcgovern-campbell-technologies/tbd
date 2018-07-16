@@ -16,13 +16,6 @@ export function teamsReducer(state = {
         ...state,
         allTeams: payload.teams || []
       };
-    case GET_TEAM_FULFILLED:
-      return {
-        ...state,
-        team: payload[0] || {},
-        location: payload[1] || {},
-        project: payload[2] || {},
-      }
     default:
       return state;
   }

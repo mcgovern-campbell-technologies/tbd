@@ -28,15 +28,18 @@ const getAllTeamsEpic = (action$) => {
 const getTeamEpic = (action$) => {
   return action$
     .ofType(GET_TEAM)
-    .mergeMap(
-      action => {
-        return api.getTeamById(action.payload)
-          .map(response => {
-            return getTeamFulfilled(response);
-          })
-      }
-    )
-    .concat(action$.mapTo({ type: GET_TEAM_FULFILLED }))
+    .switchMap(action => api.getTeamById(action.payload))
+    .map(response => getTeamFulfilled({
+      id: response.id,
+      name: response.name || '',
+      endDate: response.endDate || '',
+      startDate: response.startDate || '',
+      location: response.Locations[0] || {},
+      project: response.Projects[0] || {},
+      roles: response.Roles || [],
+      positions: response.Positions || [],
+      contractors: response.Contractors || [],
+    }))
 };
 
 export {
