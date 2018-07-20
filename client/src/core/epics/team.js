@@ -4,7 +4,6 @@ import {
   ADD_TEAM,
   GET_TEAM,
   GET_ALL_TEAMS,
-  GET_ALL_TEAMS_FULFILLED,
   GET_TEAM_FULFILLED,
 } from '../utils/types';
 import { closeDialog } from '../actions/dialog';
@@ -22,29 +21,25 @@ const addTeamEpic = (action$, store) => {
 const getAllTeamsEpic = (action$) => {
   return action$
     .ofType(GET_ALL_TEAMS)
-    .mergeMap(
-      action => {
-        return api.getAllTeams()
-          .map(response => {
-            return getAllTeamsFulfilled(response);
-          })
-      }
-    )
-    .concat(action$.mapTo({ type: GET_ALL_TEAMS_FULFILLED }))
+    .switchMap(action => api.getAllTeams())
+    .map((response) => getAllTeamsFulfilled(response))
 };
 
 const getTeamEpic = (action$) => {
   return action$
     .ofType(GET_TEAM)
-    .mergeMap(
-      action => {
-        return api.getTeamById(action.payload)
-          .map(response => {
-            return getTeamFulfilled(response);
-          })
-      }
-    )
-    .concat(action$.mapTo({ type: GET_TEAM_FULFILLED }))
+    .switchMap(action => api.getTeamById(action.payload))
+    .map(response => getTeamFulfilled({
+      id: response.id,
+      name: response.name || '',
+      endDate: response.endDate || '',
+      startDate: response.startDate || '',
+      location: response.Locations[0] || {},
+      project: response.Projects[0] || {},
+      roles: response.Roles || [],
+      positions: response.Positions || [],
+      contractors: response.Contractors || [],
+    }))
 };
 
 export {

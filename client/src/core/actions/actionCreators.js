@@ -173,10 +173,10 @@ export function getTeam(id) {
   }
 }
 
-export function getTeamFulfilled(payload) {
+export function getTeamFulfilled(team) {
   return {
     type: types.GET_TEAM_FULFILLED,
-    payload: payload
+    payload: { team }
   }
 }
 
@@ -187,10 +187,10 @@ export function getAllTeams() {
   }
 }
 
-export function getAllTeamsFulfilled(payload) {
+export function getAllTeamsFulfilled(teams) {
   return {
     type: types.GET_ALL_TEAMS_FULFILLED,
-    payload: payload
+    payload: { teams }
   }
 }
 

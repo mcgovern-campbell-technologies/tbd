@@ -10,7 +10,7 @@ import { certificationsReducer } from './certifications';
 import { experiencesReducer } from './experiences';
 import { projectsReducer } from './projects';
 import { teamsReducer } from './teams';
-import { teamRolesReducer } from './teamRoles';
+import { teamReducer } from './team';
 import { dialogReducer } from './dialog';
 import { optionsReducer } from './options';
 
@@ -26,6 +26,6 @@ export const rootReducer = combineReducers({
   experiences: experiencesReducer,
   projects: projectsReducer,
   teams: teamsReducer,
-  teamRoles: teamRolesReducer,
+  team: teamReducer,
   options: optionsReducer,
 });

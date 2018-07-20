@@ -19,22 +19,16 @@ class TeamDetails extends Component {
 
   componentWillMount() {
     this.props.getTeam(this.state.teamId);
-    this.props.getTeamRoles(this.state.teamId);
   }
 
   render() {
     return (
       <div className="flex min-vh-60 relative">
         <TeamSummaryBox
-          team={this.props.teams.team}
-          location={this.props.teams.location}
-          project={this.props.teams.project}
+          team={this.props.team}
         />
         <TeamSummaryTable
-          team={this.props.teams.team}
-          location={this.props.teams.location}
-          project={this.props.teams.project}
-          roles={this.props.teamRoles.teams[this.state.teamId] || []}
+          roles={this.props.team.roles}
         />
       </div>
     )
@@ -42,8 +36,8 @@ class TeamDetails extends Component {
 }
 
 
-function mapStateToProps({projects, teams, teamRoles}) {
-  return {projects, teams, teamRoles}
+function mapStateToProps({projects, team}) {
+  return {projects, team}
 }
 
 function mapDispatchToProps(dispatch) {

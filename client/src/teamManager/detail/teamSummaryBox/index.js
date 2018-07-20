@@ -3,12 +3,11 @@ import Paper from '@material-ui/core/Paper';
 import Typography from '@material-ui/core/Typography';
 
 function TeamSummaryBox (props) {
-  // TODO: Fix all this.
-  const teamName = props.team.properties ? props.team.properties.name : '';
-  const locationName = props.location.properties ? props.location.properties.name : '';
-  const projectName = props.project.properties ? props.project.properties.name : '';
-  const startDate = props.team.properties ? props.team.properties.startDate : '';
-  const endDate = props.team.properties ? props.team.properties.endDate : '';
+  const teamName = props.team.name;
+  const locationName = props.team.location.name;
+  const projectName = props.team.project.name;
+  const startDate = props.team.startDate;
+  const endDate = props.team.endDate;
 
   return (
     <Paper className="pa3 mr3 w5 flex-shrink-0">
