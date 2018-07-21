@@ -29,6 +29,7 @@ class TeamDetails extends Component {
         />
         <TeamSummaryTable
           roles={this.props.team.roles}
+          members={this.props.team.contractors}
         />
       </div>
     )

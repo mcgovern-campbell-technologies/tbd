@@ -13,6 +13,7 @@ import { teamsReducer } from './teams';
 import { teamReducer } from './team';
 import { dialogReducer } from './dialog';
 import { optionsReducer } from './options';
+import { uiReducer } from './ui';
 
 export const rootReducer = combineReducers({
   auth: authReducer,
@@ -28,4 +29,5 @@ export const rootReducer = combineReducers({
   teams: teamsReducer,
   team: teamReducer,
   options: optionsReducer,
+  ui: uiReducer,
 });

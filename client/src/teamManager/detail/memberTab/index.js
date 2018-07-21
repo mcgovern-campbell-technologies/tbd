@@ -23,27 +23,27 @@ const data = [
 ];
 //END DUMMY DATA
 
-const MemberTab = ({ history, location }) => (
+const MemberTab = ({ history, location, members }) => (
   <div>
     <Table className="mb6">
       <TableHead>
         <TableRow>
           <TableCell>Name</TableCell>
           <TableCell>Role</TableCell>
-          <TableCell>Type</TableCell>
+          <TableCell>Trade</TableCell>
           <TableCell>Skill Level</TableCell>
           <TableCell>Rate ($)</TableCell>
           <TableCell>Status</TableCell>
         </TableRow>
       </TableHead>
       <TableBody>
-        {data.map((member) => {
+        {members.map((member) => {
           return (
             <TableRow key={member.id}>
               <TableCell>{member.name}</TableCell>
-              <TableCell>{member.type} - {member.skillLevel}</TableCell>
-              <TableCell>{member.type}</TableCell>
-              <TableCell>Class {member.skillLevel}</TableCell>
+              <TableCell>{member.role}</TableCell>
+              <TableCell>{member.trade}</TableCell>
+              <TableCell>{member.skillLevel}</TableCell>
               <TableCell>${member.rate}/hr</TableCell>
               <TableCell>{member.status === 1 ? 'Confirmed' : 'Pending'}</TableCell>
             </TableRow>

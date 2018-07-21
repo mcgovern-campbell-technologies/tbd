@@ -19,7 +19,7 @@ function RoleTab ({ onDialogButtonPress, roles }) {
           <TableRow>
             <TableCell>Name</TableCell>
             <TableCell>Trade</TableCell>
-            <TableCell>Position level</TableCell>
+            <TableCell>Skill level</TableCell>
             <TableCell>Requested</TableCell>
             <TableCell>Filled</TableCell>
           </TableRow>
