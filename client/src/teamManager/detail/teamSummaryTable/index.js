@@ -1,9 +1,7 @@
 import React from 'react';
-import PropTypes from 'prop-types';
 import Paper from '@material-ui/core/Paper';
 import Tabs from '@material-ui/core/Tabs';
 import Tab from '@material-ui/core/Tab';
-import { withStyles } from '@material-ui/core/styles';
 
 import TeamSummaryRoles from '../roleTab';
 import TeamSummaryMembers from '../memberTab';
@@ -38,7 +36,7 @@ class TeamSummaryTable extends React.Component {
           </Tabs>
         </div>
         { value === 0 && <TeamSummaryRoles roles={this.props.roles}/> }
-        { value === 1 && <TeamSummaryMembers /> }
+        { value === 1 && <TeamSummaryMembers members={this.props.members} /> }
       </Paper>
     )
   }
