@@ -248,12 +248,13 @@ class GraphApi {
     return session
       .run(`
         MATCH (t:Team)
-        RETURN t
+        OPTIONAL MATCH (proj:Project)-[]-(t)
+        RETURN t,proj
       `)
       .then(result => {
         const { records } = result;
         session.close();
-        return extractNodes(records);
+        return extractNodesWithRelatedNodes(records);
       })
       .catch(err => console.error(err));
   }
