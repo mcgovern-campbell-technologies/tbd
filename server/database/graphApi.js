@@ -33,7 +33,6 @@ class GraphApi {
   }
 
   getNodeById(id) {
-    // updated 7/7 but not verified
     const session = this.driver.session();
     return session
       .run(`MATCH (n) where id(n) = ${id} RETURN n`)
@@ -44,7 +43,6 @@ class GraphApi {
   }
 
   createLocation(reqBody) {
-    // updated 7/7
     const {locationName, companyId} = reqBody;
     const session = this.driver.session();
     return session
@@ -61,7 +59,6 @@ class GraphApi {
   }
 
   createContractor(emplObj) {
-    // updated 7/7
     const session = this.driver.session();
     const sub = emplObj.sub
     const setProperties = createSetChain(emplObj);
@@ -92,7 +89,6 @@ class GraphApi {
   }
 
   updateContractor(emplObj) {
-    // updated 7/8
     const properties = JSON.parse(emplObj.properties)
     const updatedProperties = Object.keys(properties).map(property => {
       const value = properties[property]
@@ -113,7 +109,6 @@ class GraphApi {
   }
 
   getContractorByEmail(email) {
-    //updated 7/7
     const session = this.driver.session();
     return session
       .run(`
@@ -144,7 +139,6 @@ class GraphApi {
   }
 
   getContractorSkills(identity) {
-    // updated 7/7
     const session = this.driver.session();
     return session
       .run(`
@@ -161,7 +155,6 @@ class GraphApi {
   }
 
   addSkillToContractor(identity, skill) {
-    // updated 7/8, but for some reason not returning c in response.
     // TODO: Debug this issue.
     const session = this.driver.session();
 
@@ -182,7 +175,6 @@ class GraphApi {
   }
 
   getContractorCertifications(identity) {
-    //updated - 7/7
     const session = this.driver.session();
     return session
       .run(`
@@ -221,7 +213,6 @@ class GraphApi {
   }
 
   getTeam(reqQuery) {
-    // updated 7/7
     const { teamId } = reqQuery;
     const session = this.driver.session();
     return session
@@ -230,9 +221,11 @@ class GraphApi {
         OPTIONAL MATCH (proj:Project)-[]-(t)
         OPTIONAL MATCH (l:Location)-[]-(proj)
         OPTIONAL MATCH (r:Role)-[]-(t)
+        OPTIONAL MATCH (sk:SkillLevel)-[]-(r)
+        OPTIONAL MATCH (tr:Trade)-[]-(sk)
         OPTIONAL MATCH (pos:Position)-[]-(r)
         OPTIONAL MATCH (cont:Contractor)-[]-(pos)
-        RETURN t,l,proj,r,pos,cont
+        RETURN t,l,proj,r,tr,sk,pos,cont
       `)
       .then(result => {
         const { records } = result;
@@ -243,7 +236,6 @@ class GraphApi {
   }
 
   getTeams() {
-    // updated 7/7
     const session = this.driver.session();
     return session
       .run(`
@@ -311,7 +303,6 @@ class GraphApi {
   }
 
   getProject(reqQuery) {
-    // updated 7/7
     const { projectId } = reqQuery;
     const session = this.driver.session();
     return session
@@ -364,7 +355,6 @@ class GraphApi {
   }
 
   getTeamRoles(teamId) {
-    // updated 7/7
     const session = this.driver.session();
     return session
       .run(`
@@ -379,7 +369,6 @@ class GraphApi {
   }
 
   createRole(role) {
-    //updated 7/8
     const {
       teamId,
       name,
