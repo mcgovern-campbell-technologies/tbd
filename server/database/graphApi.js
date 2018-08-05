@@ -5,6 +5,7 @@ const {
   contractorHasNecessaryProps,
   extractNodes,
   newExtractNodes,
+  buildNodeShape,
   extractRows,
   extractNodesWithRelatedNodes,
   mapTypeToQuery,
@@ -212,8 +213,7 @@ class GraphApi {
       })
   }
 
-  getTeam(reqQuery) {
-    const { teamId } = reqQuery;
+  getTeamById({ teamId }) {
     const session = this.driver.session();
     return session
       .run(`
@@ -235,24 +235,63 @@ class GraphApi {
       .catch(err => console.error(err));
   }
 
+  // This method builds an individual element for the getTeams array.
+  getTeamAsElement({ teamId }) {
+    const session = this.driver.session();
+    return session
+      .run(`
+        MATCH (t:Team) WHERE id(t) = ${teamId}
+        OPTIONAL MATCH (proj:Project)-[]-(t)
+        OPTIONAL MATCH (pos:Position)-[]-(:Role)-[]-(t)
+        RETURN t,proj,pos
+      `)
+      .then(result => {
+        const { records } = result;
+        session.close();
+
+        const response = {};
+        let projectNode;
+
+        _.forEach(records, ele => {
+          _.forEach(ele._fields, field => {
+            if (field) {
+              if (field.labels[0] === 'Team') {
+                Object.assign(response, buildNodeShape(field));
+              } else if (field.labels[0] === 'Project') {
+                projectNode = buildNodeShape(field);
+                response.projectId = projectNode.id;
+              }
+            }
+          })
+        })
+        response.filledPositions = '33' // I'm not sure how we're going to calculate this.
+        response.totalPositions = '44' // I'm not sure how we're going to calculate this.
+        return response;
+      })
+      .catch(err => console.error(err));
+  }
+
   getTeams() {
     const session = this.driver.session();
     return session
       .run(`
         MATCH (t:Team)
-        OPTIONAL MATCH (proj:Project)-[]-(t)
-        RETURN t,proj
+        RETURN t
       `)
       .then(result => {
-        const { records } = result;
         session.close();
-        return extractNodesWithRelatedNodes(records);
+        const { records } = result;
+        const promiseArray = records.map(ele => {
+          let teamId = ele._fields[0].identity.low;
+          return this.getTeamAsElement({teamId: teamId})
+        })
+        return Promise.all(promiseArray)
+          .then(r => r)
       })
       .catch(err => console.error(err));
   }
 
   createTeam(reqBody) {
-    // up to date 7/7
     const { teamName, projectId, startDate, endDate } = reqBody;
 
     const session = this.driver.session();
@@ -280,7 +319,6 @@ class GraphApi {
   }
 
   createProject(reqBody) {
-    // up to date 7/7
     const { projectName, locationId } = reqBody;
 
     const session = this.driver.session();
@@ -321,7 +359,6 @@ class GraphApi {
   }
 
   getProjects() {
-    // up to date 7/7
     const session = this.driver.session();
     return session
       .run(`
