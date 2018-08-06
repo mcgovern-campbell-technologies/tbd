@@ -11,7 +11,7 @@ router.get('/', (req, res) => {
   const { body, query } = req;
 
   if (query.teamId) {
-    req.graphApi.getTeam(query)
+    req.graphApi.getTeamById(query)
     .then(result => res.send(result))
     .catch(err => res.send(err));
   } else {

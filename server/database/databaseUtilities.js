@@ -143,6 +143,7 @@ module.exports = {
   contractorHasNecessaryProps: createHasNecessaryProps(contractorPropMap),
   skillHasNecessaryProps: createHasNecessaryProps(skillInstancePropMap),
   extractNodes,
+  buildNodeShape,
   newExtractNodes,
   extractRows,
   extractNodesWithRelatedNodes,

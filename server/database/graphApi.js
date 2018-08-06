@@ -5,6 +5,7 @@ const {
   contractorHasNecessaryProps,
   extractNodes,
   newExtractNodes,
+  buildNodeShape,
   extractRows,
   extractNodesWithRelatedNodes,
   mapTypeToQuery,
@@ -33,7 +34,6 @@ class GraphApi {
   }
 
   getNodeById(id) {
-    // updated 7/7 but not verified
     const session = this.driver.session();
     return session
       .run(`MATCH (n) where id(n) = ${id} RETURN n`)
@@ -44,7 +44,6 @@ class GraphApi {
   }
 
   createLocation(reqBody) {
-    // updated 7/7
     const {locationName, companyId} = reqBody;
     const session = this.driver.session();
     return session
@@ -61,7 +60,6 @@ class GraphApi {
   }
 
   createContractor(emplObj) {
-    // updated 7/7
     const session = this.driver.session();
     const sub = emplObj.sub
     const setProperties = createSetChain(emplObj);
@@ -92,7 +90,6 @@ class GraphApi {
   }
 
   updateContractor(emplObj) {
-    // updated 7/8
     const properties = JSON.parse(emplObj.properties)
     const updatedProperties = Object.keys(properties).map(property => {
       const value = properties[property]
@@ -113,7 +110,6 @@ class GraphApi {
   }
 
   getContractorByEmail(email) {
-    //updated 7/7
     const session = this.driver.session();
     return session
       .run(`
@@ -144,7 +140,6 @@ class GraphApi {
   }
 
   getContractorSkills(identity) {
-    // updated 7/7
     const session = this.driver.session();
     return session
       .run(`
@@ -161,7 +156,6 @@ class GraphApi {
   }
 
   addSkillToContractor(identity, skill) {
-    // updated 7/8, but for some reason not returning c in response.
     // TODO: Debug this issue.
     const session = this.driver.session();
 
@@ -182,7 +176,6 @@ class GraphApi {
   }
 
   getContractorCertifications(identity) {
-    //updated - 7/7
     const session = this.driver.session();
     return session
       .run(`
@@ -220,9 +213,7 @@ class GraphApi {
       })
   }
 
-  getTeam(reqQuery) {
-    // updated 7/7
-    const { teamId } = reqQuery;
+  getTeamById({ teamId }) {
     const session = this.driver.session();
     return session
       .run(`
@@ -230,9 +221,11 @@ class GraphApi {
         OPTIONAL MATCH (proj:Project)-[]-(t)
         OPTIONAL MATCH (l:Location)-[]-(proj)
         OPTIONAL MATCH (r:Role)-[]-(t)
+        OPTIONAL MATCH (sk:SkillLevel)-[]-(r)
+        OPTIONAL MATCH (tr:Trade)-[]-(sk)
         OPTIONAL MATCH (pos:Position)-[]-(r)
         OPTIONAL MATCH (cont:Contractor)-[]-(pos)
-        RETURN t,l,proj,r,pos,cont
+        RETURN t,l,proj,r,tr,sk,pos,cont
       `)
       .then(result => {
         const { records } = result;
@@ -242,25 +235,63 @@ class GraphApi {
       .catch(err => console.error(err));
   }
 
-  getTeams() {
-    // updated 7/7
+  // This method builds an individual element for the getTeams array.
+  getTeamAsElement({ teamId }) {
     const session = this.driver.session();
     return session
       .run(`
-        MATCH (t:Team)
+        MATCH (t:Team) WHERE id(t) = ${teamId}
         OPTIONAL MATCH (proj:Project)-[]-(t)
-        RETURN t,proj
+        OPTIONAL MATCH (pos:Position)-[]-(:Role)-[]-(t)
+        RETURN t,proj,pos
       `)
       .then(result => {
         const { records } = result;
         session.close();
-        return extractNodesWithRelatedNodes(records);
+
+        const response = {};
+        let projectNode;
+
+        _.forEach(records, ele => {
+          _.forEach(ele._fields, field => {
+            if (field) {
+              if (field.labels[0] === 'Team') {
+                Object.assign(response, buildNodeShape(field));
+              } else if (field.labels[0] === 'Project') {
+                projectNode = buildNodeShape(field);
+                response.projectId = projectNode.id;
+              }
+            }
+          })
+        })
+        response.filledPositions = '33' // I'm not sure how we're going to calculate this.
+        response.totalPositions = '44' // I'm not sure how we're going to calculate this.
+        return response;
+      })
+      .catch(err => console.error(err));
+  }
+
+  getTeams() {
+    const session = this.driver.session();
+    return session
+      .run(`
+        MATCH (t:Team)
+        RETURN t
+      `)
+      .then(result => {
+        session.close();
+        const { records } = result;
+        const promiseArray = records.map(ele => {
+          let teamId = ele._fields[0].identity.low;
+          return this.getTeamAsElement({teamId: teamId})
+        })
+        return Promise.all(promiseArray)
+          .then(r => r)
       })
       .catch(err => console.error(err));
   }
 
   createTeam(reqBody) {
-    // up to date 7/7
     const { teamName, projectId, startDate, endDate } = reqBody;
 
     const session = this.driver.session();
@@ -288,7 +319,6 @@ class GraphApi {
   }
 
   createProject(reqBody) {
-    // up to date 7/7
     const { projectName, locationId } = reqBody;
 
     const session = this.driver.session();
@@ -311,7 +341,6 @@ class GraphApi {
   }
 
   getProject(reqQuery) {
-    // updated 7/7
     const { projectId } = reqQuery;
     const session = this.driver.session();
     return session
@@ -330,7 +359,6 @@ class GraphApi {
   }
 
   getProjects() {
-    // up to date 7/7
     const session = this.driver.session();
     return session
       .run(`
@@ -364,7 +392,6 @@ class GraphApi {
   }
 
   getTeamRoles(teamId) {
-    // updated 7/7
     const session = this.driver.session();
     return session
       .run(`
@@ -379,7 +406,6 @@ class GraphApi {
   }
 
   createRole(role) {
-    //updated 7/8
     const {
       teamId,
       name,
